@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { ErrorComponent } from './error-handling/error/error.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
+import { AuditComponent } from './Audit/Components/audit/audit.component';
 
 
 
@@ -18,7 +19,8 @@ import { CommonModule } from '@angular/common';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ErrorComponent
+    ErrorComponent,
+    AuditComponent
   ],
   imports: [
     BrowserModule,

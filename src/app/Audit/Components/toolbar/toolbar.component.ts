@@ -70,4 +70,10 @@ export class ToolbarComponent implements OnInit {
     this.selectedWeek = event;
   }
 
+  addWeek() {
+    var last = this.weeks[this.weeks.length-1];
+    this.weeks.push(last+1);
+    this.selectedWeek=last+1;
+  }
+
 }

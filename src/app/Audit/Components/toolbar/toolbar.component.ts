@@ -33,8 +33,8 @@ export class ToolbarComponent implements OnInit {
       coTrainer: null,
       location: "Reston",
       locationId: 1,
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: new Date('11/18/18'),
+      endDate: new Date('1/7/19'),
       goodGrade: 3,
       passingGrade: 1,
       traineeCount: 10 };

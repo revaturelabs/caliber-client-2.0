@@ -33,7 +33,7 @@ export class AuditService {
       coTrainer: null,
       location: "Tampa",
       locationId: 2,
-      startDate: new Date('12/18/18'),
+      startDate: new Date('12/17/18'),
       endDate: new Date('3/19/19'),
       goodGrade: 3,
       passingGrade: 1,

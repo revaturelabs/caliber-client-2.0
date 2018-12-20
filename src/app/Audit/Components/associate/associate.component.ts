@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AssociateComponent implements OnInit {
 
+  // List of test categories
+  categories = [
+    'Java'
+  ];
+
+  // List of test trainees
+  trainees = [
+    {
+      name: 'Forsberg, Justin'
+    },
+    {
+      name: 'Bill Boe'
+    }
+  ];
+
+  // Unimplemented functions
   constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

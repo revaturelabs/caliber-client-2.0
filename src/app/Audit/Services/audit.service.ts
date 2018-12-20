@@ -33,14 +33,14 @@ export class AuditService {
       coTrainer: null,
       location: "Tampa",
       locationId: 2,
-      startDate: new Date('12/18/18'),
+      startDate: new Date('12/17/18'),
       endDate: new Date('3/19/19'),
       goodGrade: 3,
       passingGrade: 1,
       traineeCount: 10 }
   ];
 
-  years: number[] = [2017,2018,2019,2020];
+  years: number[] = [2020,2019,2018,2017];
 
   constructor() { }
 

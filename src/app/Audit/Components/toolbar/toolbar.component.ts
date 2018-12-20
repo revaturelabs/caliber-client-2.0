@@ -16,6 +16,8 @@ export class ToolbarComponent implements OnInit {
   selectedYear: number;
   selectedBatch: Batch;
   selectedBatchId = 0;
+  weeks = [1,2,3,4,5,6];
+  selectedWeek: number;
 
   constructor(
     public auditService: AuditService
@@ -31,11 +33,12 @@ export class ToolbarComponent implements OnInit {
       coTrainer: null,
       location: "Reston",
       locationId: 1,
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: new Date('11/18/18'),
+      endDate: new Date('1/7/19'),
       goodGrade: 3,
       passingGrade: 1,
       traineeCount: 10 };
+    this.selectedWeek=6;
     this.getAllYears();
     this.getBatches();
   }
@@ -45,7 +48,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   getBatches() {
-    this.batches = this.auditService.getBatchesByYear(2018);
+    this.batches = this.auditService.getBatchesByYear(this.selectedYear);
   }
 
   selectYear(event: number) {
@@ -55,7 +58,22 @@ export class ToolbarComponent implements OnInit {
 
   selectBatch(event: Batch) {
     this.selectedBatch = event;
-    
+  }
+
+  showActiveWeek(week: number) {
+    if (week==this.selectedWeek) {
+      return "active";
+    }
+  }
+
+  selectWeek(event: number) {
+    this.selectedWeek = event;
+  }
+
+  addWeek() {
+    var last = this.weeks[this.weeks.length-1];
+    this.weeks.push(last+1);
+    this.selectedWeek=last+1;
   }
 
 }

@@ -40,7 +40,7 @@ export class AuditService {
       traineeCount: 10 }
   ];
 
-  years: number[] = [2017,2018,2019,2020];
+  years: number[] = [2020,2019,2018,2017];
 
   constructor() { }
 

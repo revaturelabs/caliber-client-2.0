@@ -1,3 +1,55 @@
-<p>
-  associate works!
-</p>
+<div class = "container">
+    <div class = "row">
+        <div class = "col-sm-12 col-md-12 col-lg-12">
+            <div class = "row">
+                <div class = "col-sm-12 col-md-12 col-lg-12" style="margin-left: 1em; padding-top: 0.65em; border-bottom: 1px solid #ddd;">
+                    <strong>Categories covered this week: </strong>
+                    <span *ngFor="let cat of categories">
+                        {{cat.name}}
+                    </span>
+                </div>
+            </div>
+            <table class="table table-responsive"
+                   style="border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th>
+                            Trainee
+                        </th>
+                        <th></th>
+                        <th>
+                            Individual Feedback
+                        </th>
+                        <th></th>
+                        <th>
+                            Notes
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let note of notes">
+                        <td style="width: 11%;">
+                            {{ note.trainee.name }}
+                        </td>
+                        <td (click)="changeFlag(note.noteId)" style="width: 3%;">
+                            <i *ngIf="note.trainee.flagStatus=='RED'" class="glyphicon glyphicon-flag color-red"></i>
+                        </td>
+                        <td style="width: 7%;text-align: center;">
+                            <i (click)="changeIF(note.noteId)" id="note_id_{{ note.noteId }}" *ngIf="note.qcStatus=='Undefined'" class="fa fa-question-circle fa-2x pick"></i>
+                            <i (click)="changeIF(note.noteId)" id="note_id_{{ note.noteId }}" *ngIf="note.qcStatus=='Superstar'" class="fa fa-star fa-2x pick"></i>
+                            <i (click)="changeIF(note.noteId)" id="note_id_{{ note.noteId }}" *ngIf="note.qcStatus=='Good'" class="fa fa-smile-o fa-2x pick"></i>
+                            <i (click)="changeIF(note.noteId)" id="note_id_{{ note.noteId }}" *ngIf="note.qcStatus=='Average'" class="fa fa-meh-o fa-2x pick"></i>
+                            <i (click)="changeIF(note.noteId)" id="note_id_{{ note.noteId }}" *ngIf="note.qcStatus=='Poor'" class="fa fa-frown-o fa-2x pick"></i>
+                        </td>
+                        <td style="width: 3%;"></td>
+                        <td style="width: 76%;">
+                            <textarea class="form-control"
+                            placeholder="Note on {{ note.trainee.name }}" 
+                            rows="3" cols="75" maxlength="4000">{{ note.content }}</textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

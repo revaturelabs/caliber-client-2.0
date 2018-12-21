@@ -91,6 +91,18 @@ export class AssociateComponent implements OnInit {
     }
   }
 
+  noteOnBlur(selectedNoteId: number): void {
+
+    $('#note-textarea-' + selectedNoteId).prop('disabled', true);
+
+    setInterval(this.enableNoteAfterUpdate, 1000, selectedNoteId);
+  }
+
+  enableNoteAfterUpdate(selectedNoteId: number): void {
+
+    $('#note-textarea-' + selectedNoteId).prop('disabled', false);
+  }
+
   // Change the Individual Feedback Status
   changeIF(selectedNoteId: number): void {
 

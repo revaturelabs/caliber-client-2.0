@@ -73,7 +73,7 @@ export class AssociateComponent implements OnInit {
 
   // Unimplemented functions
   constructor() { }
-  ngOnInit() {}
+  ngOnInit() { }
 
   // Cycle the Individual Feedback Status
   cycleFlag(selectedNoteId: number): void {

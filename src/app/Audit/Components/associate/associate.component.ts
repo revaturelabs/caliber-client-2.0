@@ -66,7 +66,7 @@ export class AssociateComponent implements OnInit {
 
   // Unimplemented functions
   constructor() { }
-  ngOnInit() {}
+  ngOnInit() { }
 
   // Change the trainee flag status
   changeFlag(selectedNoteId: number): void {
@@ -80,15 +80,29 @@ export class AssociateComponent implements OnInit {
         // Determine the new status string
         switch (this.notes[i].trainee.flagStatus) {
           case 'NONE':
-          this.notes[i].trainee.flagStatus = 'RED';
-          break;
+            this.notes[i].trainee.flagStatus = 'RED';
+            break;
 
           case 'RED':
-          this.notes[i].trainee.flagStatus = 'NONE';
-          break;
+            this.notes[i].trainee.flagStatus = 'NONE';
+            break;
         }
       }
     }
+  }
+
+  noteOnBlur(selectedNoteId: number): void {
+
+    console.log('test');
+
+    $('#note-textarea-' + selectedNoteId).prop('disabled', true);
+
+    setInterval(this.enableNoteAfterUpdate, 1000, selectedNoteId);
+  }
+
+  enableNoteAfterUpdate(selectedNoteId: number): void {
+
+    // $('#note-textarea-' + selectedNoteId).prop('disabled', false);
   }
 
   // Change the Individual Feedback Status

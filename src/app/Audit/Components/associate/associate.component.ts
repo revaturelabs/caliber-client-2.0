@@ -10,7 +10,10 @@ export class AssociateComponent implements OnInit {
   // List of test categories
   categories = [
     {
-      name: 'Java'
+      name: 'Java',
+    },
+    {
+      name: 'MySQL'
     }
   ];
 
@@ -19,8 +22,9 @@ export class AssociateComponent implements OnInit {
     {
       qcStatus: 'Undefined',
       noteId: 0,
+      noteFlagInputActive: false,
       trainee: {
-        name: 'Forsberg, Justin',
+        name: 'Hajek, Alexander',
         flagNotes: '',
         flagStatus: 'NONE'
       }
@@ -28,8 +32,9 @@ export class AssociateComponent implements OnInit {
     {
       qcStatus: 'Superstar',
       noteId: 1,
+      noteFlagInputActive: false,
       trainee: {
-        name: 'Bill Boe',
+        name: 'Michels, Alex',
         flagNotes: '',
         flagStatus: 'RED'
       }
@@ -37,8 +42,9 @@ export class AssociateComponent implements OnInit {
     {
       qcStatus: 'Good',
       noteId: 2,
+      noteFlagInputActive: false,
       trainee: {
-        name: 'Forsberg, Justin',
+        name: 'Smith, Carter',
         flagNotes: '',
         flagStatus: 'NONE'
       }
@@ -46,8 +52,9 @@ export class AssociateComponent implements OnInit {
     {
       qcStatus: 'Average',
       noteId: 3,
+      noteFlagInputActive: false,
       trainee: {
-        name: 'Bill Boe',
+        name: 'Erwin, Eric',
         flagNotes: '',
         flagStatus: 'RED'
       }
@@ -55,8 +62,9 @@ export class AssociateComponent implements OnInit {
     {
       qcStatus: 'Poor',
       noteId: 4,
+      noteFlagInputActive: false,
       trainee: {
-        name: 'Bill Boe',
+        name: 'Olney, Chris',
         flagNotes: '',
         flagStatus: 'NONE'
       }
@@ -67,8 +75,8 @@ export class AssociateComponent implements OnInit {
   constructor() { }
   ngOnInit() {}
 
-  // Change the trainee flag status
-  changeFlag(selectedNoteId: number): void {
+  // Cycle the Individual Feedback Status
+  cycleFlag(selectedNoteId: number): void {
 
     // Loop through each note in notes until the target is found
     for (let i = 0; i < this.notes.length; i++) {
@@ -76,36 +84,45 @@ export class AssociateComponent implements OnInit {
       // Find the clicked note
       if (this.notes[i].noteId === selectedNoteId) {
 
+        // Create placeholder for new status string
+        let newStatus = '';
+
         // Determine the new status string
         switch (this.notes[i].trainee.flagStatus) {
           case 'NONE':
-          this.notes[i].trainee.flagStatus = 'RED';
-          break;
-
+            newStatus = 'RED';
+            break;
           case 'RED':
-          this.notes[i].trainee.flagStatus = 'NONE';
-          break;
+            newStatus = 'GREEN';
+            break;
+          case 'GREEN':
+            newStatus = 'NONE';
+            break;
         }
+
+        // Update the status
+        this.notes[i].trainee.flagStatus = newStatus;
       }
     }
   }
 
-  noteOnBlur(selectedNoteId: number): void {
+  // Cycle the flag notes popup
+  cycleFlagNotesInput(selectedNoteId: number, enable: boolean): void {
 
-    console.log('test');
+    // Loop through each note in notes until the target is found
+    for (let i = 0; i < this.notes.length; i++) {
 
-    $('#note-textarea-' + selectedNoteId).prop('disabled', true);
+      // Find the clicked note
+      if (this.notes[i].noteId === selectedNoteId) {
 
-    setInterval(this.enableNoteAfterUpdate, 1000, selectedNoteId);
+          // Enable or disable the notes box popup
+          this.notes[i].noteFlagInputActive = enable;
+      }
+    }
   }
 
-  enableNoteAfterUpdate(selectedNoteId: number): void {
-
-    //$('#note-textarea-' + selectedNoteId).prop('disabled', false);
-  }
-
-  // Change the Individual Feedback Status
-  changeIF(selectedNoteId: number): void {
+  // Cycle the Individual Feedback Status
+  cycleIF(selectedNoteId: number): void {
 
     // Loop through each note in notes until the target is found
     for (let i = 0; i < this.notes.length; i++) {
@@ -135,9 +152,21 @@ export class AssociateComponent implements OnInit {
             break;
         }
 
+        // Update the status
         this.notes[i].qcStatus = newStatus;
       }
     }
+  }
 
+  // Disables the associated notes text area box for 1 second.
+  noteOnBlur(selectedNoteId: number, secondRound: boolean): void {
+
+    // The first call will recursivley call this function again to re-enable the input box after 1 second
+    if (!secondRound) {
+      $('#note-textarea-' + selectedNoteId).prop('disabled', true);
+      setInterval(this.noteOnBlur, 1000, selectedNoteId, true);
+    } else {
+      $('#note-textarea-' + selectedNoteId).prop('disabled', false);
+    }
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { $ } from 'protractor';
 
 @Component({
   selector: 'app-associate',
@@ -65,7 +66,7 @@ export class AssociateComponent implements OnInit {
 
   // Unimplemented functions
   constructor() { }
-  ngOnInit() {}
+  ngOnInit() { }
 
   // Change the trainee flag status
   changeFlag(selectedNoteId: number): void {
@@ -79,12 +80,12 @@ export class AssociateComponent implements OnInit {
         // Determine the new status string
         switch (this.notes[i].trainee.flagStatus) {
           case 'NONE':
-          this.notes[i].trainee.flagStatus = 'RED';
-          break;
+            this.notes[i].trainee.flagStatus = 'RED';
+            break;
 
           case 'RED':
-          this.notes[i].trainee.flagStatus = 'NONE';
-          break;
+            this.notes[i].trainee.flagStatus = 'NONE';
+            break;
         }
       }
     }
@@ -101,7 +102,7 @@ export class AssociateComponent implements OnInit {
 
   enableNoteAfterUpdate(selectedNoteId: number): void {
 
-    //$('#note-textarea-' + selectedNoteId).prop('disabled', false);
+    // $('#note-textarea-' + selectedNoteId).prop('disabled', false);
   }
 
   // Change the Individual Feedback Status

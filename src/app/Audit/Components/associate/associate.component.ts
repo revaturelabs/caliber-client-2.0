@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { $ } from 'protractor';
 
 @Component({
   selector: 'app-associate',
@@ -91,17 +90,19 @@ export class AssociateComponent implements OnInit {
     }
   }
 
-  // noteOnBlur(selectedNoteId: number): void {
+  noteOnBlur(selectedNoteId: number): void {
 
-  //   $('#note-textarea-' + selectedNoteId).prop('disabled', true);
+    console.log('test');
 
-  //   setInterval(this.enableNoteAfterUpdate, 1000, selectedNoteId);
-  // }
+    $('#note-textarea-' + selectedNoteId).prop('disabled', true);
 
-  // enableNoteAfterUpdate(selectedNoteId: number): void {
+    setInterval(this.enableNoteAfterUpdate, 1000, selectedNoteId);
+  }
 
-  //   $('#note-textarea-' + selectedNoteId).prop('disabled', false);
-  // }
+  enableNoteAfterUpdate(selectedNoteId: number): void {
+
+    //$('#note-textarea-' + selectedNoteId).prop('disabled', false);
+  }
 
   // Change the Individual Feedback Status
   changeIF(selectedNoteId: number): void {

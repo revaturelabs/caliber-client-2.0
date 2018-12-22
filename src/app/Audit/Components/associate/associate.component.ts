@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { $ } from 'protractor';
 
 @Component({
   selector: 'app-associate',
@@ -102,7 +101,7 @@ export class AssociateComponent implements OnInit {
 
   enableNoteAfterUpdate(selectedNoteId: number): void {
 
-    // $('#note-textarea-' + selectedNoteId).prop('disabled', false);
+    //$('#note-textarea-' + selectedNoteId).prop('disabled', false);
   }
 
   // Change the Individual Feedback Status
@@ -139,6 +138,5 @@ export class AssociateComponent implements OnInit {
         this.notes[i].qcStatus = newStatus;
       }
     }
-
   }
 }

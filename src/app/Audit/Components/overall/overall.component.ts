@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Overallqc } from '../../../overallqc';
+import { AuditService } from '../../Services/audit.service';
+
 
 @Component({
   selector: 'app-overall',
@@ -11,6 +14,10 @@ export class OverallComponent implements OnInit {
 
   ngOnInit() {
   
+  }
+
+  saveQCNotes(){
+
   }
 }
 /*

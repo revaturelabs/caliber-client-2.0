@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Overallqc } from '../../../overallqc';
 import { AuditService } from '../../Services/audit.service';
-
+import { OverallService } from '../../Services/overall.service';
 
 @Component({
   selector: 'app-overall',
@@ -9,15 +9,24 @@ import { AuditService } from '../../Services/audit.service';
   styleUrls: ['./overall.component.css']
 })
 export class OverallComponent implements OnInit {
-
-  constructor() { }
+   private overallqc:Overallqc;
+  constructor(private _overallqcService: OverallService) { }
 
   ngOnInit() {
-  
+    this.overallqc=this._overallqcService.getter();
   }
 
   saveQCNotes(){
+    if(this.overallqc.NOTE_ID==undefined){
+      this._overallqcService.createOverallQC(this.overallqc).subscribe((overallqc)=>{
+        console.log(overallqc); 
+      });
 
+    }else{
+      this._overallqcService.updateOverallQC(this.overallqc).subscribe((overallqc)=>{
+        console.log(overallqc); 
+      });
+  }
   }
 }
 /*

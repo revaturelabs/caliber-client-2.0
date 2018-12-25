@@ -16,7 +16,7 @@ import { AssociateComponent } from './Audit/Components/associate/associate.compo
 import { AuditComponent } from './Audit/Components/audit/audit.component';
 import { AuditService } from './Audit/Services/audit.service';
 import { OverallService } from './Audit/Services/overall.service';
-
+import {HttpModule} from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -33,6 +33,7 @@ import { OverallService } from './Audit/Services/overall.service';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    HttpModule,
     
   ],
   providers: [AuditService, OverallService],

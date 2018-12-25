@@ -18,17 +18,29 @@ import { HttpClient } from '@angular/common/http';
 })
 export class OverallService {
   private overallqc:Overallqc;
-  private baseUrl:string='http://localhost:9090';
+  //private baseUrl:string='http://localhost:7861';
+  private baseUrl:string= 'http://localhost:4200/caliber/%23/vp/audit';
   private headers = new Headers({'Content-Type':'application/json'});
   private options = new RequestOptions({headers:this.headers});
   constructor(private _http:Http) { }
 
+  getOverallQC(id:Number){
 
-  updateOverallQC(overallqc:Overallqc){
-
-    return this._http.put(this.baseUrl+'/',JSON.stringify(overallqc),this.options).pipe(map((response:Response)=>response.json()));
+    return this._http.get(this.baseUrl+'/noteso/noteo/'+id,this.options).pipe(map((response:Response)=>response.json()));
       // .catch(this.errorHandler);
    }
+  updateOverallQC(overallqc:Overallqc){
+
+    return this._http.put(this.baseUrl+'/noteso/noteo',JSON.stringify(overallqc),this.options).pipe(map((response:Response)=>response.json()));
+      // .catch(this.errorHandler);
+   }
+
+   createOverallQC(overallqc:Overallqc){
+
+    return this._http.post(this.baseUrl+'/noteso/noteo',JSON.stringify(overallqc),this.options).pipe(map((response:Response)=>response.json()));
+     //  .catch(this.errorHandler);
+   }
+
 
   setter(overallqc:Overallqc){
     this.overallqc =overallqc;

@@ -114,7 +114,7 @@ export class AssociateComponent implements OnInit {
 
       // Find the clicked note
       if (this.notes[i].noteId === selectedNoteId) {
-
+        
           // Enable or disable the notes box popup
           this.notes[i].noteFlagInputActive = enable;
       }

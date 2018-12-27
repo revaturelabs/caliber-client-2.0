@@ -46,11 +46,11 @@ export class AuditService {
 
   constructor(private http: HttpClient) { }
 
-  getBatchesByYear(year: number) {
+  getBatchesByYear(year: number): Observable<Batch[]> {
     return this.http.get<Batch[]>(this.url + this.batchesYearURL + year);
   }
 
-  getAllYears() {
+  getAllYears(): Observable<number[]> {
     return this.http.get<number[]>(this.url + this.yearsURL);
   }
 

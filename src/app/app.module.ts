@@ -12,7 +12,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,9 +24,11 @@ import { CommonModule } from '@angular/common';
     UserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

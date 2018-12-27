@@ -75,7 +75,7 @@ export class AssociateComponent implements OnInit {
   constructor() { }
   ngOnInit() { }
 
-  // Cycle the Individual Feedback Status
+  // Cycle the Flag Status
   cycleFlag(selectedNoteId: number): void {
 
     // Loop through each note in notes until the target is found

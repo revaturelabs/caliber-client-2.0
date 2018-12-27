@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Batch } from 'src/app/Batch/type/batch';
 import { Observable, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuditService {
 
-  url = 'http://localhost:9090';
+  url = 'http://caliber-v2-1680103809.eu-west-2.elb.amazonaws.com/batch';
   batchAllURL = '/vp/batch/all';
   batchesYearURL = '/vp/batch/';
+  yearsURL = '/all/batch/valid_years'
 
   batches: Batch[] = [
     { batchId: 1,
@@ -42,16 +44,14 @@ export class AuditService {
 
   years: number[] = [2020,2019,2018,2017];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getBatchesByYear(year: number) /*Observable*/ {
-    //return this.http.get<Batch[]>(this.url + this.batchesYearURL + year);
-    return this.batches;
+  getBatchesByYear(year: number) {
+    return this.http.get<Batch[]>(this.url + this.batchesYearURL + year);
   }
 
-  getAllYears() /*Observable*/ {
-    //return this.http.get<number[]>(this.url + this.batchAllYearsURL);
-    return this.years;
+  getAllYears() {
+    return this.http.get<number[]>(this.url + this.yearsURL);
   }
 
 }

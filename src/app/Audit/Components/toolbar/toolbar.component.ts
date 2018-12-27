@@ -44,16 +44,21 @@ export class ToolbarComponent implements OnInit {
   }
 
   getAllYears() {
-    this.years=this.auditService.getAllYears();
+    this.auditService.getAllYears()
+    .subscribe((data: number[]) => this.defaultYears = {...data});
+    console.log("checking years: " + this.defaultYears);
   }
 
   getBatches() {
-    this.batches = this.auditService.getBatchesByYear(this.selectedYear);
+    this.auditService.getBatchesByYear(this.selectedYear)
+    .subscribe((data: Batch[]) => this.batches = {...data});
+    console.log("checking batches: " + this.batches);
   }
 
   selectYear(event: number) {
     this.selectedYear = event;
-    this.batches = this.auditService.getBatchesByYear(event);
+    this.auditService.getBatchesByYear(event)
+    .subscribe((data: Batch[]) => this.batches = {...data});
   }
 
   selectBatch(event: Batch) {

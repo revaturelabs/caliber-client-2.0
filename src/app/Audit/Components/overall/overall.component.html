@@ -2,17 +2,17 @@
   <div class="row centered">
     <h4 class="text-center">Overall Feedback</h4>
     <!-- Shows the status type (icons) -->
-    <button class="hiddenButton col-lg-4 col-md-4 col-sm-4" ng-click="pickOverallStatus(currentBatch, qcStatusTypes[1])"
-      ng-disabled="processingNote">
-      <i class="fa fa-smile-o fa-2x" ng-class="{pick : qcBatchAssess === qcStatusTypes[1]}" style=""></i>
+    <button class="hiddenButton col-lg-4 col-md-4 col-sm-4" (click)="pickOverallStatus(currentBatch, qcStatusTypes[1])"
+      >
+      <i class="fa fa-smile-o fa-2x" [ngClass]="{'pick': qcBatchAssess === qcStatusTypes[1]}" style=""></i>
     </button>
-    <button class="hiddenButton col-lg-4 col-md-4 col-sm-4" ng-click="pickOverallStatus(currentBatch, qcStatusTypes[2])"
+    <button class="hiddenButton col-lg-4 col-md-4 col-sm-4" (click)="pickOverallStatus(currentBatch, qcStatusTypes[2])"
       ng-disabled="processingNote">
-      <i class="fa fa-meh-o fa-2x" ng-class="{pick : qcBatchAssess === qcStatusTypes[2]}" style=""></i>
+      <i class="fa fa-meh-o fa-2x" [ngClass]="{'pick': qcBatchAssess === qcStatusTypes[2]}" style=""></i>
     </button>
-    <button class="hiddenButton col-lg-4 col-md-4 col-sm-4" ng-click="pickOverallStatus(currentBatch, qcStatusTypes[3])"
+    <button class="hiddenButton col-lg-4 col-md-4 col-sm-4" (click)="pickOverallStatus(currentBatch, qcStatusTypes[3])"
       ng-disabled="processingNote">
-      <i class="fa fa-frown-o fa-2x" ng-class="{pick : qcBatchAssess === qcStatusTypes[3]}" style=""></i>
+      <i class="fa fa-frown-o fa-2x" [ngClass]="{'pick': qcStatusTypes[3]}" style=""></i>
     </button>
     <!-- Show the QC feedback notes. Clicking textfield, editing and overwriting it will 
       trigger the ng-blur to save the data  -->
@@ -24,6 +24,7 @@
       <!-- QC Save burrito button (Burrito: wrap up edited objects, pack it tightly in the skin, and
         save it all in your stomach/database -->
       <div class="save-button-wrapper">
+
         <a ng-click="saveQCandTrainee()" ng-show="showFloppy" class="save-button fade-in"> <span class="fa fa-floppy-o fa-2x"
             aria-hidden="true"></span>Save
         </a>

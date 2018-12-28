@@ -1,7 +1,7 @@
 import { Component, OnInit , ElementRef, ViewChild, AfterViewInit} from '@angular/core';
-import { Overallqc } from '../../overallqc';
-import { AuditService } from '../../Services/audit.service';
-import { OverallService } from '../../Services/overall.service';
+import { Overallqc } from './overallqc';
+import { AuditService } from './Services/audit.service';
+import { OverallService } from './Services/overall.service';
 
 @Component({
   selector: 'app-overall',

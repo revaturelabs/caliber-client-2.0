@@ -2,6 +2,10 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { Routes, RouterModule} from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+<<<<<<< HEAD
+=======
+
+>>>>>>> overall
 import { AuditComponent } from '../Audit/Components/audit/audit.component';
 
 const routes: Routes = [

@@ -15,6 +15,11 @@ import { OverallComponent } from '../Audit/Components/overall/overall.component'
     AuditRoutingModule,
     FormsModule
   ],
-  declarations: [AuditComponent, ToolbarComponent, AssociateComponent, OverallComponent]
+  declarations: [
+    AuditComponent, 
+    ToolbarComponent, 
+    AssociateComponent, 
+    OverallComponent
+  ]
 })
 export class AuditModule { }

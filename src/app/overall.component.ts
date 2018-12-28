@@ -1,4 +1,4 @@
-import { Component, OnInit , ElementRef, ViewChild} from '@angular/core';
+import { Component, OnInit , ElementRef, ViewChild, AfterViewInit} from '@angular/core';
 import { Overallqc } from '../../../overallqc';
 import { AuditService } from '../../Services/audit.service';
 import { OverallService } from '../../Services/overall.service';
@@ -8,9 +8,8 @@ import { OverallService } from '../../Services/overall.service';
   templateUrl: './overall.component.html',
   styleUrls: ['./overall.component.css']
 })
-export class OverallComponent implements OnInit {
+export class OverallComponent implements OnInit, AfterViewInit {
    private overallqc:Overallqc;
-   @ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
   constructor(private _overallqcService: OverallService) { }
 
   ngOnInit() {
@@ -18,9 +17,8 @@ export class OverallComponent implements OnInit {
   }
 
   saveQCNotes(){
-    this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
     if(this.overallqc.content==undefined){
-     
+      @ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
      this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
      this.overallqc.noteId = 0;
       this._overallqcService.createOverallQC(this.overallqc).subscribe((overallqc)=>{
@@ -28,7 +26,7 @@ export class OverallComponent implements OnInit {
       });
 
     }else{
-     // @ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
+      @ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
       this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
       this.overallqc.noteId = 0;
       this._overallqcService.updateOverallQC(this.overallqc).subscribe((overallqc)=>{

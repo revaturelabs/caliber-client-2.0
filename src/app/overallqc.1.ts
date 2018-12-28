@@ -4,7 +4,7 @@ import { TraineeFlag } from './User/user/types/trainee-flag';
 export class Overallqc {
    noteId: Number;
    content:string;
- //  MAX_VISIBILITY:Number;
+  // MAX_VISIBILITY:Number;
   // IS_QC_FEEDBACK:Number;
   // QC_STATUS: Number;
   // NOTE_TYPE:String;

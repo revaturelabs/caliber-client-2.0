@@ -13,7 +13,6 @@
 						</ul>
 
 					<!-- top ui for viewing all assessments -->
-<<<<<<< HEAD
 					<li role="button" class="dropdown" *ngIf="selectedBatch"><a
 						class="dropdown-toggle" data-toggle="dropdown"> {{selectedBatch.trainer }} - {{ selectedBatch.startDate | date:'shortDate' }} <span class="caret"></span>
 					</a>
@@ -21,12 +20,8 @@
 							<li *ngFor="let batch of batches">
                 <a role="button" (click)="selectBatch(batch)"> {{batch.trainer }} - {{ batch.startDate | date: 'shortDate' }} </a>
 						</ul></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-=======
+
+
 					<li role="button" class="dropdown" *ngIf="selectedBatch">
 						<a class="dropdown-toggle" data-toggle="dropdown"> {{selectedBatch.trainer }} - {{ selectedBatch.startDate | date:'shortDate' }}
 							<span class="caret"></span>
@@ -37,12 +32,11 @@
 							</li>
 						</ul>
 					</li>
-				</ul>
-			</div>
+
 			<!--Weeks tabs-->
 			<div class="col-sm-12 col-md-12 col-lg-12 top5" *ngIf="selectedBatch">
 				<ul class="nav nav-tabs">
-					<li role="button" class="{{showActiveWeek(week)}}" 
+					<li role="button" class="" 
 					(click)="selectWeek(week)" *ngFor="let week of weeks">
 						<a>Week {{week}}</a>
 					</li>
@@ -52,10 +46,9 @@
 						</a>
 					</li>
 				</ul>
-			</div>
+		
     </div>
-  </div>
-</div>
+
 
 <!--Data dismiss modal-->
 <div id="confirmingweeks" class="modal fade">
@@ -67,13 +60,10 @@
 						<h4>Add a new week?</h4>
 						<h4>This process cannot be undone.</h4>
 					</div>
-				</div>
+				
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary"
 						(click)="addWeek()" data-dismiss="modal">Yes</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-				</div>
-			</div>
-		</div>
+				
 	</div>
->>>>>>> overall

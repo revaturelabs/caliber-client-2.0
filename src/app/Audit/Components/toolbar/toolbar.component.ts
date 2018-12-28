@@ -16,11 +16,8 @@ export class ToolbarComponent implements OnInit {
   selectedYear: number;
   selectedBatch: Batch;
   selectedBatchId = 0;
-<<<<<<< HEAD
-=======
   weeks = [1,2,3,4,5,6];
   selectedWeek: number;
->>>>>>> overall
 
   constructor(
     public auditService: AuditService
@@ -36,22 +33,20 @@ export class ToolbarComponent implements OnInit {
       coTrainer: null,
       location: "Reston",
       locationId: 1,
-<<<<<<< HEAD
       startDate: new Date(),
       endDate: new Date(),
       goodGrade: 3,
       passingGrade: 1,
       traineeCount: 10 };
-    this.getAllYears();
-    this.getBatches();
+  //  this.getAllYears();
+  //  this.getBatches();
   }
-  getAllYears() {
+/*  getAllYears() {
     this.years=this.auditService.getAllYears();
   }
 
   getBatches() {
     this.batches = this.auditService.getBatchesByYear(2018);
-=======
       startDate: new Date('11/18/18'),
       endDate: new Date('1/7/19'),
       goodGrade: 3,
@@ -76,24 +71,18 @@ export class ToolbarComponent implements OnInit {
       this.batches = result;
       });
       console.log(this.batches);
->>>>>>> overall
   }
 
   selectYear(event: number) {
     this.selectedYear = event;
-<<<<<<< HEAD
     this.batches = this.auditService.getBatchesByYear(event);
-=======
     this.auditService.getBatchesByYear(event)
     .subscribe((data: Batch[]) => this.batches = {...data});
->>>>>>> overall
   }
 
   selectBatch(event: Batch) {
     this.selectedBatch = event;
-<<<<<<< HEAD
 
-=======
   }
 
   showActiveWeek(week: number) {
@@ -110,7 +99,6 @@ export class ToolbarComponent implements OnInit {
     var last = this.weeks[this.weeks.length-1];
     this.weeks.push(last+1);
     this.selectedWeek=last+1;
->>>>>>> overall
-  }
+  }*/
 
 }

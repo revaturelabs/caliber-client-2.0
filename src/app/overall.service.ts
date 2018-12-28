@@ -7,7 +7,7 @@ import { map, filter, switchMap } from 'rxjs/operators';
 //import 'rxjs/add/observable/throw';
 //import 'rxjs';
 //import {map, catch, throw } from 'rxjs/Rx';
-import { Overallqc } from '../../overallqc';
+import { Overallqc } from './overallqc';
 //import { map  } from 'rxjs/Rx';//, throw as rxThrow, catch as rxCatch
 //import { map } from 'rxjs/operators';
 //import { map } from 'rxjs/operators';
@@ -17,7 +17,6 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class OverallService {
-  private overallqc:Overallqc;
   //private baseUrl:string='http://localhost:7861';
   private baseUrl:string= 'http://localhost:7861';
   private headers = new Headers({'Content-Type':'application/json'});

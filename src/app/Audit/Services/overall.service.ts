@@ -17,7 +17,6 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class OverallService {
-  private overallqc:Overallqc;
   //private baseUrl:string='http://localhost:7861';
   private baseUrl:string= 'http://localhost:7861';
   private headers = new Headers({'Content-Type':'application/json'});

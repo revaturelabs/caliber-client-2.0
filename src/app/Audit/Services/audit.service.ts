@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class AuditService {
+export class AuditService {ks
 
   url = 'http://caliber-v2-1680103809.eu-west-2.elb.amazonaws.com/batch';
   batchAllURL = '/vp/batch/all';

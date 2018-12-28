@@ -18,13 +18,14 @@ import { AuditService } from './Audit/Services/audit.service';
 import { OverallService } from './Audit/Services/overall.service';
 import {HttpModule} from '@angular/http';
 
-
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ErrorComponent
+    ErrorComponent,
+
+
   ],
   imports: [
     BrowserModule,

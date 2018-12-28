@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Batch } from 'src/app/Batch/type/batch';
 import { Observable, Subject } from 'rxjs';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
 
 @Injectable({
   providedIn: 'root'

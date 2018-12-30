@@ -16,7 +16,7 @@ export class ToolbarComponent implements OnInit {
   selectedYear: number;
   selectedBatch: Batch;
   selectedBatchId = 0;
-  weeks = [1,2,3,4,5,6];
+  weeks = [];
   selectedWeek: number;
 
   constructor(
@@ -25,7 +25,7 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit() {
     
-    this.selectedWeek=6;
+    this.selectedWeek=1;
     this.getAllYears();
 
   }
@@ -46,6 +46,7 @@ export class ToolbarComponent implements OnInit {
     .subscribe(result => {
       this.batches = result;
       this.selectedBatch = this.batches[0];
+      this.auditService.selectedBatch = this.batches[0];
       console.log(this.batches);
       this.getWeeks();
       });
@@ -54,6 +55,7 @@ export class ToolbarComponent implements OnInit {
 
   selectYear(event: number) {
     this.selectedYear = event;
+    this.auditService.selectedYear = this.selectedYear;
     this.auditService.getBatchesByYear(event)
     .subscribe(result => {
       this.batches = result;
@@ -62,6 +64,8 @@ export class ToolbarComponent implements OnInit {
 
   selectBatch(event: Batch) {
     this.selectedBatch = event;
+    this.auditService.selectedBatch = this.selectedBatch;
+    this.getWeeks();
   }
 
   showActiveWeek(week: number) {
@@ -72,6 +76,7 @@ export class ToolbarComponent implements OnInit {
 
   selectWeek(event: number) {
     this.selectedWeek = event;
+    this.auditService.selectedWeek = event;
   }
 
   addWeek() {
@@ -81,7 +86,10 @@ export class ToolbarComponent implements OnInit {
   }
 
   getWeeks() {
-    console.log(this.batches[0].weeks);
+    this.weeks = [];
+    for(var i = 0; i<this.selectedBatch.weeks; i++){
+      this.weeks.push(i+1);
+    }
   }
 
 }

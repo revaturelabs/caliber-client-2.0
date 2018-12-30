@@ -6,12 +6,15 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class AuditService {ks
+export class AuditService {
 
-  url = 'http://caliber-v2-1680103809.eu-west-2.elb.amazonaws.com/batch';
+  url = 'http://localhost:9095';
   batchAllURL = '/vp/batch/all';
   batchesYearURL = '/vp/batch/';
   yearsURL = '/all/batch/valid_years';
+  selectedYear: number;
+  selectedBatch: Batch;
+  selectedWeek = 1;
 
   constructor(private http: HttpClient) { }
 

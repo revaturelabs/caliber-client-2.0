@@ -21,13 +21,13 @@ export class OverallService {
    }
   updateOverallQC(overallqc:Overallqc){
 
-    return this._http.put(this.baseUrl+'/note',JSON.stringify(overallqc),this.options).pipe(map((response:Response)=>response.json()));
+    return this._http.put(this.baseUrl+'/note/update',JSON.stringify(overallqc),this.options).pipe(map((response:Response)=>response.json()));
       // .catch(this.errorHandler);
    }
 
    createOverallQC(overallqc:Overallqc){
 
-    return this._http.post(this.baseUrl+'/note',JSON.stringify(overallqc),this.options).pipe(map((response:Response)=>response.json()));
+    return this._http.post(this.baseUrl+'/note/create',JSON.stringify(overallqc),this.options).pipe(map((response:Response)=>response.json()));
      //  .catch(this.errorHandler);
    }
 

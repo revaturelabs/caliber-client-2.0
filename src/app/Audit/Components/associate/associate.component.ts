@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-associate',
@@ -8,71 +9,58 @@ import { Component, OnInit } from '@angular/core';
 export class AssociateComponent implements OnInit {
 
   // List of test categories
- // categories = [
-  //  'Java'
-  //];
-
-  // List of test trainees
-  trainees = [
+  categories = [
     {
-      name: 'Forsberg, Justin'
-    },
-    {
-      name: 'Bill Boe'
-    }
-  ];
-
- /*   {
       name: 'Java',
     },
     {
       name: 'MySQL'
-    }*/
- // ];
+    }
+  ];
 
   // List of test notes
-//  notes = [
- //   {
-  //    qcStatus: 'Undefined',
-   //   noteId: 0,
-   //   noteFlagInputActive: false,
-    //  trainee: {
-     //   name: 'Hajek, Alexander',
-      //  flagNotes: '',
-      //  flagStatus: 'NONE'
-     // }
-    //},
- //   {
-  //    qcStatus: 'Superstar',
-  //    noteId: 1,
-  //    noteFlagInputActive: false,
-  //    trainee: {
-   //     name: 'Michels, Alex',
-   //     flagNotes: '',
-   //     flagStatus: 'RED'
-    //  }
-  //  },
-  //  {
-   //   qcStatus: 'Good',
-   //   noteId: 2,
-   //   noteFlagInputActive: false,
-   //   trainee: {
-   //     name: 'Smith, Carter',
-   //     flagNotes: '',
-   //     flagStatus: 'NONE'
-   //   }
-   // },
-   // {
-   //   qcStatus: 'Average',
-   //   noteId: 3,
-    //  noteFlagInputActive: false,
-    //  trainee: {
-     //   name: 'Erwin, Eric',
-     //   flagNotes: '',
-     //   flagStatus: 'RED'
-     // }
-    //},
-   /* {
+  notes = [
+    {
+      qcStatus: 'Undefined',
+      noteId: 0,
+      noteFlagInputActive: false,
+      trainee: {
+        name: 'Hajek, Alexander',
+        flagNotes: '',
+        flagStatus: 'NONE'
+      }
+    },
+    {
+      qcStatus: 'Superstar',
+      noteId: 1,
+      noteFlagInputActive: false,
+      trainee: {
+        name: 'Michels, Alex',
+        flagNotes: '',
+        flagStatus: 'RED'
+      }
+    },
+    {
+      qcStatus: 'Good',
+      noteId: 2,
+      noteFlagInputActive: false,
+      trainee: {
+        name: 'Smith, Carter',
+        flagNotes: '',
+        flagStatus: 'NONE'
+      }
+    },
+    {
+      qcStatus: 'Average',
+      noteId: 3,
+      noteFlagInputActive: false,
+      trainee: {
+        name: 'Erwin, Eric',
+        flagNotes: '',
+        flagStatus: 'RED'
+      }
+    },
+    {
       qcStatus: 'Poor',
       noteId: 4,
       noteFlagInputActive: false,
@@ -82,7 +70,7 @@ export class AssociateComponent implements OnInit {
         flagStatus: 'NONE'
       }
     }
-  ];*/
+  ];
 
   // Unimplemented functions
   constructor() { }

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ElementRef, ViewChild} from '@angular/core';
+import { Overallqc } from '../../../overallqc';
+import { AuditService } from '../../Services/audit.service';
+import { OverallService } from '../../Services/overall.service';
 
 @Component({
   selector: 'app-overall',
@@ -6,54 +9,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./overall.component.css']
 })
 export class OverallComponent implements OnInit {
-
-  constructor() { }
+   private overallqc:Overallqc;
+ @ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
+constructor(private _overallqcService: OverallService) { }
 
   ngOnInit() {
+    this.overallqc=this._overallqcService.getter();
   }
 
-  /*
-	qc.getAssessmentsByBatchId = function(batchId) {
-		$log.debug("In assessment");
-		return $http({
-			url : "/qc/assessment/byBatchId/" + batchId + "/",
-			method : "GET"
-		}).then(function(response) {
-			$log.debug("Assessments retrieved successfully");
-			$log.debug(response);
-			return response.data;
-		}, function(response) {
-			$log.error("There was an error: " + response.status);
-		});
-	};
+  saveQCNotes(){
+    this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
+    this.overallqc.noteId = 0;
+    if(this.overallqc.content==undefined){
+     
+     this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
+     this.overallqc.noteId = 0;
+      this._overallqcService.createOverallQC(this.overallqc).subscribe((overallqc)=>{
+        console.log(overallqc); 
+      });
 
-	// get all assessments
-	qc.getAllAssessments = function(weekId) {
-		return $http({
-			url : "/qc/assessment/byWeek/" + weekId + "/",
-			method : "GET"
-		}).then(function(response) {
-			$log.debug("Assessments retrieved successfully");
-			$log.debug(response);
-			return response.data;
-		}, function(response) {
-			$log.error("There was an error: " + response.status);
-		});
-	};
-	
-	// get all assessment categories for the week
-	qc.getAllAssessmentCategories = function(batchId, weekId) {
-		return $http({
-			url : "/all/assessments/categories/batch/" + batchId + "/week/" + weekId + "/",
-			method : "GET"
-		}).then(function(response) {
-			$log.debug("Assessments categories retrieved successfully");
-			$log.debug("response");
-			return response.data;
-		}, function(response) {
-			$log.error("There was an error: " + response.status);
-		});
-  }; */
-
-
+    }else{
+     // @ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
+      this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
+      this.overallqc.noteId = 0;
+      this._overallqcService.updateOverallQC(this.overallqc).subscribe((overallqc)=>{
+        console.log(overallqc); 
+      });
+  }
+  }
 }

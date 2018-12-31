@@ -2,66 +2,64 @@ import { Component, OnInit } from '@angular/core';
 import { Batch } from 'src/app/Batch/type/batch';
 
 @Component({
-  selector: 'app-overall',
-  templateUrl: './overall.component.html',
-  styleUrls: ['./overall.component.css']
+	selector: 'app-overall',
+	templateUrl: './overall.component.html',
+	styleUrls: ['./overall.component.css']
 })
 export class OverallComponent implements OnInit {
-qcStatusTypes = [];
-batch: Batch;
-qcBatchAssess: number;
-  constructor() { }
+	qcStatusTypes = [];
+	batch: Batch;
+	qcBatchAssess: number;
+	showFloppy: boolean = true;
+	showSaving: boolean = false;
+	showCheck: boolean = false;
+	constructor() { }
 
-  ngOnInit() {
-  }
+	ngOnInit() {
+	}
 
-  pickOverallStatus(batch, pick) {
-this.batch = batch;
-this.qcBatchAssess = pick;
+	pickOverallStatus(batch, pick) {
 
-  }
-  /*
-	qc.getAssessmentsByBatchId = function(batchId) {
-		$log.debug("In assessment");
-		return $http({
-			url : "/qc/assessment/byBatchId/" + batchId + "/",
-			method : "GET"
-		}).then(function(response) {
-			$log.debug("Assessments retrieved successfully");
-			$log.debug(response);
-			return response.data;
-		}, function(response) {
-			$log.error("There was an error: " + response.status);
-		});
-	};
+		this.batch = batch;
+		this.qcBatchAssess = pick;
 
-	// get all assessments
-	qc.getAllAssessments = function(weekId) {
-		return $http({
-			url : "/qc/assessment/byWeek/" + weekId + "/",
-			method : "GET"
-		}).then(function(response) {
-			$log.debug("Assessments retrieved successfully");
-			$log.debug(response);
-			return response.data;
-		}, function(response) {
-			$log.error("There was an error: " + response.status);
-		});
-	};
-	
-	// get all assessment categories for the week
-	qc.getAllAssessmentCategories = function(batchId, weekId) {
-		return $http({
-			url : "/all/assessments/categories/batch/" + batchId + "/week/" + weekId + "/",
-			method : "GET"
-		}).then(function(response) {
-			$log.debug("Assessments categories retrieved successfully");
-			$log.debug("response");
-			return response.data;
-		}, function(response) {
-			$log.error("There was an error: " + response.status);
-		});
-  }; */
+	}
+
+	saveQCandTrainee() {
+		console.log('clicked');
+
+		this.showFloppy = !this.showFloppy;
+
+		setTimeout(() => {
+			console.log('showSaving');
+			this.showSaving = true;
+		}, 480);
+
+		this.showCheckIcon();
+	}
+
+	showCheckIcon() {
+
+		setTimeout(() => {
+			console.log('showChecking');
+			this.showSaving = false;
+			this.showCheck = true;
+		}, 2000);
+
+		this.showFloppySave();
+
+	}
+
+	showFloppySave() {
+
+		setTimeout(() => {
+			console.log('showChecking');
+			this.showSaving = false;
+			this.showCheck = false;
+			this.showFloppy = true;
+		}, 4000);
+
+	}
 
 
 }

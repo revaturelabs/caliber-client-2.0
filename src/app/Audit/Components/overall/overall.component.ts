@@ -9,7 +9,7 @@ import { OverallService } from '../../Services/overall.service';
   styleUrls: ['./overall.component.css']
 })
 export class OverallComponent implements OnInit {
-   private overallqc:Overallqc;
+   private overallqc= new Overallqc();
  @ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
 constructor(private _overallqcService: OverallService) { }
 

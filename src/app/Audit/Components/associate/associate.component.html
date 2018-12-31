@@ -1,54 +1,4 @@
 <div class = "container">
-  <div class = "row">
-      <div class = "col-sm-12 col-md-12 col-lg-12">
-          <div class = "row">
-              <div class = "col-sm-12 col-md-12 col-lg-12" style="margin-left: 1em; padding-top: 0.65em; border-bottom: 1px solid #ddd;">
-                  <strong>Categories covered this week: </strong>
-                  <span *ngFor="let cat of categories">
-                      {{cat.name}}
-                  </span>
-              </div>
-          </div>
-          <table class="table table-responsive"
-                 style="border-collapse: collapse;">
-              <thead>
-                  <tr>
-                      <th>
-                          Trainee
-                      </th>
-                      <th></th>
-                      <th>
-                          Individual Feedback
-                      </th>
-                      <th></th>
-                      <th>
-                          Notes
-                      </th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr *ngFor="let trainee of trainees; index as i">
-                      <td style="width: 11%;">
-                          {{ trainee.name }}
-                      </td>
-                      <td style="width: 3%;">
-                          <i class="glyphicon glyphicon-flag color-red"></i>
-                      </td>
-                      <td style="width: 7%;text-align: center;">
-                          <i class="fa fa-smile-o fa-2x pick"></i>
-                      </td>
-                      <td style="width: 3%;"></td>
-                      <td style="width: 76%;">
-                          <textarea class="form-control" 
-                          placeholder="Note on {{ trainee.name }}" 
-                          rows="3" cols="75" maxlength="4000"></textarea>
-                      </td>
-                  </tr>
-              </tbody>
-          </table>
-      </div>
-  </div>
-</div>
     <!-- The max width is manually set to the same width as the original AngularJss webpage -->
     <table class="table table-responsive table-condensed"
             style="border-collapse: collapse; max-width: 1140px;">
@@ -56,7 +6,7 @@
             <tr>
                 <!-- Top row will span over all columns -->
                 <td colspan="5"> 
-                 <!--    <strong>Categories covered this week: </strong>-->
+                    <strong>Categories covered this week: </strong>
                     <!-- Tracked last item in list to prevent last comma from being printed -->
                     <span *ngFor="let cat of categories; let isLast=last">
                         {{cat.name}}{{isLast ? '' : ', '}}
@@ -64,7 +14,17 @@
                 </td>
             </tr>
             <tr>
-
+                <!-- Spans over flag column --->
+                <th colspan="2">
+                    Trainee
+                </th>
+                <!-- Spans over extra space column --->
+                <th colspan="2">
+                    Individual Feedback
+                </th>
+                <th>
+                    Notes
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -108,4 +68,4 @@
             </tr>
         </tbody>
     </table>
-
+</div>

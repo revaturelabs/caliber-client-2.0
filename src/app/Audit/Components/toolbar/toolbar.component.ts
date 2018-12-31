@@ -33,6 +33,20 @@ export class ToolbarComponent implements OnInit {
       coTrainer: null,
       location: "Reston",
       locationId: 1,
+      startDate: new Date(),
+      endDate: new Date(),
+      goodGrade: 3,
+      passingGrade: 1,
+      traineeCount: 10 };
+  //  this.getAllYears();
+  //  this.getBatches();
+  }
+/*  getAllYears() {
+    this.years=this.auditService.getAllYears();
+  }
+
+  getBatches() {
+    this.batches = this.auditService.getBatchesByYear(2018);
       startDate: new Date('11/18/18'),
       endDate: new Date('1/7/19'),
       goodGrade: 3,
@@ -61,12 +75,14 @@ export class ToolbarComponent implements OnInit {
 
   selectYear(event: number) {
     this.selectedYear = event;
+    this.batches = this.auditService.getBatchesByYear(event);
     this.auditService.getBatchesByYear(event)
     .subscribe((data: Batch[]) => this.batches = {...data});
   }
 
   selectBatch(event: Batch) {
     this.selectedBatch = event;
+
   }
 
   showActiveWeek(week: number) {
@@ -83,6 +99,6 @@ export class ToolbarComponent implements OnInit {
     var last = this.weeks[this.weeks.length-1];
     this.weeks.push(last+1);
     this.selectedWeek=last+1;
-  }
+  }*/
 
 }

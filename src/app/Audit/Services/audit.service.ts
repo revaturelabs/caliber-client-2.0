@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Batch } from 'src/app/Batch/type/batch';
 import { Observable, Subject } from 'rxjs';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -35,6 +36,7 @@ export class AuditService {
       coTrainer: null,
       location: "Tampa",
       locationId: 2,
+      startDate: new Date('12/18/18'),
       startDate: new Date('12/17/18'),
       endDate: new Date('3/19/19'),
       goodGrade: 3,
@@ -42,16 +44,29 @@ export class AuditService {
       traineeCount: 10 }
   ];
 
-  years: number[] = [2020,2019,2018,2017];
+  years: number[] = [2017,2018,2019,2020];
+
+  constructor() { }
+
+  getBatchesByYear(year: number) /*Observable*/ {
+    //return this.http.get<Batch[]>(this.url + this.batchesYearURL + year);
+    return this.batches;
+  }
+
+ // getAllYears(){ /*Observable*/ 
+    //return this.http.get<number[]>(this.url + this.batchAllYearsURL);
+   // return this.years;
+//  years: number[] = [2020,2019,2018,2017];
 
   constructor(private http: HttpClient) { }
 
-  getBatchesByYear(year: number): Observable<Batch[]> {
-    return this.http.get<Batch[]>(this.url + this.batchesYearURL + year);
-  }
+ // getBatchesByYear(year: Number): Observable<Batch[]> {
+  //  return this.http.get<Batch[]>(this.url + this.batchesYearURL + year);
+ // }
 
-  getAllYears(): Observable<number[]> {
-    return this.http.get<number[]>(this.url + this.yearsURL);
-  }
+ // getAllYears(): Observable<number[]> {
+  //  return this.http.get<number[]>(this.url + this.yearsURL);
+ // }
 
+//}
 }

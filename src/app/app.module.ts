@@ -10,6 +10,13 @@ import { AppComponent } from './app.component';
 import { ErrorComponent } from './error-handling/error/error.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
+import { OverallComponent } from './Audit/Components/overall/overall.component';
+import { ToolbarComponent  } from './Audit/Components/toolbar/toolbar.component';
+import { AssociateComponent } from './Audit/Components/associate/associate.component';
+import { AuditComponent } from './Audit/Components/audit/audit.component';
+import { AuditService } from './Audit/Services/audit.service';
+import { OverallService } from './Audit/Services/overall.service';
+import {HttpModule} from '@angular/http';
 
 
 @NgModule({
@@ -17,18 +24,20 @@ import { CommonModule } from '@angular/common';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ErrorComponent
+    ErrorComponent,
+
+
   ],
   imports: [
     BrowserModule,
     UserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpModule,
   ],
-  providers: [],
-  bootstrap: [
-    AppComponent
+  providers: [AuditService, OverallService],
+  bootstrap: [AppComponent
   ]
 })
 export class AppModule { }

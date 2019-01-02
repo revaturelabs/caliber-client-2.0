@@ -16,7 +16,7 @@ export class ToolbarComponent implements OnInit {
   selectedYear: number;
   selectedBatch: Batch;
   selectedBatchId = 0;
-  weeks = [1,2,3,4,5,6];
+  weeks = [];
   selectedWeek: number;
 
   constructor(
@@ -24,49 +24,48 @@ export class ToolbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.selectedYear=2018;
-    this.selectedBatch={ batchId: 1,
-      trainingName: null,
-      trainingType: null,
-      skillType: null,
-      trainer: "Genesis Bonds",
-      coTrainer: null,
-      location: "Reston",
-      locationId: 1,
-      startDate: new Date('11/18/18'),
-      endDate: new Date('1/7/19'),
-      goodGrade: 3,
-      passingGrade: 1,
-      traineeCount: 10 };
-    this.selectedWeek=6;
+    
+    this.selectedWeek=1;
     this.getAllYears();
-    this.getBatches();
+
   }
 
   getAllYears() {
     this.auditService.getAllYears()
     .subscribe(result => {
       this.years = result;
+      this.selectedYear = this.years[0];
+      console.log(this.years);
+      this.getBatches();
     });
-    console.log(this.years);
+    
   }
 
   getBatches() {
     this.auditService.getBatchesByYear(this.selectedYear)
     .subscribe(result => {
       this.batches = result;
-      });
+      this.selectedBatch = this.batches[0];
+      this.auditService.selectedBatch = this.batches[0];
       console.log(this.batches);
+      this.getWeeks();
+      });
+      
   }
 
   selectYear(event: number) {
     this.selectedYear = event;
+    this.auditService.selectedYear = this.selectedYear;
     this.auditService.getBatchesByYear(event)
-    .subscribe((data: Batch[]) => this.batches = {...data});
+    .subscribe(result => {
+      this.batches = result;
+      });
   }
 
   selectBatch(event: Batch) {
     this.selectedBatch = event;
+    this.auditService.selectedBatch = this.selectedBatch;
+    this.getWeeks();
   }
 
   showActiveWeek(week: number) {
@@ -77,12 +76,20 @@ export class ToolbarComponent implements OnInit {
 
   selectWeek(event: number) {
     this.selectedWeek = event;
+    this.auditService.selectedWeek = event;
   }
 
   addWeek() {
     var last = this.weeks[this.weeks.length-1];
     this.weeks.push(last+1);
     this.selectedWeek=last+1;
+  }
+
+  getWeeks() {
+    this.weeks = [];
+    for(var i = 0; i<this.selectedBatch.weeks; i++){
+      this.weeks.push(i+1);
+    }
   }
 
 }

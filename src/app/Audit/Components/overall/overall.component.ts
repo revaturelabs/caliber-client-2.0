@@ -18,9 +18,13 @@ export class OverallComponent implements OnInit {
 	happy: '#b9b9ba';
 	meh: '#b9b9ba';
 	sad: '#b9b9ba';
-	
+
 	@ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
-	
+
+	showFloppy: boolean = true;
+	showSaving: boolean = false;
+	showCheck: boolean = false;
+
 	constructor(private _overallqcService: OverallService) { }
 
 	ngOnInit() {
@@ -55,6 +59,32 @@ export class OverallComponent implements OnInit {
 		this.qcBatchAssess = pick;
 	}
 
+	saveQCandTrainee() {
+
+		console.log('clicked');
+
+		this.showFloppy = !this.showFloppy;
+
+		setTimeout(() => {
+			console.log('showSaving');
+			this.showSaving = true;
+		}, 480);
+
+		setTimeout(() => {
+			console.log('showChecking');
+			this.showSaving = false;
+			this.showCheck = true;
+		}, 2000);
+
+		setTimeout(() => {
+			console.log('showChecking');
+			this.showSaving = false;
+			this.showCheck = false;
+			this.showFloppy = true;
+		}, 4000);
+
+	}
+
 	saveQCNotes() {
 		this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
 		this.overallqc.noteId = 0;
@@ -76,3 +106,4 @@ export class OverallComponent implements OnInit {
 		}
 	}
 }
+

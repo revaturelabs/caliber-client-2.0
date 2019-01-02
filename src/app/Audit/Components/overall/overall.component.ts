@@ -1,40 +1,72 @@
-import { Component, OnInit , ElementRef, ViewChild} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Overallqc } from '../../../overallqc';
 import { AuditService } from '../../Services/audit.service';
 import { OverallService } from '../../Services/overall.service';
 
 @Component({
-  selector: 'app-overall',
-  templateUrl: './overall.component.html',
-  styleUrls: ['./overall.component.css']
+	selector: 'app-overall',
+	templateUrl: './overall.component.html',
+	styleUrls: ['./overall.component.css']
 })
 export class OverallComponent implements OnInit {
-   private overallqc : new Overallqc;
- @ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
-constructor(private _overallqcService: OverallService) { }
+	private overallqc: Overallqc;
 
-  ngOnInit() {
-    this.overallqc=this._overallqcService.getter();
-  }
+	@ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
 
-  saveQCNotes(){
-    this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
-    this.overallqc.noteId = 0;
-    if(this.overallqc.content==undefined){
-     
-     this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
-     this.overallqc.noteId = 0;
-      this._overallqcService.createOverallQC(this.overallqc).subscribe((overallqc)=>{
-        console.log(overallqc); 
-      });
+	showFloppy: boolean = true;
+	showSaving: boolean = false;
+	showCheck: boolean = false;
 
-    }else{
-     // @ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
-      this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
-      this.overallqc.noteId = 0;
-      this._overallqcService.updateOverallQC(this.overallqc).subscribe((overallqc)=>{
-        console.log(overallqc); 
-      });
-  }
-  }
+	constructor(private _overallqcService: OverallService) { }
+
+	ngOnInit() {
+		this.overallqc = this._overallqcService.getter();
+	}
+
+	saveQCandTrainee() {
+
+		console.log('clicked');
+
+		this.showFloppy = !this.showFloppy;
+
+		setTimeout(() => {
+			console.log('showSaving');
+			this.showSaving = true;
+		}, 480);
+
+		setTimeout(() => {
+			console.log('showChecking');
+			this.showSaving = false;
+			this.showCheck = true;
+		}, 2000);
+
+		setTimeout(() => {
+			console.log('showChecking');
+			this.showSaving = false;
+			this.showCheck = false;
+			this.showFloppy = true;
+		}, 4000);
+
+	}
+
+	saveQCNotes() {
+		this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
+		this.overallqc.noteId = 0;
+		if (this.overallqc.content == undefined) {
+
+			this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
+			this.overallqc.noteId = 0;
+			this._overallqcService.createOverallQC(this.overallqc).subscribe((overallqc) => {
+				console.log(overallqc);
+			});
+
+		} else {
+			// @ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
+			this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
+			this.overallqc.noteId = 0;
+			this._overallqcService.updateOverallQC(this.overallqc).subscribe((overallqc) => {
+				console.log(overallqc);
+			});
+		}
+	}
 }

@@ -16,46 +16,85 @@ export class ToolbarComponent implements OnInit {
   selectedYear: number;
   selectedBatch: Batch;
   selectedBatchId = 0;
+  weeks = [];
+  selectedWeek: number;
 
   constructor(
     public auditService: AuditService
   ) { }
 
   ngOnInit() {
-    this.selectedYear=2018;
-    this.selectedBatch={ batchId: 1,
-      trainingName: null,
-      trainingType: null,
-      skillType: null,
-      trainer: "Genesis Bonds",
-      coTrainer: null,
-      location: "Reston",
-      locationId: 1,
-      startDate: new Date(),
-      endDate: new Date(),
-      goodGrade: 3,
-      passingGrade: 1,
-      traineeCount: 10 };
+    
+    this.selectedWeek=1;
     this.getAllYears();
-    this.getBatches();
+
   }
 
   getAllYears() {
-    this.years=this.auditService.getAllYears();
+    this.auditService.getAllYears()
+    .subscribe(result => {
+      this.years = result;
+      this.selectedYear = this.years[0];
+      console.log(this.years);
+      this.getBatches();
+    });
+    
   }
 
   getBatches() {
-    this.batches = this.auditService.getBatchesByYear(2018);
+    this.auditService.getBatchesByYear(this.selectedYear)
+    .subscribe(result => {
+      this.batches = result;
+      this.selectedBatch = this.batches[0];
+      this.auditService.selectedBatch = this.batches[0];
+      console.log(this.batches);
+      this.getWeeks();
+      });
+      
   }
 
   selectYear(event: number) {
     this.selectedYear = event;
-    this.batches = this.auditService.getBatchesByYear(event);
+    this.auditService.selectedYear = this.selectedYear;
+    this.auditService.getBatchesByYear(event)
+    .subscribe(result => {
+      this.batches = result;
+      });
   }
 
   selectBatch(event: Batch) {
     this.selectedBatch = event;
-    
+    this.auditService.selectedBatch = this.selectedBatch;
+    this.getWeeks();
+  }
+
+  showActiveWeek(week: number) {
+    if (week==this.selectedWeek) {
+      return "active";
+    }
+  }
+
+  selectWeek(event: number) {
+    this.selectedWeek = event;
+    this.auditService.selectedWeek = event;
+  }
+
+  addWeek() {
+    var last = this.weeks[this.weeks.length-1];
+    this.weeks.push(last+1);
+    this.selectedWeek=last+1;
+    this.selectedBatch.weeks++;
+    console.log(this.selectedBatch.batchId);
+    this.auditService.putBatch(this.selectedBatch).subscribe(result => {
+      console.log('updated');
+    });
+  }
+
+  getWeeks() {
+    this.weeks = [];
+    for(var i = 0; i<this.selectedBatch.weeks; i++){
+      this.weeks.push(i+1);
+    }
   }
 
 }

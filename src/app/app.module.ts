@@ -10,7 +10,10 @@ import { AppComponent } from './app.component';
 import { ErrorComponent } from './error-handling/error/error.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
-
+import { AuditService } from './Audit/Services/audit.service';
+import { OverallService } from './Audit/Services/overall.service';
+import {HttpModule} from '@angular/http';
+import * as $ from 'jquery';
 
 
 @NgModule({
@@ -26,8 +29,11 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    HttpModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [AuditService, OverallService],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

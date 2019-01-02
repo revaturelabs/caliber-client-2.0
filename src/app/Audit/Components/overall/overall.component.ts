@@ -48,9 +48,6 @@ export class OverallComponent implements OnInit {
 			default:
 				break;
 		}
-		// this._overallqcService.createOverallQC(this.overallqc).subscribe((overallqc) => {
-		// 	console.log(overallqc);
-		// });
 	}
 
 	pickOverallStatus(batch, pick) {

@@ -15,16 +15,11 @@
             </tr>
             <tr>
                 <!-- Spans over flag column --->
-                <th colspan="2">
-                    Trainee
-                </th>
+                <th>Trainee</th>
                 <!-- Spans over extra space column --->
-                <th colspan="2">
-                    Individual Feedback
-                </th>
-                <th>
-                    Notes
-                </th>
+                <th>Individual Feedback</th>
+                <th></th>
+                <th>Notes</th>
             </tr>
         </thead>
         <tbody *ngIf='this.auditService.selectedBatch && checkForChanges()'>
@@ -32,7 +27,7 @@
             <!-- Every column is given a percentage of the table for simplicity -->
             <tr *ngFor="let note of CurrentNotes"> 
             <!-- <tr *ngFor="let note of notes"> --> 
-                <td (click)="cycleFlagNotesInput(note.noteId, true); cycleFlag(note.noteId);" style="width: 11%;">
+                <td td role="button" (click)="cycleFlagNotesInput(note.noteId, true); cycleFlag(note.noteId);" style="width: 11%;">
                     {{ note.trainee.name }}
                 </td>
                 <td style="width: 3%; position:absolute;">
@@ -43,13 +38,13 @@
                     <!-- Shows the flag notes popup if the user clicks the name column -->
                     <div *ngIf="note.noteFlagInputActive===true" class = "flag-notes-popup">
                         <input class = "form-control" type="text" [(ngModel)] = "note.trainee.flagNotes" />
-                        <button (click)="updateFlagComment(note.noteId)">Save</button>
-                        <button (click)="cycleFlagNotesInput(note.noteId, false)" type="button" class="flage-notes-close-btn close" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                        <button (click)="updateFlagComment(note.noteId)" type="submit">Save</button>
+                        <button (click)="cycleFlagNotesInput(note.noteId, false)" type="button" class="glyphicon glyphicon-remove-sign">
+                            <!-- <span aria-hidden="true">&times;</span> -->
                         </button>
                     </div>
                 </td>
-                <td (click)="cycleIF(note.noteId)" style="width: 7%;text-align: center;">
+                <td role="button" (click)="cycleIF(note.noteId)" style="width: 7%;text-align: center;">
                     <!-- Only shows the icon that cooralates with the correct Qc Status -->
                     <i *ngIf="note.qcStatus=='Undefined'" class="qcStatusIcon fa fa-question-circle fa-2x pick"></i>
                     <i *ngIf="note.qcStatus=='Superstar'" class="qcStatusIcon fa fa-star fa-2x pick"></i>
@@ -63,8 +58,10 @@
                     <textarea 
                             (blur)="noteOnBlur(note.noteId)" 
                             class="form-control" [(ngModel)] = "note.content"
-                            rows="3" cols="75" maxlength="4000"></textarea>
+                            rows="3" cols="75" maxlength="4000">
+                    </textarea>
                 </td>
+                
             </tr>
         </tbody>
     </table>

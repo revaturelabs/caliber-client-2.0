@@ -16,17 +16,18 @@
             <tr>
                 <!-- Spans over flag column --->
                 <th>Trainee</th>
-                <th></th>
+                <!-- Spans over extra space column --->
                 <th>Individual Feedback</th>
                 <th></th>
                 <th>Notes</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf='this.auditService.selectedBatch && checkForChanges()'>
             <!-- Every note contains an associate in the current batch -->
             <!-- Every column is given a percentage of the table for simplicity -->
-            <tr *ngFor="let note of notes">
-                <td role="button" (click)="cycleFlagNotesInput(note.noteId, true); cycleFlag(note.noteId);" style="width: 11%;">
+            <tr *ngFor="let note of CurrentNotes"> 
+            <!-- <tr *ngFor="let note of notes"> --> 
+                <td td role="button" (click)="cycleFlagNotesInput(note.noteId, true); cycleFlag(note.noteId);" style="width: 11%;">
                     {{ note.trainee.name }}
                 </td>
                 <td style="width: 3%; position:absolute;">
@@ -36,10 +37,9 @@
                     <i *ngIf="note.trainee.flagStatus==='NONE'" class="glyphicon glyphicon-flag" style="visibility: hidden;"></i>
                     <!-- Shows the flag notes popup if the user clicks the name column -->
                     <div *ngIf="note.noteFlagInputActive===true" class = "flag-notes-popup">
-                        <input class = "form-control" type="text" placeholder=" comment"/>
-                        <!-- <button class ="btn btn-info flage-notes-save-btn">Save</button> -->
-                        <button type="submit">Save</button>
-                        <button (click)="cycleFlagNotesInput(note.noteId, false)" class="glyphicon glyphicon-remove-sign">
+                        <input class = "form-control" type="text" [(ngModel)] = "note.trainee.flagNotes" />
+                        <button (click)="updateFlagComment(note.noteId)" type="submit">Save</button>
+                        <button (click)="cycleFlagNotesInput(note.noteId, false)" type="button" class="glyphicon glyphicon-remove-sign">
                             <!-- <span aria-hidden="true">&times;</span> -->
                         </button>
                     </div>
@@ -56,11 +56,12 @@
                 <td style="width: 3%;"></td>
                 <td style="width: 76%;">
                     <textarea 
-                            (blur)="noteOnBlur(note.noteId, false)" 
-                            id="note-textarea-{{note.noteId}}" class="form-control"
-                            placeholder="Note on {{ note.trainee.name }}" 
-                            rows="3" cols="75" maxlength="4000">{{ note.content }}</textarea>
+                            (blur)="noteOnBlur(note.noteId)" 
+                            class="form-control" [(ngModel)] = "note.content"
+                            rows="3" cols="75" maxlength="4000">
+                    </textarea>
                 </td>
+                
             </tr>
         </tbody>
     </table>

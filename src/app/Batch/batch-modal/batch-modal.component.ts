@@ -55,7 +55,6 @@ export class BatchModalComponent implements OnInit, OnChanges {
   dateIsError: Boolean = false;
   trainerIsError: Boolean = false;
   myDate: Date;
-  weeks: number;
 
   constructor(
     private batchservice: BatchService,
@@ -84,7 +83,6 @@ export class BatchModalComponent implements OnInit, OnChanges {
     // handle grades
     this.goodGradeThreshold = this.createOrUpdate.goodGrade;
     this.borderlineGradeThreshold = this.createOrUpdate.passingGrade;
-    this.weeks = this.createOrUpdate.weeks;
   }
 
   ngOnInit() {
@@ -153,7 +151,7 @@ export class BatchModalComponent implements OnInit, OnChanges {
   createBatch(): void {
     console.log(new Batch(this.trainingName, this.trainingType,
       this.skillType, this.trainer, this.coTrainer, this.locationId, this.startDate,
-      this.endDate, this.goodGradeThreshold, this.borderlineGradeThreshold, this.weeks));
+      this.endDate, this.goodGradeThreshold, this.borderlineGradeThreshold));
 
     // account for time zone differences
     const d = new Date(this.startDate);
@@ -164,7 +162,7 @@ export class BatchModalComponent implements OnInit, OnChanges {
     // sends post request with batch to back-end
     this.batchservice.postBatch(new Batch(this.trainingName, this.trainingType,
       this.skillType, this.trainer, this.coTrainer, this.locationId, this.startDate,
-      this.endDate, this.goodGradeThreshold, this.borderlineGradeThreshold, this.weeks)).subscribe(result => {
+      this.endDate, this.goodGradeThreshold, this.borderlineGradeThreshold)).subscribe(result => {
         console.log('created');
         this.someEvent.next('created');
         this.resetForm();
@@ -184,7 +182,7 @@ export class BatchModalComponent implements OnInit, OnChanges {
     // make updated batch
     const batch = new Batch(this.trainingName, this.trainingType,
       this.skillType, this.trainer, this.coTrainer, this.locationId, this.startDate,
-      this.endDate, this.goodGradeThreshold, this.borderlineGradeThreshold, this.weeks);
+      this.endDate, this.goodGradeThreshold, this.borderlineGradeThreshold);
     batch.batchId = this.createOrUpdate.batchId;
 
     // update batch in backend

@@ -97,11 +97,4 @@ export class ToolbarComponent implements OnInit {
     }
   }
 
-  getWeeks() {
-    this.weeks = [];
-    for(var i = 0; i<this.selectedBatch.weeks; i++){
-      this.weeks.push(i+1);
-    }
-  }
-
 }

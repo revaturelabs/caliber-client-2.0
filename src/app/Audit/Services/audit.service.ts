@@ -12,7 +12,8 @@ export class AuditService {
   batchesYearURL = '/vp/batch/';
 
   batches: Batch[] = [
-    { batchId: 1,
+    {
+      batchId: 1,
       trainingName: null,
       trainingType: null,
       skillType: null,
@@ -24,8 +25,10 @@ export class AuditService {
       endDate: new Date('1/7/19'),
       goodGrade: 3,
       passingGrade: 1,
-      traineeCount: 10 },
-    { batchId: 2,
+      traineeCount: 10
+    },
+    {
+      batchId: 2,
       trainingName: null,
       trainingType: null,
       skillType: null,
@@ -37,10 +40,11 @@ export class AuditService {
       endDate: new Date('3/19/19'),
       goodGrade: 3,
       passingGrade: 1,
-      traineeCount: 10 }
+      traineeCount: 10
+    }
   ];
 
-  years: number[] = [2020,2019,2018,2017];
+  years: number[] = [2020, 2019, 2018, 2017];
 
   constructor() { }
 

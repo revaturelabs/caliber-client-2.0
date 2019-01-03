@@ -28,10 +28,13 @@ export class AuditService {
 
   constructor(private http: HttpClient) { }
 
+  //getBatchesByYear returns from the database, all the batches 
+  //given by the particular year as an observable
   getBatchesByYear(year: number): Observable<Batch[]> {
     return this.http.get<Batch[]>(this.url + this.batchesYearURL + year);
   }
 
+  //getAllYears returns all the available years with batches from the database as an observable
   getAllYears(): Observable<number[]> {
     return this.http.get<number[]>(this.url + this.yearsURL);
   }

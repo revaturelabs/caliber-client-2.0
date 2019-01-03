@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuditService } from 'src/app/Audit/Services/audit.service';
+import { BatchService } from 'src/app/Batch/batch.service';
 import { Batch } from 'src/app/Batch/type/batch';
 
 @Component({
@@ -21,7 +21,7 @@ export class ToolbarComponent implements OnInit {
 
   constructor(
     //injecting audit service
-    public auditService: AuditService
+    public batchService: BatchService
   ) { }
 
   ngOnInit() {
@@ -34,7 +34,7 @@ export class ToolbarComponent implements OnInit {
   //selects the latest year as the default year
   //calls the getBatches() function
   getAllYears() {
-    this.auditService.getAllYears()
+    this.batchService.getAllYears()
     .subscribe(result => {
       this.years = result;
       this.selectedYear = this.years[0];
@@ -46,11 +46,11 @@ export class ToolbarComponent implements OnInit {
   //getBatches returns all the batches depending on the selected year
   //selects the default batch, and then calls the getWeeks() function
   getBatches() {
-    this.auditService.getBatchesByYear(this.selectedYear)
+    this.batchService.getBatchesByYear(this.selectedYear)
     .subscribe(result => {
       this.batches = result;
       this.selectedBatch = this.batches[0];
-      this.auditService.selectedBatch = this.batches[0];
+      this.batchService.selectedBatch = this.batches[0];
       this.getWeeks();
     });
       
@@ -68,12 +68,12 @@ export class ToolbarComponent implements OnInit {
   }
 
   //selectYear runs once the user selects a particular year from the dropdown menu
-  //calls the getBatchesByYear function in the auditService()
+  //calls the getBatchesByYear function in the batchService
   //resets the local batches to reflect the new selected year.
   selectYear(event: number) {
     this.selectedYear = event;
-    this.auditService.selectedYear = this.selectedYear;
-    this.auditService.getBatchesByYear(event)
+    this.batchService.selectedYear = this.selectedYear;
+    this.batchService.getBatchesByYear(event)
     .subscribe(result => {
       this.batches = result;
     });
@@ -83,7 +83,7 @@ export class ToolbarComponent implements OnInit {
   //calls the getWeeks() function so it returns the new batches correct amount of weeks
   selectBatch(event: Batch) {
     this.selectedBatch = event;
-    this.auditService.selectedBatch = this.selectedBatch;
+    this.batchService.selectedBatch = this.selectedBatch;
     this.getWeeks();
   }
 
@@ -96,21 +96,21 @@ export class ToolbarComponent implements OnInit {
   }
 
   //selectWeek runs when a user selects a different week for a given batch
-  //it also changes the auditService's selectedWeek so the associate component can update
+  //it also changes the batchService's selectedWeek so the associate component can update
   //based on user input
   selectWeek(event: number) {
     this.selectedWeek = event;
-    this.auditService.selectedWeek = event;
+    this.batchService.selectedWeek = event;
   }
 
   //addWeek increments the amount of weeks in the current batch, selects the newly created week
-  //and calls the auditService's putBatch function to update batch in the database
+  //and calls the batchService's putBatch function to update batch in the database
   addWeek() {
     var last = this.weeks[this.weeks.length-1];
     this.weeks.push(last+1);
     this.selectedWeek=last+1;
     this.selectedBatch.weeks++;
-    this.auditService.putBatch(this.selectedBatch).subscribe(result => {
+    this.batchService.putBatch(this.selectedBatch).subscribe(result => {
       
     });
   }

@@ -42,19 +42,19 @@ export class OverallComponent implements OnInit {
 	getCalculatedAverage() {
 		this._overallqcService.getOverallSmileyStatus().subscribe(overallQc => this.overallQc.qcStatus = overallQc.qcStatus);
 		console.log(this.overallQc);
-		if(this.overallQc.qcStatus = 'Good') {
+		if (this.overallQc.qcStatus = 'Good') {
 			this.faceColorOnInit(1);
 		}
-		if(this.overallQc.qcStatus = 'Average') {
+		if (this.overallQc.qcStatus = 'Average') {
 			this.faceColorOnInit(2);
 		}
-		if(this.overallQc.qcStatus = 'Poor') {
+		if (this.overallQc.qcStatus = 'Poor') {
 			this.faceColorOnInit(3);
 		}
-		if(this.overallQc.qcStatus = 'Undefined') {
+		if (this.overallQc.qcStatus = 'Undefined') {
 			this.faceColorOnInit(3);
 		}
-		
+
 	}
 
 	changeFaceColor(num) {

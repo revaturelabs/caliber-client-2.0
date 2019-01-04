@@ -7,7 +7,7 @@ export class Overallqc {
    week: number;
    batchId: number;
    type: string;
-   qcStatus: string;
+   QCStatus: string;
 
     constructor() {}
 }

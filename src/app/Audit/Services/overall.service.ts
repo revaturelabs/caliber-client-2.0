@@ -4,6 +4,7 @@ import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import { map, filter, switchMap } from 'rxjs/operators';
 import { Overallqc } from '../../overallqc';
 import { HttpClient } from '@angular/common/http';
+import { Note } from '../types/Note';
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +32,8 @@ export class OverallService {
    }
 
 
-   getOverallSmileyStatus(): Observable<Overallqc> {
-    return this.http.get<Overallqc>(this.baseUrl1 +'/audit/notes/overall/1/4');
+   getOverallSmileyStatus(): Observable<Note> {
+    return this.http.get<Note>(this.baseUrl1 +'/audit/notes/overall/1/4');
   }
 
    createOverallQC(overallqc:Overallqc){

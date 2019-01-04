@@ -9,50 +9,18 @@ import { OverallService } from '../../Services/overall.service';
 	styleUrls: ['./overall.component.css']
 })
 export class OverallComponent implements OnInit {
-	private overallqc: Overallqc;
-
+	public overallqc: Overallqc;
 	@ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
-
-	showFloppy: boolean = true;
-	showSaving: boolean = false;
-	showCheck: boolean = false;
-
 	constructor(private _overallqcService: OverallService) { }
 
 	ngOnInit() {
 		this.overallqc = this._overallqcService.getter();
 	}
 
-	saveQCandTrainee() {
-
-		console.log('clicked');
-
-		this.showFloppy = !this.showFloppy;
-
-		setTimeout(() => {
-			console.log('showSaving');
-			this.showSaving = true;
-		}, 480);
-
-		setTimeout(() => {
-			console.log('showChecking');
-			this.showSaving = false;
-			this.showCheck = true;
-		}, 2000);
-
-		setTimeout(() => {
-			console.log('showChecking');
-			this.showSaving = false;
-			this.showCheck = false;
-			this.showFloppy = true;
-		}, 4000);
-
-	}
-
 	saveQCNotes() {
 		this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
 		this.overallqc.noteId = 0;
-		if (this.overallqc.content == undefined) {
+		if (this.overallqc.content === undefined) {
 
 			this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
 			this.overallqc.noteId = 0;

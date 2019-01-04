@@ -12,5 +12,5 @@ import { ErrorService } from './error-handling/services/error.service';
 export class AppComponent {
   title = 'Caliber | Performance Management';
 
-  constructor(private errorService: ErrorService) {}
+  constructor(public errorService: ErrorService) {}
 }

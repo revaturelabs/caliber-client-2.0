@@ -3,7 +3,7 @@ version: 0.2
 env:
     variables:
         S3_BUCKET: "caliber.revature.com"
-        
+        BUILD_ENV : "prod"
 
 phases:
     install:
@@ -29,7 +29,7 @@ phases:
         commands:
         # Builds Angular application. You can also build using custom environment here like mock or staging
         - echo Build started on `date`
-        - ng build
+        - ng build --aot
 
     post_build:
         commands:
@@ -37,7 +37,7 @@ phases:
         - aws s3 rm s3://${S3_BUCKET} --recursive
         - echo S3 bucket is cleared.
         # Copy dist folder to S3 bucket, As of Angular 6, builds are stored inside an app folder in distribution and not at the root of the dist folder
-        - aws s3 cp dist/caliber-ui/ s3://${S3_BUCKET}/ --recursive
+        - aws s3 cp dist/ng-ui s3://${S3_BUCKET}/ --recursive
         - echo Build completed on `date`
 
 artifacts:

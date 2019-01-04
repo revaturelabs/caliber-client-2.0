@@ -24,41 +24,40 @@ export class ToolbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
-    this.selectedWeek=1;
+    this.selectedWeek = 1;
     this.getAllYears();
 
   }
 
   getAllYears() {
     this.auditService.getAllYears()
-    .subscribe(result => {
-      this.years = result;
-      this.selectedYear = this.years[0];
-      console.log(this.years);
-      this.getBatches();
-    });
-    
+      .subscribe(result => {
+        this.years = result;
+        this.selectedYear = this.years[0];
+        console.log(this.years);
+        this.getBatches();
+      });
+
   }
 
   getBatches() {
     this.auditService.getBatchesByYear(this.selectedYear)
-    .subscribe(result => {
-      this.batches = result;
-      this.selectedBatch = this.batches[0];
-      this.auditService.selectedBatch = this.batches[0];
-      console.log(this.batches);
-      this.getWeeks();
+      .subscribe(result => {
+        this.batches = result;
+        this.selectedBatch = this.batches[0];
+        this.auditService.selectedBatch = this.batches[0];
+        console.log(this.batches);
+        this.getWeeks();
       });
-      
+
   }
 
   selectYear(event: number) {
     this.selectedYear = event;
     this.auditService.selectedYear = this.selectedYear;
     this.auditService.getBatchesByYear(event)
-    .subscribe(result => {
-      this.batches = result;
+      .subscribe(result => {
+        this.batches = result;
       });
   }
 
@@ -69,7 +68,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   showActiveWeek(week: number) {
-    if (week==this.selectedWeek) {
+    if (week == this.selectedWeek) {
       return "active";
     }
   }
@@ -77,12 +76,13 @@ export class ToolbarComponent implements OnInit {
   selectWeek(event: number) {
     this.selectedWeek = event;
     this.auditService.selectedWeek = event;
+    console.log(this.selectedWeek);
   }
 
   addWeek() {
-    var last = this.weeks[this.weeks.length-1];
-    this.weeks.push(last+1);
-    this.selectedWeek=last+1;
+    var last = this.weeks[this.weeks.length - 1];
+    this.weeks.push(last + 1);
+    this.selectedWeek = last + 1;
     this.selectedBatch.weeks++;
     console.log(this.selectedBatch.batchId);
     this.auditService.putBatch(this.selectedBatch).subscribe(result => {
@@ -92,8 +92,8 @@ export class ToolbarComponent implements OnInit {
 
   getWeeks() {
     this.weeks = [];
-    for(var i = 0; i<this.selectedBatch.weeks; i++){
-      this.weeks.push(i+1);
+    for (var i = 0; i < this.selectedBatch.weeks; i++) {
+      this.weeks.push(i + 1);
     }
   }
 

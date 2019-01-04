@@ -65,6 +65,7 @@ export class ToolbarComponent implements OnInit {
       this.weeks.push(i+1);
     }
     this.selectedWeek = this.selectedBatch.weeks;
+    this.batchService.selectedWeek = this.selectedWeek;
   }
 
   //selectYear runs once the user selects a particular year from the dropdown menu

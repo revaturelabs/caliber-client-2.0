@@ -13,8 +13,8 @@ import { BatchService } from 'src/app/Batch/batch.service';
 export class AssociateComponent implements OnInit {
 
   CurrentNotes;
-  CurrentWeek = 1;
-  CurrentBatch = 0;
+  CurrentWeek;
+  CurrentBatch;
 
   // List of test categories
   categories = [
@@ -29,7 +29,6 @@ export class AssociateComponent implements OnInit {
   // Unimplemented functions
   constructor(public auditService: AuditService, public batchService: BatchService) {}
   ngOnInit() {
-    this.CurrentWeek = 1;
   }
 
   checkForChanges(): boolean {

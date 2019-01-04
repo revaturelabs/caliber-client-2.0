@@ -48,7 +48,7 @@ export class ToolbarComponent implements OnInit {
       this.selectedBatch = this.batches[0];
       this.auditService.selectedBatch = this.batches[0];
       console.log(this.batches);
-      this.getWeeks();
+      // this.getWeeks();
       });
       
   }
@@ -65,7 +65,7 @@ export class ToolbarComponent implements OnInit {
   selectBatch(event: Batch) {
     this.selectedBatch = event;
     this.auditService.selectedBatch = this.selectedBatch;
-    this.getWeeks();
+    // this.getWeeks();
   }
 
   showActiveWeek(week: number) {
@@ -85,11 +85,11 @@ export class ToolbarComponent implements OnInit {
     this.selectedWeek=last+1;
   }
 
-  getWeeks() {
-    this.weeks = [];
-    for(var i = 0; i<this.selectedBatch.weeks; i++){
-      this.weeks.push(i+1);
-    }
-  }
+  // getWeeks() {
+  //   this.weeks = [];
+  //   for(var i = 0; i<this.selectedBatch.weeks; i++){
+  //     this.weeks.push(i+1);
+  //   }
+  // }
 
 }

@@ -2,9 +2,12 @@ import { Injectable } from '@angular/core';
 import { Batch } from 'src/app/Batch/type/batch';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+<<<<<<< HEAD
 import { Note } from '../types/Note';
 import { Trainee } from '../types/Trainee';
 
+=======
+>>>>>>> overall
 
 /**
  * sets headers for recieving JSON objects
@@ -51,6 +54,7 @@ export class AuditService {
     return this.http.put<Batch>(this.url + this.batchUpdateURL, batch, httpOptions);
   }
 
+<<<<<<< HEAD
   getCurrentNotes(week: Number, batchid: Number): Observable<Note> {
     return this.http.get<Note>(this.noteUrl + 'notes/' + batchid + '/' + week);
   }
@@ -64,5 +68,7 @@ export class AuditService {
   }
 
 
+=======
+>>>>>>> overall
   
 }

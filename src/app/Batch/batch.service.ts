@@ -17,7 +17,7 @@ const httpOptions = {
 /**
 * The url for getting current batches from the batch microservice
 */
-const currentBatchUrl = 'http://localhost:9090/vp/batch/all/current';
+const currentBatchUrl = 'http://localhost:9095/vp/batch/all/current';
 
 
 /**

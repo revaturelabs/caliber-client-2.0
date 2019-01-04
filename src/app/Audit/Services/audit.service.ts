@@ -30,7 +30,8 @@ export class AuditService {
   selectedBatch: Batch;
   selectedWeek = 1;
 
-  ProcessingNote = false;
+  processingNote = false;
+  noteUpdate = false;
 
   constructor(private http: HttpClient) { }
 

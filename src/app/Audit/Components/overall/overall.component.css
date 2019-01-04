@@ -1,27 +1,10 @@
-/************************
-	Revature Fonts
-************************/
+
 /*
-@font-face {
-	font-family: 'Futura-Std-Medium';
-	src: url('fonts/Futura-Std-Medium.otf') format('opentype');
-}
-
-@font-face {
-	font-family: 'Futura-Std-Book';
-	src: url('fonts/Futura-Std-Book.otf') format('opentype');
-}
-
-@font-face {
-	font-family: 'Futura-Std-Heavy';
-	src: url('fonts/Futura-Std-Heavy.otf') format('opentype');
-}
-
 @font-face {
 	font-family: 'Futura-Std-Bold';
 	src: url('fonts/Futura-Std-Bold.otf') format('opentype');
-}
-*/
+}*/
+
 body {
 	font-family: 'Futura-Std-Book';
 }
@@ -34,20 +17,7 @@ li {
 	font-family: 'Futura-Std-Heavy';
 }
 
-/************************
-	Revature Colors
-************************/
-/*:root {
-	
-	orange: #F26925; 
-	white: #FFFFF; 
-	dark-grey: #474C55;
 
-	blue: #72A4C2; 
-	yellow: #FCB414; 
-	light-grey: #B9B9BA;
-}*/
-	/*** Secondary Colors ***/ /*** Primary Colors ***/ 
 .warning {
 	color: red;
 }

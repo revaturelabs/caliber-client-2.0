@@ -9,32 +9,46 @@ import { OverallService } from '../../Services/overall.service';
   styleUrls: ['./overall.component.css']
 })
 export class OverallComponent implements OnInit {
-   private overallqc : new Overallqc;
+   private overallqc : Overallqc;
  @ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
 constructor(private _overallqcService: OverallService) { }
 
   ngOnInit() {
     this.overallqc=this._overallqcService.getter();
+
+    if (this._overallqcService.getter() != null || this._overallqcService.getter() != undefined){
+      this.overallqc.note = this.qcBatchNotes.nativeElement.innerHTML;
+    }
+
   }
 
   saveQCNotes(){
+  
+    this.overallqc.batchid = 0;
+    this.overallqc.week = 0;
     this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
-    this.overallqc.noteId = 0;
-    if(this.overallqc.content==undefined){
-     
+    this.overallqc.noteid = 7;
+    if(this.overallqc.content==""){
+      this.overallqc = this._overallqcService.getOverallQC(2150, 5);
      this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
-     this.overallqc.noteId = 0;
+    // this.overallqc.noteid = 2000;
+    // this.overallqc.batchid = 3000;
+    // this.overallqc.week = 6;
       this._overallqcService.createOverallQC(this.overallqc).subscribe((overallqc)=>{
         console.log(overallqc); 
       });
 
-    }else{
-     // @ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
-      this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
-      this.overallqc.noteId = 0;
+    }else if(this.overallqc.content != "") {
+     
+    // this.overallqc = this._overallqcService.getter(); //
+     this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
+      this.overallqc.noteid = 4000;
+      this.overallqc.batchid = 5000;
+      this.overallqc.week = 6;
       this._overallqcService.updateOverallQC(this.overallqc).subscribe((overallqc)=>{
         console.log(overallqc); 
+
       });
+    }
   }
   }
-}

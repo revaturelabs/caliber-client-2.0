@@ -23,7 +23,11 @@
 }
 */
 
-
+hr {
+	border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: #474C55;
+}
 
 body {
 	font-family: 'Futura-Std-Book';

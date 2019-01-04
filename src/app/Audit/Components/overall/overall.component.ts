@@ -1,67 +1,110 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Overallqc } from '../../../overallqc';
+import { AuditService } from '../../Services/audit.service';
+import { OverallService } from '../../Services/overall.service';
 import { Batch } from 'src/app/Batch/type/batch';
 
 @Component({
-  selector: 'app-overall',
-  templateUrl: './overall.component.html',
-  styleUrls: ['./overall.component.css']
+	selector: 'app-overall',
+	templateUrl: './overall.component.html',
+	styleUrls: ['./overall.component.css']
 })
 export class OverallComponent implements OnInit {
-qcStatusTypes = [];
-batch: Batch;
-qcBatchAssess: number;
-  constructor() { }
+	private overallqc: Overallqc;
+	qcStatusTypes = [];
+	batch: Batch;
+	qcBatchAssess: number;
+	colors: any = ['#19ad17', '#f9e903', '#ea2724'];
+	happy: '#b9b9ba';
+	meh: '#b9b9ba';
+	sad: '#b9b9ba';
 
-  ngOnInit() {
-  }
+	@ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
 
-  pickOverallStatus(batch, pick) {
-this.batch = batch;
-this.qcBatchAssess = pick;
+	showFloppy: boolean = true;
+	showSaving: boolean = false;
+	showCheck: boolean = false;
 
-  }
-  /*
-	qc.getAssessmentsByBatchId = function(batchId) {
-		$log.debug("In assessment");
-		return $http({
-			url : "/qc/assessment/byBatchId/" + batchId + "/",
-			method : "GET"
-		}).then(function(response) {
-			$log.debug("Assessments retrieved successfully");
-			$log.debug(response);
-			return response.data;
-		}, function(response) {
-			$log.error("There was an error: " + response.status);
-		});
-	};
+	constructor(private _overallqcService: OverallService) { }
 
-	// get all assessments
-	qc.getAllAssessments = function(weekId) {
-		return $http({
-			url : "/qc/assessment/byWeek/" + weekId + "/",
-			method : "GET"
-		}).then(function(response) {
-			$log.debug("Assessments retrieved successfully");
-			$log.debug(response);
-			return response.data;
-		}, function(response) {
-			$log.error("There was an error: " + response.status);
-		});
-	};
-	
-	// get all assessment categories for the week
-	qc.getAllAssessmentCategories = function(batchId, weekId) {
-		return $http({
-			url : "/all/assessments/categories/batch/" + batchId + "/week/" + weekId + "/",
-			method : "GET"
-		}).then(function(response) {
-			$log.debug("Assessments categories retrieved successfully");
-			$log.debug("response");
-			return response.data;
-		}, function(response) {
-			$log.error("There was an error: " + response.status);
-		});
-  }; */
+	ngOnInit() {
+		this.overallqc = this._overallqcService.getter();
+	}
 
+	getCalculatedAverage() {
+		
+	}
 
+	changeFaceColor(num) {
+		this.happy = '#b9b9ba';
+		this.meh = '#b9b9ba';
+		this.sad = '#b9b9ba';
+		switch (num) {
+			case 1:
+				this.happy = this.colors[0];
+				break;
+			case 2:
+				this.meh = this.colors[1];
+				break;
+			case 3:
+				this.sad = this.colors[2];
+				break;
+			default:
+				break;
+		}
+	}
+
+	pickOverallStatus(batch, pick) {
+		console.log(batch, pick);
+		this.batch = batch;
+		this.qcBatchAssess = pick;
+	}
+
+	saveQCandTrainee() {
+
+		console.log('clicked');
+
+		this.showFloppy = !this.showFloppy;
+
+		setTimeout(() => {
+			console.log('showSaving');
+			this.showSaving = true;
+		}, 480);
+
+		setTimeout(() => {
+			console.log('showChecking');
+			this.showSaving = false;
+			this.showCheck = true;
+		}, 2000);
+
+		setTimeout(() => {
+			console.log('showChecking');
+			this.showSaving = false;
+			this.showCheck = false;
+			this.showFloppy = true;
+		}, 4000);
+
+	}
+
+	saveQCNotes() {
+		this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
+		this.overallqc.noteId = 0;
+		if (this.overallqc.content == undefined) {
+
+			this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
+			this.overallqc.noteId = 0;
+			this._overallqcService.createOverallQC(this.overallqc).subscribe((overallqc) => {
+				console.log(overallqc);
+			});
+
+		} else {
+			// @ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
+			this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
+			this.overallqc.noteId = 0;
+			this._overallqcService.updateOverallQC(this.overallqc).subscribe((overallqc) => {
+				console.log(overallqc);
+			});
+		}
+	}
 }
+

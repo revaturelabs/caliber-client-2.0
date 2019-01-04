@@ -50,7 +50,7 @@ export class ToolbarComponent implements OnInit {
     .subscribe(result => {
       this.batches = result;
       this.selectedBatch = this.batches[0];
-      this.batchService.selectedBatch = this.batches[0];
+      //this.batchService.selectedBatch = this.batches[0];
       this.getWeeks();
     });
       
@@ -72,7 +72,7 @@ export class ToolbarComponent implements OnInit {
   //resets the local batches to reflect the new selected year.
   selectYear(event: number) {
     this.selectedYear = event;
-    this.batchService.selectedYear = this.selectedYear;
+    //this.batchService.selectedYear = this.selectedYear;
     this.batchService.getBatchesByYear(event)
     .subscribe(result => {
       this.batches = result;
@@ -83,7 +83,7 @@ export class ToolbarComponent implements OnInit {
   //calls the getWeeks() function so it returns the new batches correct amount of weeks
   selectBatch(event: Batch) {
     this.selectedBatch = event;
-    this.batchService.selectedBatch = this.selectedBatch;
+    //this.batchService.selectedBatch = this.selectedBatch;
     this.getWeeks();
   }
 
@@ -100,7 +100,7 @@ export class ToolbarComponent implements OnInit {
   //based on user input
   selectWeek(event: number) {
     this.selectedWeek = event;
-    this.batchService.selectedWeek = event;
+    //this.batchService.selectedWeek = event;
   }
 
   //addWeek increments the amount of weeks in the current batch, selects the newly created week

@@ -153,5 +153,6 @@ export class AssociateComponent implements OnInit {
     this.auditService.ProcessingNote = true;
     this.auditService.updateNote(note).subscribe(n => {console.log('saving...');
     this.auditService.ProcessingNote = false; } );
+
   }
 }

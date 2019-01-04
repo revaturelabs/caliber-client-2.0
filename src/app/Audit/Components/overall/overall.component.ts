@@ -13,7 +13,10 @@ import { Note } from '../../types/Note';
 })
 export class OverallComponent implements OnInit {
 	public overallqc: Overallqc;
+<<<<<<< HEAD
 	note;
+=======
+>>>>>>> overall
 	qcStatusTypes = [];
 	batch: Batch;
 	qcBatchAssess: number;
@@ -30,8 +33,8 @@ export class OverallComponent implements OnInit {
 	showCheck: boolean = false;
 	qcStatus: string;
 
-	constructor(private _overallqcService: OverallService,
-		private auditService: AuditService) { }
+	constructor(public _overallqcService: OverallService,
+		public auditService: AuditService) { }
 
 	ngOnInit() {
 		this.overallqc = this._overallqcService.getter();
@@ -44,6 +47,7 @@ export class OverallComponent implements OnInit {
 	}
 
 	getCalculatedAverage() {
+<<<<<<< HEAD
 		this._overallqcService.getOverallSmileyStatus().subscribe( (n) => {
 		this.note = n;
 		this.figure(n);
@@ -64,6 +68,23 @@ export class OverallComponent implements OnInit {
 		if(n.qcStatus == 'Undefined') {
 			this.faceColorOnInit(null);
 		}
+=======
+		this._overallqcService.getOverallSmileyStatus().subscribe(overallQc => this.overallQc.qcStatus = overallQc.qcStatus);
+		console.log(this.overallQc);
+		if (this.overallQc.qcStatus = 'Good') {
+			this.faceColorOnInit(1);
+		}
+		if (this.overallQc.qcStatus = 'Average') {
+			this.faceColorOnInit(2);
+		}
+		if (this.overallQc.qcStatus = 'Poor') {
+			this.faceColorOnInit(3);
+		}
+		if (this.overallQc.qcStatus = 'Undefined') {
+			this.faceColorOnInit(3);
+		}
+
+>>>>>>> overall
 	}
 
 	changeFaceColor(num) {

@@ -15,23 +15,19 @@
             </tr>
             <tr>
                 <!-- Spans over flag column --->
-                <th colspan="2">
-                    Trainee
-                </th>
+                <th>Trainee</th>
                 <!-- Spans over extra space column --->
-                <th colspan="2">
-                    Individual Feedback
-                </th>
-                <th>
-                    Notes
-                </th>
+                <th>Individual Feedback</th>
+                <th></th>
+                <th>Notes</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf='this.auditService.selectedBatch && checkForChanges()'>
             <!-- Every note contains an associate in the current batch -->
             <!-- Every column is given a percentage of the table for simplicity -->
-            <tr *ngFor="let note of notes">
-                <td (click)="cycleFlagNotesInput(note.noteId, true); cycleFlag(note.noteId);" style="width: 11%;">
+            <tr *ngFor="let note of CurrentNotes"> 
+            <!-- <tr *ngFor="let note of notes"> --> 
+                <td td role="button" (click)="cycleFlagNotesInput(note.noteId, true); cycleFlag(note.noteId);" style="width: 11%;">
                     {{ note.trainee.name }}
                 </td>
                 <td style="width: 3%; position:absolute;">
@@ -41,14 +37,14 @@
                     <i *ngIf="note.trainee.flagStatus==='NONE'" class="glyphicon glyphicon-flag" style="visibility: hidden;"></i>
                     <!-- Shows the flag notes popup if the user clicks the name column -->
                     <div *ngIf="note.noteFlagInputActive===true" class = "flag-notes-popup">
-                        <input class = "form-control" type="text" placeholder=" comment"/>
-                        <button class ="btn btn-info flage-notes-save-btn">Save</button>
-                        <button (click)="cycleFlagNotesInput(note.noteId, false)" type="button" class="flage-notes-close-btn close" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                        <input class = "form-control" type="text" [(ngModel)] = "note.trainee.flagNotes" />
+                        <button (click)="updateFlagComment(note.noteId)" type="submit">Save</button>
+                        <button (click)="cycleFlagNotesInput(note.noteId, false)" type="button" class="glyphicon glyphicon-remove-sign">
+                            <!-- <span aria-hidden="true">&times;</span> -->
                         </button>
                     </div>
                 </td>
-                <td (click)="cycleIF(note.noteId)" style="width: 7%;text-align: center;">
+                <td role="button" (click)="cycleIF(note.noteId)" style="width: 7%;text-align: center;">
                     <!-- Only shows the icon that cooralates with the correct Qc Status -->
                     <i *ngIf="note.qcStatus=='Undefined'" class="qcStatusIcon fa fa-question-circle fa-2x pick"></i>
                     <i *ngIf="note.qcStatus=='Superstar'" class="qcStatusIcon fa fa-star fa-2x pick"></i>
@@ -59,12 +55,14 @@
                 <!-- This is a small gap to add space in between columns -->
                 <td style="width: 3%;"></td>
                 <td style="width: 76%;">
-                    <textarea 
+                    <textarea
+                            [disabled]="this.auditService.ProcessingNote"
                             (blur)="noteOnBlur(note.noteId, false)" 
                             id="note-textarea-{{note.noteId}}" class="form-control"
                             placeholder="Note on {{ note.trainee.name }}" 
                             rows="3" cols="75" maxlength="4000">{{ note.content }}</textarea>
                 </td>
+                
             </tr>
         </tbody>
     </table>

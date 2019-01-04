@@ -30,11 +30,11 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadless'],
     customLaunchers: {
-      ChromeHeadlessCI: {
+      HeadlessChrome: {
          base: 'ChromeHeadless',
-         flags: ['--no-sandbox', '--disable-gpu']
+         flags: ['--no-sandbox', '--disable-gpu','--disable-translate']
       }
     },
     singleRun: false

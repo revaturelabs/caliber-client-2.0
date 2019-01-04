@@ -10,7 +10,7 @@ import { Batch } from 'src/app/Batch/type/batch';
 	styleUrls: ['./overall.component.css']
 })
 export class OverallComponent implements OnInit {
-	public overallqc: Overallqc;
+	private overallqc: Overallqc;
 	qcStatusTypes = [];
 	batch: Batch;
 	qcBatchAssess: number;

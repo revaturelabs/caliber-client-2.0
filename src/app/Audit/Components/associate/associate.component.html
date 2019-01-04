@@ -55,12 +55,12 @@
                 <!-- This is a small gap to add space in between columns -->
                 <td style="width: 3%;"></td>
                 <td style="width: 76%;">
-                    <textarea
-                            [disabled]="this.auditService.ProcessingNote"
-                            (blur)="noteOnBlur(note.noteId, false)" 
-                            id="note-textarea-{{note.noteId}}" class="form-control"
-                            placeholder="Note on {{ note.trainee.name }}" 
-                            rows="3" cols="75" maxlength="4000">{{ note.content }}</textarea>
+                    <textarea [disabled]="this.auditService.ProcessingNote"
+                            (blur)="noteOnBlur(note.noteId)" 
+                            class="form-control" [(ngModel)] = "note.content"
+                            placeholder="Note for {{note.trainee.name}}"
+                            rows="3" cols="75" maxlength="4000">
+                    </textarea>
                 </td>
                 
             </tr>

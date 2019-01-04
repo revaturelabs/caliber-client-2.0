@@ -93,7 +93,7 @@ export class OverallComponent implements OnInit {
 	saveQCNotes() {
 		this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
 		this.overallqc.noteId = 0;
-		if (this.overallqc.content == undefined) {
+		if (this.overallqc.content === undefined) {
 
 			this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
 			this.overallqc.noteId = 0;

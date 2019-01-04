@@ -3,7 +3,8 @@ import { Overallqc } from '../../../overallqc';
 import { AuditService } from '../../Services/audit.service';
 import { OverallService } from '../../Services/overall.service';
 import { Observable, Subject } from 'rxjs';
-
+import { Batch } from 'src/app/Batch/type/batch';
+import {BatchService} from 'src/app/Batch/batch.service';
 
 @Component({
   selector: 'app-overall',
@@ -11,16 +12,20 @@ import { Observable, Subject } from 'rxjs';
   styleUrls: ['./overall.component.css']
 })
 export class OverallComponent implements OnInit {
-   private overallqc : Overallqc;
+   public overallqc : Overallqc;
    CurrentNotes;
    CurrentWeek = 1;
-   CurrentBatch = 0;
  @ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
-constructor(private _overallqcService: OverallService, private _auditService:AuditService) { }
+constructor(private _overallqcService: OverallService, public _auditService:AuditService, public _BatchService:BatchService) { }
 
   ngOnInit() {
     this.overallqc=this._overallqcService.getter();
-    //this.overallqc = this._overallqcService.getOverallQC(5,2150);
+    if(this.overallqc.content != ""){
+     
+      this.overallqc.batchid = this._BatchService.selectedBatch.batchId;
+      this.overallqc.week = this._BatchService.selectedWeek;
+this.overallqc= this._auditService.getCurrentNotes(this.overallqc.week,this.overallqc.batchid);
+    }
     if (this._overallqcService.getter() != null || this._overallqcService.getter() != undefined){
       this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
     }

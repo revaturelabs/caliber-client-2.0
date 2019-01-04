@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuditService } from 'src/app/Audit/Services/audit.service';
 import { Batch } from 'src/app/Batch/type/batch';
+import {BatchService} from 'src/app/Batch/batch.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -20,7 +21,7 @@ export class ToolbarComponent implements OnInit {
   selectedWeek: number;
 
   constructor(
-    public auditService: AuditService
+    public BatchService: BatchService
   ) { }
 
   ngOnInit() {
@@ -31,7 +32,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   getAllYears() {
-    this.auditService.getAllYears()
+    this.BatchService.getAllYears()
     .subscribe(result => {
       this.years = result;
       this.selectedYear = this.years[0];
@@ -42,11 +43,11 @@ export class ToolbarComponent implements OnInit {
   }
 
   getBatches() {
-    this.auditService.getBatchesByYear(this.selectedYear)
+    this.BatchService.getBatchesByYear(this.selectedYear)
     .subscribe(result => {
       this.batches = result;
       this.selectedBatch = this.batches[0];
-      this.auditService.selectedBatch = this.batches[0];
+      this.BatchService.selectedBatch = this.batches[0];
       console.log(this.batches);
       this.getWeeks();
       });
@@ -55,8 +56,8 @@ export class ToolbarComponent implements OnInit {
 
   selectYear(event: number) {
     this.selectedYear = event;
-    this.auditService.selectedYear = this.selectedYear;
-    this.auditService.getBatchesByYear(event)
+    this.BatchService.selectedYear = this.selectedYear;
+    this.BatchService.getBatchesByYear(event)
     .subscribe(result => {
       this.batches = result;
       });
@@ -64,7 +65,7 @@ export class ToolbarComponent implements OnInit {
 
   selectBatch(event: Batch) {
     this.selectedBatch = event;
-    this.auditService.selectedBatch = this.selectedBatch;
+    this.BatchService.selectedBatch = this.selectedBatch;
     this.getWeeks();
   }
 
@@ -76,13 +77,18 @@ export class ToolbarComponent implements OnInit {
 
   selectWeek(event: number) {
     this.selectedWeek = event;
-    this.auditService.selectedWeek = event;
+    this.BatchService.selectedWeek = event;
   }
 
   addWeek() {
     var last = this.weeks[this.weeks.length-1];
     this.weeks.push(last+1);
     this.selectedWeek=last+1;
+    this.selectedBatch.weeks++;
+    console.log(this.selectedBatch.batchId);
+    this.BatchService.putBatch(this.selectedBatch).subscribe(result => {
+      console.log('updated');
+    });
   }
 
   getWeeks() {

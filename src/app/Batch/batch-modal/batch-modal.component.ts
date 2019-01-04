@@ -149,9 +149,9 @@ export class BatchModalComponent implements OnInit, OnChanges {
    * creates a brand new batch with form inputs
    */
   createBatch(): void {
-    console.log(new Batch(this.trainingName, this.trainingType,
-      this.skillType, this.trainer, this.coTrainer, this.locationId, this.startDate,
-      this.endDate, this.goodGradeThreshold, this.borderlineGradeThreshold));
+   // console.log(new Batch(this.trainingName, this.trainingType,
+    //  this.skillType, this.trainer, this.coTrainer, this.locationId, this.startDate,
+     // this.endDate, this.goodGradeThreshold, this.borderlineGradeThreshold));
 
     // account for time zone differences
     const d = new Date(this.startDate);

@@ -4,6 +4,7 @@ import { Batch } from './type/batch';
 import { BLocation } from './type/location';
 import { Trainer } from './type/trainer';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Note } from 'src/app/Audit/types/Note';
 
 /**
  * sets headers for recieving JSON objects
@@ -17,14 +18,12 @@ const httpOptions = {
 /**
 * The url for getting current batches from the batch microservice
 */
-const currentBatchUrl = 'http://localhost:9090/vp/batch/all/current';
+const currentBatchUrl = 'http://localhost:9095/vp/batch/all/current';
 
 
 /**
-
 The batch service handles all of the http client methods used to send and recieve data from the back-end.
  @author Anthony Jin, Juan Trejo, Will Bennet
-
  */
 @Injectable({
   providedIn: 'root'
@@ -33,18 +32,21 @@ The batch service handles all of the http client methods used to send and reciev
 export class BatchService {
 
 
-  url = 'http://localhost:9090';
+  url = 'http://localhost:9095';
   batchAllURL = '/vp/batch/all';
   allBatchURL = '/all/batch/';
   batchesYearURL = '/vp/batch/';
   batchCreateURL = '/all/batch/create';
   batchUpdateURL = '/all/batch/update';
   batchDeleteURL = '/all/batch/delete/';
-  skillTypesAllURL = 'http://localhost:9090/types/skill/all';
-  locationsAllURL = 'http://localhost:9090/all/location/all';
-  trainersAllURL = 'http://localhost:9090/all/trainer/all';
+  skillTypesAllURL = 'http://localhost:9095/types/skill/all';
+  locationsAllURL = 'http://localhost:9095/all/location/all';
+  trainersAllURL = 'http://localhost:9095/all/trainer/all';
   batchAllYearsURL = '/all/batch/valid_years';
-  traineeCountURL = 'http://localhost:9090/all/trainee/count/';
+  traineeCountURL = 'http://localhost:9095/all/trainee/count/';
+  selectedYear: number;
+  selectedBatch: Batch;
+  selectedWeek = 1;
 
   constructor(private http: HttpClient) { }
 

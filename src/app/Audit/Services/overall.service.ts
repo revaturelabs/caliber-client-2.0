@@ -4,7 +4,7 @@ import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import { map, filter, switchMap } from 'rxjs/operators';
 import { Overallqc } from '../../overallqc';
 import { HttpClient } from '@angular/common/http';
-
+import { Batch } from 'src/app/Batch/type/batch';
 
 @Injectable({
   providedIn: 'root'

@@ -13,4 +13,3 @@ export class Note {
     trainee: Trainee;
     noteFlagInputActive: boolean;
 }
-

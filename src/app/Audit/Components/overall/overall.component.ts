@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Overallqc } from '../../../overallqc';
 import { AuditService } from '../../Services/audit.service';
 import { OverallService } from '../../Services/overall.service';
+import { Batch } from 'src/app/Batch/type/batch';
 
 @Component({
 	selector: 'app-overall',
@@ -9,12 +10,84 @@ import { OverallService } from '../../Services/overall.service';
 	styleUrls: ['./overall.component.css']
 })
 export class OverallComponent implements OnInit {
-	public overallqc: Overallqc;
+	private overallqc: Overallqc;
+	qcStatusTypes = [];
+	batch: Batch;
+	qcBatchAssess: number;
+	colors: any = ['#19ad17', '#f9e903', '#ea2724'];
+	happy: '#b9b9ba';
+	meh: '#b9b9ba';
+	sad: '#b9b9ba';
+
 	@ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
-	constructor(private _overallqcService: OverallService) { }
+
+	showFloppy: boolean = true;
+	showSaving: boolean = false;
+	showCheck: boolean = false;
+
+	constructor(private _overallqcService: OverallService,
+		private auditService: AuditService) { }
 
 	ngOnInit() {
 		this.overallqc = this._overallqcService.getter();
+	}
+
+	changeFaceColor(num) {
+		this.happy = '#b9b9ba';
+		this.meh = '#b9b9ba';
+		this.sad = '#b9b9ba';
+		switch (num) {
+			case 1:
+				this.happy = this.colors[0];
+				break;
+			case 2:
+				this.meh = this.colors[1];
+				break;
+			case 3:
+				this.sad = this.colors[2];
+				break;
+			default:
+				break;
+		}
+	}
+
+	pickOverallStatus(batch, pick) {
+		console.log(batch, pick);
+		this.batch = batch;
+		this.qcBatchAssess = pick;
+	}
+
+	saveQCandTrainee() {
+
+		console.log('clicked');
+
+		this.showFloppy = !this.showFloppy;
+
+		setTimeout(() => {
+			console.log('disable textArea');
+			this.auditService.processingNote = true;
+		}, 100);
+
+		setTimeout(() => {
+			console.log('showSaving');
+			this.showFloppy = false;
+			this.showSaving = true;
+			this.auditService.processingNote = false;
+		}, 500);
+
+		setTimeout(() => {
+			console.log('showChecking');
+			this.showSaving = false;
+			this.showCheck = true;
+		}, 2000);
+
+		setTimeout(() => {
+			console.log('showChecking');
+			this.showSaving = false;
+			this.showCheck = false;
+			this.showFloppy = true;
+		}, 4000);
+
 	}
 
 	saveQCNotes() {

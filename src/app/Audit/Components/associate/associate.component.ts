@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { AuditService } from '../../Services/audit.service';
 import { Batch } from 'src/app/Batch/type/batch';
 import { Note } from '../../types/Note';
 import { Trainee } from '../../types/Trainee';
-
-import * as $ from 'jquery';
 
 @Component({
   selector: 'app-associate',
@@ -27,62 +25,8 @@ export class AssociateComponent implements OnInit {
     }
   ];
 
-  // List of test notes
-  notes = [
-    {
-      qcStatus: 'Undefined',
-      noteId: 0,
-      noteFlagInputActive: false,
-      trainee: {
-        name: 'Hajek, Alexander',
-        flagNotes: '',
-        flagStatus: 'NONE'
-      }
-    },
-    {
-      qcStatus: 'Superstar',
-      noteId: 1,
-      noteFlagInputActive: false,
-      trainee: {
-        name: 'Michels, Alex',
-        flagNotes: '',
-        flagStatus: 'RED'
-      }
-    },
-    {
-      qcStatus: 'Good',
-      noteId: 2,
-      noteFlagInputActive: false,
-      trainee: {
-        name: 'Smith, Carter',
-        flagNotes: '',
-        flagStatus: 'NONE'
-      }
-    },
-    {
-      qcStatus: 'Average',
-      noteId: 3,
-      noteFlagInputActive: false,
-      trainee: {
-        name: 'Erwin, Eric',
-        flagNotes: '',
-        flagStatus: 'RED'
-      }
-    },
-    {
-      qcStatus: 'Poor',
-      noteId: 4,
-      noteFlagInputActive: false,
-      trainee: {
-        name: 'Olney, Chris',
-        flagNotes: '',
-        flagStatus: 'NONE'
-      }
-    }
-  ];
-
   // Unimplemented functions
-  constructor(private auditService: AuditService) { }
+  constructor(public auditService: AuditService) {}
   ngOnInit() {
     this.CurrentWeek = 1;
   }
@@ -201,14 +145,25 @@ export class AssociateComponent implements OnInit {
   }
 
   updateTrainee(trainee: Trainee) {
-    this.auditService.ProcessingNote = true;
-    this.auditService.updateTrainee(trainee).subscribe(t => {this.auditService.ProcessingNote = false; } );
+    this.auditService.processingNote = true;
+    this.auditService.updateTrainee(trainee).subscribe(t => {this.auditService.processingNote = false; } );
   }
 
   updateQCNote(note: Note) {
-    this.auditService.ProcessingNote = true;
-    this.auditService.updateNote(note).subscribe(n => {console.log('saving...');
-    this.auditService.ProcessingNote = false; } );
-
+    console.log(note);
+    this.auditService.processingNote = true;
+    this.auditService.updateNote(note).subscribe(n => {
+      console.log('saving...');
+      console.log(n);
+      this.auditService.processingNote = false;
+      this.auditService.noteUpdate = true;
+      for (let i = 0; i < this.CurrentNotes.length; i++) {
+        if (this.CurrentNotes[i].noteId === n.noteId) {
+          this.CurrentNotes[i] = n;
+        }
+      }
+    });
   }
+
+
 }

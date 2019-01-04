@@ -2,12 +2,8 @@ import { Injectable } from '@angular/core';
 import { Batch } from 'src/app/Batch/type/batch';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-<<<<<<< HEAD
 import { Note } from '../types/Note';
 import { Trainee } from '../types/Trainee';
-
-=======
->>>>>>> overall
 
 /**
  * sets headers for recieving JSON objects
@@ -34,27 +30,35 @@ export class AuditService {
   selectedBatch: Batch;
   selectedWeek = 1;
 
-  ProcessingNote = false;
+  processingNote = false;
+  noteUpdate = false;
 
   constructor(private http: HttpClient) { }
 
+  /**
+  * get all batches by specified year from batch microservice
+  * @param year year that all batches should be retrieved from
+  *
+  */
   getBatchesByYear(year: number): Observable<Batch[]> {
     return this.http.get<Batch[]>(this.url + this.batchesYearURL + year);
   }
 
+   /**
+  * get all starting years from batch microservice
+  */
   getAllYears(): Observable<number[]> {
     return this.http.get<number[]>(this.url + this.yearsURL);
   }
 
     /**
-   * updates specified batch in batch service
+   * updates specified batch in batch microservice
    * @param batch batch to be updated
    */
   putBatch(batch: Batch): Observable<Batch> {
     return this.http.put<Batch>(this.url + this.batchUpdateURL, batch, httpOptions);
   }
 
-<<<<<<< HEAD
   getCurrentNotes(week: Number, batchid: Number): Observable<Note> {
     return this.http.get<Note>(this.noteUrl + 'notes/' + batchid + '/' + week);
   }
@@ -66,9 +70,4 @@ export class AuditService {
   updateTrainee(trainee: Trainee): Observable<Trainee> {
     return this.http.put<Trainee>(this.traineeUrl, trainee);
   }
-
-
-=======
->>>>>>> overall
-  
 }

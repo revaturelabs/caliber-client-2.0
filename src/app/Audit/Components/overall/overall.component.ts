@@ -25,8 +25,8 @@ export class OverallComponent implements OnInit {
 	showSaving: boolean = false;
 	showCheck: boolean = false;
 
-	constructor(private _overallqcService: OverallService,
-		private auditService: AuditService) { }
+	constructor(public _overallqcService: OverallService,
+		public auditService: AuditService) { }
 
 	ngOnInit() {
 		this.overallqc = this._overallqcService.getter();
@@ -93,7 +93,7 @@ export class OverallComponent implements OnInit {
 	saveQCNotes() {
 		this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
 		this.overallqc.noteId = 0;
-		if (this.overallqc.content == undefined) {
+		if (this.overallqc.content === undefined) {
 
 			this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
 			this.overallqc.noteId = 0;

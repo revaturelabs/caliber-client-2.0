@@ -90,7 +90,7 @@ export class ToolbarComponent implements OnInit {
   //showActiveWeek returns the string "active" if the particular week is the selected week
   //if active, the week will appear differently in HTML
   showActiveWeek(week: number) {
-    if (week==this.selectedWeek) {
+    if (week == this.selectedWeek) {
       return "active";
     }
   }
@@ -106,9 +106,9 @@ export class ToolbarComponent implements OnInit {
   //addWeek increments the amount of weeks in the current batch, selects the newly created week
   //and calls the batchService's putBatch function to update batch in the database
   addWeek() {
-    var last = this.weeks[this.weeks.length-1];
-    this.weeks.push(last+1);
-    this.selectedWeek=last+1;
+    var last = this.weeks[this.weeks.length - 1];
+    this.weeks.push(last + 1);
+    this.selectedWeek = last + 1;
     this.selectedBatch.weeks++;
     this.batchService.putBatch(this.selectedBatch).subscribe(result => {
       

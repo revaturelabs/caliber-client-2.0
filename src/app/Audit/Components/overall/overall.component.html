@@ -24,11 +24,11 @@
       <!-- QC Save burrito button (Burrito: wrap up edited objects, pack it tightly in the skin, and
         save it all in your stomach/database -->
       <div class="save-button-wrapper">
-        <a (click)="saveQCandTrainee()" *ngIf="showFloppy" class="save-button fade-in"> <span class="fa fa-floppy-o fa-2x"
+        <a ng-click="saveQCandTrainee()" ng-show="showFloppy" class="save-button fade-in"> <span class="fa fa-floppy-o fa-2x"
             aria-hidden="true"></span>Save
         </a>
         <!-- Events after clicking save button -->
-        <div class="spinner fa-style ng-hide" *ngIf="showSaving">
+        <div class="spinner fa-style ng-hide" ng-show="showSaving">
           <i style="color: #F26925;" role="button" class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i>
         </div>
         <div id="checkMark" class="spinner fa-style ng-hide" *ngIf="showCheck">

@@ -145,14 +145,29 @@ export class AssociateComponent implements OnInit {
   }
 
   updateTrainee(trainee: Trainee) {
-    this.auditService.ProcessingNote = true;
-    this.auditService.updateTrainee(trainee).subscribe(t => {this.auditService.ProcessingNote = false; } );
+    this.auditService.processingNote = true;
+    this.auditService.updateTrainee(trainee).subscribe(t => {this.auditService.processingNote = false; } );
   }
 
   updateQCNote(note: Note) {
+    console.log(note);
+    this.auditService.processingNote = true;
+    this.auditService.updateNote(note).subscribe(n => {
+      console.log('saving...');
+      console.log(n);
+      this.auditService.processingNote = false;
+      this.auditService.noteUpdate = true;
+      for (let i = 0; i < this.CurrentNotes.length; i++) {
+        if (this.CurrentNotes[i].noteId === n.noteId) {
+          this.CurrentNotes[i] = n;
+        }
+      }
+    });
+  }
+
+/*   updateQCNote(note: Note) {
     this.auditService.ProcessingNote = true;
     this.auditService.updateNote(note).subscribe(n => {console.log('saving...');
     this.auditService.ProcessingNote = false; } );
-
-  }
+  } */
 }

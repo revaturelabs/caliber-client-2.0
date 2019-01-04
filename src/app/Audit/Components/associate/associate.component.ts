@@ -3,6 +3,7 @@ import { AuditService } from '../../Services/audit.service';
 import { Batch } from 'src/app/Batch/type/batch';
 import { Note } from '../../types/Note';
 import { Trainee } from '../../types/Trainee';
+import { BatchService } from 'src/app/Batch/batch.service';
 
 @Component({
   selector: 'app-associate',
@@ -26,26 +27,26 @@ export class AssociateComponent implements OnInit {
   ];
 
   // Unimplemented functions
-  constructor(public auditService: AuditService) {}
+  constructor(public auditService: AuditService, public batchService: BatchService) {}
   ngOnInit() {
     this.CurrentWeek = 1;
   }
 
   checkForChanges(): boolean {
-    if (this.CurrentWeek !== this.auditService.selectedWeek) {
-      this.CurrentWeek = this.auditService.selectedWeek;
+    if (this.CurrentWeek !== this.batchService.selectedWeek) {
+      this.CurrentWeek = this.batchService.selectedWeek;
       this.PopulateNotes();
     }
-    if (this.auditService.selectedBatch.batchId !== this.CurrentBatch) {
-      this.CurrentBatch = this.auditService.selectedBatch.batchId;
+    if (this.batchService.selectedBatch.batchId !== this.CurrentBatch) {
+      this.CurrentBatch = this.batchService.selectedBatch.batchId;
       this.PopulateNotes();
     }
     return true;
   }
 
   PopulateNotes() {
-    this.auditService.getCurrentNotes(this.auditService.selectedWeek,
-      this.auditService.selectedBatch.batchId).subscribe(note => {
+    this.auditService.getCurrentNotes(this.batchService.selectedWeek,
+      this.batchService.selectedBatch.batchId).subscribe(note => {
         console.log(this.CurrentBatch + ' ' + this.CurrentWeek);
         console.log(note);
         this.CurrentNotes = note;

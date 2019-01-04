@@ -31,7 +31,7 @@
         <div class="spinner fa-style ng-hide" ng-show="showSaving">
           <i style="color: #F26925;" role="button" class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i>
         </div>
-        <div id="checkMark" class="spinner fade fa-style ng-hide" ng-show="showCheck">
+        <div id="checkMark" class="spinner fa-style ng-hide" *ngIf="showCheck">
           <i role="button" class="fa fa-check fa-2x" aria-hidden="true"></i>
         </div>
       </div>

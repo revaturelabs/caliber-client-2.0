@@ -25,7 +25,7 @@ export class ToolbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.selectedWeek = 1;
+    
     this.getAllYears();
 
   }

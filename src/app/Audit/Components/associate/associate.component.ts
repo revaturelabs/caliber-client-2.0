@@ -26,7 +26,7 @@ export class AssociateComponent implements OnInit {
   ];
 
   // Unimplemented functions
-  constructor(private auditService: AuditService) {}
+  constructor(public auditService: AuditService) {}
   ngOnInit() {
     this.CurrentWeek = 1;
   }
@@ -165,9 +165,5 @@ export class AssociateComponent implements OnInit {
     });
   }
 
-/*   updateQCNote(note: Note) {
-    this.auditService.ProcessingNote = true;
-    this.auditService.updateNote(note).subscribe(n => {console.log('saving...');
-    this.auditService.ProcessingNote = false; } );
-  } */
+
 }

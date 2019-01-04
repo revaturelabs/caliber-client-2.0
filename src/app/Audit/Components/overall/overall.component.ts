@@ -10,7 +10,7 @@ import { Batch } from 'src/app/Batch/type/batch';
 	styleUrls: ['./overall.component.css']
 })
 export class OverallComponent implements OnInit {
-	private overallqc: Overallqc;
+	public overallqc: Overallqc;
 	qcStatusTypes = [];
 	batch: Batch;
 	qcBatchAssess: number;
@@ -26,8 +26,8 @@ export class OverallComponent implements OnInit {
 	showSaving: boolean = false;
 	showCheck: boolean = false;
 
-	constructor(private _overallqcService: OverallService,
-		private auditService: AuditService) { }
+	constructor(public _overallqcService: OverallService,
+		public auditService: AuditService) { }
 
 	ngOnInit() {
 		this.overallqc = this._overallqcService.getter();

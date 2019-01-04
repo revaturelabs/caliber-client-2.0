@@ -25,7 +25,8 @@ export class OverallComponent implements OnInit {
 	showSaving: boolean = false;
 	showCheck: boolean = false;
 
-	constructor(private _overallqcService: OverallService) { }
+  constructor(private _overallqcService: OverallService,
+              private auditService: AuditService) { }
 
 	ngOnInit() {
 		this.overallqc = this._overallqcService.getter();
@@ -60,12 +61,18 @@ export class OverallComponent implements OnInit {
 
 		console.log('clicked');
 
-		this.showFloppy = !this.showFloppy;
+    this.showFloppy = !this.showFloppy;
+    setTimeout(() => {
+      console.log('disable textArea');
+      this.auditService.ProcessingNote = true;
+    }, 100);
 
 		setTimeout(() => {
-			console.log('showSaving');
-			this.showSaving = true;
-		}, 480);
+      console.log('showSaving');
+      this.showFloppy = false;
+      this.showSaving = true;
+      this.auditService.ProcessingNote = false;
+		}, 500);
 
 		setTimeout(() => {
 			console.log('showChecking');

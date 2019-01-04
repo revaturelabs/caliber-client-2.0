@@ -59,7 +59,8 @@
                 <!-- This is a small gap to add space in between columns -->
                 <td style="width: 3%;"></td>
                 <td style="width: 76%;">
-                    <textarea 
+                    <textarea
+                            [disabled]="this.auditService.ProcessingNote"
                             (blur)="noteOnBlur(note.noteId, false)" 
                             id="note-textarea-{{note.noteId}}" class="form-control"
                             placeholder="Note on {{ note.trainee.name }}" 

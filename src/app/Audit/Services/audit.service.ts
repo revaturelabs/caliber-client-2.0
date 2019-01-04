@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { Batch } from 'src/app/Batch/type/batch';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+<<<<<<< HEAD
+import { Note } from '../types/Note';
+import { Trainee } from '../types/Trainee';
+
+=======
+>>>>>>> overall
 
 /**
  * sets headers for recieving JSON objects
@@ -18,6 +24,8 @@ const httpOptions = {
 export class AuditService {
 
   url = 'http://localhost:9095';
+  noteUrl = 'http://localhost:9075/audit/';
+  traineeUrl = 'http://localhost:9075/trainee/update/';
   batchAllURL = '/vp/batch/all';
   batchesYearURL = '/vp/batch/';
   batchUpdateURL = '/all/batch/update';
@@ -25,6 +33,8 @@ export class AuditService {
   selectedYear: number;
   selectedBatch: Batch;
   selectedWeek = 1;
+
+  ProcessingNote = false;
 
   constructor(private http: HttpClient) { }
 
@@ -44,5 +54,21 @@ export class AuditService {
     return this.http.put<Batch>(this.url + this.batchUpdateURL, batch, httpOptions);
   }
 
+<<<<<<< HEAD
+  getCurrentNotes(week: Number, batchid: Number): Observable<Note> {
+    return this.http.get<Note>(this.noteUrl + 'notes/' + batchid + '/' + week);
+  }
+
+  updateNote(note: Note): Observable<Note> {
+    return this.http.put<Note>(this.noteUrl + 'update', note);
+  }
+
+  updateTrainee(trainee: Trainee): Observable<Trainee> {
+    return this.http.put<Trainee>(this.traineeUrl, trainee);
+  }
+
+
+=======
+>>>>>>> overall
   
 }

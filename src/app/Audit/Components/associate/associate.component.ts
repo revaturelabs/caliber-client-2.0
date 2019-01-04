@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AuditService } from '../../Services/audit.service';
+import { Batch } from 'src/app/Batch/type/batch';
+import { Note } from '../../types/Note';
+import { Trainee } from '../../types/Trainee';
+
 import * as $ from 'jquery';
 
 @Component({
@@ -7,6 +12,10 @@ import * as $ from 'jquery';
   styleUrls: ['./associate.component.css']
 })
 export class AssociateComponent implements OnInit {
+
+  CurrentNotes;
+  CurrentWeek = 1;
+  CurrentBatch = 0;
 
   // List of test categories
   categories = [
@@ -73,23 +82,45 @@ export class AssociateComponent implements OnInit {
   ];
 
   // Unimplemented functions
-  constructor() { }
-  ngOnInit() { }
+  constructor(private auditService: AuditService) { }
+  ngOnInit() {
+    this.CurrentWeek = 1;
+  }
 
-  // Cycle the Individual Feedback Status
+  checkForChanges(): boolean {
+    if (this.CurrentWeek !== this.auditService.selectedWeek) {
+      this.CurrentWeek = this.auditService.selectedWeek;
+      this.PopulateNotes();
+    }
+    if (this.auditService.selectedBatch.batchId !== this.CurrentBatch) {
+      this.CurrentBatch = this.auditService.selectedBatch.batchId;
+      this.PopulateNotes();
+    }
+    return true;
+  }
+
+  PopulateNotes() {
+    this.auditService.getCurrentNotes(this.auditService.selectedWeek,
+      this.auditService.selectedBatch.batchId).subscribe(note => {
+        console.log(this.CurrentBatch + ' ' + this.CurrentWeek);
+        console.log(note);
+        this.CurrentNotes = note;
+        console.log(this.CurrentNotes);
+       });
+  }
+
   cycleFlag(selectedNoteId: number): void {
-
     // Loop through each note in notes until the target is found
-    for (let i = 0; i < this.notes.length; i++) {
-
+    for (let i = 0; i < this.CurrentNotes.length; i++) {
+      console.log(this.CurrentNotes[i].trainee.flagStatus);
       // Find the clicked note
-      if (this.notes[i].noteId === selectedNoteId) {
+      if (this.CurrentNotes[i].noteId === selectedNoteId) {
 
         // Create placeholder for new status string
         let newStatus = '';
 
         // Determine the new status string
-        switch (this.notes[i].trainee.flagStatus) {
+        switch (this.CurrentNotes[i].trainee.flagStatus) {
           case 'NONE':
             newStatus = 'RED';
             break;
@@ -99,43 +130,34 @@ export class AssociateComponent implements OnInit {
           case 'GREEN':
             newStatus = 'NONE';
             break;
+          case null:
+            newStatus = 'RED';
+            break;
         }
 
         // Update the status
-        this.notes[i].trainee.flagStatus = newStatus;
+        this.CurrentNotes[i].trainee.flagStatus = newStatus;
+        this.updateTrainee(this.CurrentNotes[i].trainee);
       }
     }
   }
 
-  // Cycle the flag notes popup
   cycleFlagNotesInput(selectedNoteId: number, enable: boolean): void {
 
-    // Loop through each note in notes until the target is found
-    for (let i = 0; i < this.notes.length; i++) {
+    for (let i = 0; i < this.CurrentNotes.length; i++) {
 
-      // Find the clicked note
-      if (this.notes[i].noteId === selectedNoteId) {
-        
-          // Enable or disable the notes box popup
-          this.notes[i].noteFlagInputActive = enable;
+      if (this.CurrentNotes[i].noteId === selectedNoteId) {
+          this.CurrentNotes[i].noteFlagInputActive = enable;
       }
     }
   }
 
-  // Cycle the Individual Feedback Status
   cycleIF(selectedNoteId: number): void {
-
-    // Loop through each note in notes until the target is found
-    for (let i = 0; i < this.notes.length; i++) {
-
-      // Find the clicked note
-      if (this.notes[i].noteId === selectedNoteId) {
-
-        // Create placeholder for new status string
+    for (let i = 0; i < this.CurrentNotes.length; i++) {
+      if (this.CurrentNotes[i].noteId === selectedNoteId) {
         let newStatus = '';
 
-        // Determine the new status string
-        switch (this.notes[i].qcStatus) {
+        switch (this.CurrentNotes[i].qcStatus) {
           case 'Undefined':
             newStatus = 'Superstar';
             break;
@@ -153,21 +175,40 @@ export class AssociateComponent implements OnInit {
             break;
         }
 
-        // Update the status
-        this.notes[i].qcStatus = newStatus;
+        this.CurrentNotes[i].qcStatus = newStatus;
+
+        this.updateQCNote(this.CurrentNotes[i]);
       }
     }
   }
 
   // Disables the associated notes text area box for 1 second.
-  noteOnBlur(selectedNoteId: number, secondRound: boolean): void {
-
-    // The first call will recursivley call this function again to re-enable the input box after 1 second
-    if (!secondRound) {
-      $('#note-textarea-' + selectedNoteId).prop('disabled', true);
-      setInterval(this.noteOnBlur, 1000, selectedNoteId, true);
-    } else {
-      $('#note-textarea-' + selectedNoteId).prop('disabled', false);
+  noteOnBlur(selectedNoteId: number): void {
+    for (let i = 0; i < this.CurrentNotes.length; i++) {
+      if (this.CurrentNotes[i].noteId === selectedNoteId) {
+        this.updateQCNote(this.CurrentNotes[i]);
+      }
     }
+  }
+
+  updateFlagComment(selectedNoteId: number) {
+    for (let i = 0; i < this.CurrentNotes.length; i++) {
+      if (this.CurrentNotes[i].noteId === selectedNoteId) {
+        console.log(this.CurrentNotes[i].trainee);
+        this.updateTrainee(this.CurrentNotes[i].trainee);
+      }
+    }
+  }
+
+  updateTrainee(trainee: Trainee) {
+    this.auditService.ProcessingNote = true;
+    this.auditService.updateTrainee(trainee).subscribe(t => {this.auditService.ProcessingNote = false; } );
+  }
+
+  updateQCNote(note: Note) {
+    this.auditService.ProcessingNote = true;
+    this.auditService.updateNote(note).subscribe(n => {console.log('saving...');
+    this.auditService.ProcessingNote = false; } );
+
   }
 }

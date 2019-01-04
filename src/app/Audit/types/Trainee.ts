@@ -6,4 +6,8 @@ export class Trainee {
     flagNotes: String;
     flagAuthor: String;
     flagTimestamp: Number;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> overall

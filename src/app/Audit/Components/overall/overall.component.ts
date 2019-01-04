@@ -7,9 +7,9 @@ import { Batch } from 'src/app/Batch/type/batch';
 import {BatchService} from 'src/app/Batch/batch.service';
 
 @Component({
-  selector: 'app-overall',
-  templateUrl: './overall.component.html',
-  styleUrls: ['./overall.component.css']
+	selector: 'app-overall',
+	templateUrl: './overall.component.html',
+	styleUrls: ['./overall.component.css']
 })
 export class OverallComponent implements OnInit {
    public overallqc : Overallqc;

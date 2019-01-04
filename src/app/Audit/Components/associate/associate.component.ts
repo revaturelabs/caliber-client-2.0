@@ -1,8 +1,8 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { AuditService } from '../../Services/audit.service';
 import { Batch } from 'src/app/Batch/type/batch';
-import { Note } from 'src/app/Audit/types/Note';
-import { Trainee } from 'src/app/Audit/types/Trainee';
+import { Note } from '../../types/Note';
+import { Trainee } from '../../types/Trainee';
 
 @Component({
   selector: 'app-associate',
@@ -26,7 +26,7 @@ export class AssociateComponent implements OnInit {
   ];
 
   // Unimplemented functions
-  constructor(private auditService: AuditService) {}
+  constructor(public auditService: AuditService) {}
   ngOnInit() {
     this.CurrentWeek = 1;
   }
@@ -150,9 +150,20 @@ export class AssociateComponent implements OnInit {
   }
 
   updateQCNote(note: Note) {
+    console.log(note);
     this.auditService.processingNote = true;
-    this.auditService.updateNote(note).subscribe(n => {console.log('saving...');
-    this.auditService.processingNote = false; } );
-
+    this.auditService.updateNote(note).subscribe(n => {
+      console.log('saving...');
+      console.log(n);
+      this.auditService.processingNote = false;
+      this.auditService.noteUpdate = true;
+      for (let i = 0; i < this.CurrentNotes.length; i++) {
+        if (this.CurrentNotes[i].noteId === n.noteId) {
+          this.CurrentNotes[i] = n;
+        }
+      }
+    });
   }
+
+
 }

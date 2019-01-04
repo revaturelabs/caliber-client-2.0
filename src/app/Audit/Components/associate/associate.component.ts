@@ -63,6 +63,9 @@ export class AssociateComponent implements OnInit {
         // Create placeholder for new status string
         let newStatus = '';
 
+        // Create placeholder for new status string
+        let newStatus = '';
+
         // Determine the new status string
         switch (this.CurrentNotes[i].trainee.flagStatus) {
           case 'NONE':

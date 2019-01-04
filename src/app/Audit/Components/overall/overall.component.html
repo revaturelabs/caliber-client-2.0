@@ -17,7 +17,7 @@
     <!-- Show the QC feedback notes. Clicking textfield, editing and overwriting it will 
       trigger the ng-blur to save the data  -->
     <div class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
-      <textarea [(ngModel)]="overallqc.content"  class="form-control ng-pristine ng-untouched ng-valid-maxlength ng-not-empty ng-valid ng-valid-required" id="qcBatchNotes" #qcBatchNotes (blur)="saveQCNotes()" maxlength="4000" placeholder = "Enter your overall feedback on the batch"   required="" ng-disabled="processingNote" style="text-align:left;">{{overallqc.content}}</textarea>
+      <textarea [(ngModel)]="overallqc.content"  class="form-control ng-pristine ng-untouched ng-valid-maxlength ng-not-empty ng-valid ng-valid-required" id="qcBatchNotes" #qcBatchNotes (blur)="saveQCNotes(overallqc)"  maxlength="4000" placeholder = "Enter your overall feedback on the batch"   required="" ng-disabled="processingNote" style="text-align:left;" ></textarea>
       <!-- QC Save burrito button (Burrito: wrap up edited objects, pack it tightly in the skin, and
         save it all in your stomach/database -->
       <div class="save-button-wrapper">

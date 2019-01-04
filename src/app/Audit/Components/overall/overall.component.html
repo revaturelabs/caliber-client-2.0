@@ -5,18 +5,18 @@
     <button class="hiddenButton col-lg-4 col-md-4 col-sm-4"
       ng-disabled="processingNote">
       <div>
-      <i class="fa fa-smile-o fa-2x"  [style.color]="happy" (click)="changeFaceColor(1)" style=""></i>
+      <i class="fa fa-smile-o fa-2x"  [style.color]="happy" [ngClass]="{'isHappy': generatedFace === 1 }" (click)="changeFaceColor(1)" style=""></i>
       <i *ngIf="overallQc.qcStatus == 'Undefined'" {{changeFaceColor(1)}}></i>
       </div>
     </button>
     <button class="hiddenButton col-lg-4 col-md-4 col-sm-4"
       ng-disabled="processingNote">
-      <i class="fa fa-meh-o fa-2x" [style.color]="meh" (click)="changeFaceColor(2)" style=""></i>
+      <i class="fa fa-meh-o fa-2x" [style.color]="meh" [ngClass]="{'isMeh': generatedFace === 2 }" (click)="changeFaceColor(2)" style=""></i>
       <i *ngIf="overallQc.qcStatus == 'Average'"></i>
     </button>
     <button class="hiddenButton col-lg-4 col-md-4 col-sm-4"
       ng-disabled="processingNote">
-      <i class="fa fa-frown-o fa-2x" [style.color]="sad" (click)="changeFaceColor(3)" style=""></i>
+      <i class="fa fa-frown-o fa-2x" [style.color]="sad" [ngClass]="{'isSad': generatedFace === 3 }" (click)="changeFaceColor(3)" style=""></i>
       <i *ngIf="overallQc.qcStatus == 'Poor'"></i>
     </button>
     <!-- Show the QC feedback notes. Clicking textfield, editing and overwriting it will 

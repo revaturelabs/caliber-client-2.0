@@ -18,6 +18,7 @@ export class OverallComponent implements OnInit {
 	happy: '#b9b9ba';
 	meh: '#b9b9ba';
 	sad: '#b9b9ba';
+	generatedFace: number;
 
 	@ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
 	overallQc = new Overallqc();
@@ -30,6 +31,11 @@ export class OverallComponent implements OnInit {
 	ngOnInit() {
 		this.overallqc = this._overallqcService.getter();
 		this.getCalculatedAverage();
+		this.faceColorOnInit(3);
+	}
+
+	faceColorOnInit(genF) {
+		this.generatedFace = genF;
 	}
 
 	getCalculatedAverage() {

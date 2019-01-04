@@ -30,8 +30,7 @@ phases:
     build:
         commands:
         # Builds Angular application. You can also build using custom environment here like mock or staging
-        - webdriver-manager start
-        - ng e2e --protractor-config=./e2e/protractor.conf.js
+        - ng e2e --protractor-config=../e2e/protractor.conf.js
         - echo Build started on `date`
         - ng build --aot
         - 

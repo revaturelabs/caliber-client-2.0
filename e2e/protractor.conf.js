@@ -11,6 +11,9 @@ exports.config = {
     // './src/app/**/*.spec.ts'
   ],
   capabilities: {
+    chromeOptions: {
+    args: [ "--headless" ]
+  },
     'browserName': 'chrome'
   },
   directConnect: false,

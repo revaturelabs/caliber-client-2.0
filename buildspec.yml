@@ -22,17 +22,15 @@ phases:
         - sudo apt-get install -y yarn
         # Install Angular CLI, If you are not using Angular 6, install angular/cli@1.7.0 or lower, confirm by running ng -v inside your project folder
         - yarn global add @angular/cli@latest
-        - yarn install -g webdriver-manager
-        - webdriver-manager update
         # Install node dependancies.
         - yarn install
 
     build:
         commands:
         # Builds Angular application. You can also build using custom environment here like mock or staging
+        - 
         - echo Build started on `date`
         - ng build --aot
-        - ng e2e
 
     post_build:
         commands:

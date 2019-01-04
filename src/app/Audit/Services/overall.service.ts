@@ -14,7 +14,7 @@ export class OverallService {
   private baseUrl:string= 'http://localhost:9075/audit/';
   private headers = new Headers({'Content-Type':'application/json'});
   private options = new RequestOptions({headers:this.headers});
-  constructor(private _http:Http) { }
+  constructor(private _http:Http, private http: HttpClient) { }
   private overallqc = new Overallqc(); 
   getOverallQC(week: Number, batchid: Number){
 
@@ -26,6 +26,15 @@ export class OverallService {
     return this._http.put(this.baseUrl+'update',JSON.stringify(overallqc),this.options).pipe(map((response:Response)=>response.json()));
       // .catch(this.errorHandler);
    }
+
+   updateOverallStatus(qcStatus: String) {
+     //return this.http.put<Overallqc>()
+   }
+
+
+   getOverallSmileyStatus(): Observable<Overallqc> {
+    return this.http.get<Overallqc>(this.baseUrl +'/audit/notes/overall/1/4');
+  }
 
    createOverallQC(overallqc:Overallqc){
 
@@ -49,27 +58,4 @@ export class OverallService {
 
 }
 
-/**
- * getCurrentNotes(week: Number, batchid: Number): Observable<Note> {
-  return this.http.get<Note>(this.noteUrl + 'notes/' + batchid + '/' + week);
-}
 
-updateNote(note: Note): Observable<Note> {
-  return this.http.put<Note>(this.noteUrl + 'update', note);
-}
- */
-
-   //endpoint: localhost:9075/audit/notes/overall/{batchId}/{week}
-  /** response:
-{
-    "noteId": 65,
-    "content": " ",
-    "week": 3,
-    "batchId": 1,
-    "trainee": null,
-    "traineeId": 0,
-    "type": "QC_BATCH",
-    "qcStatus": "Undefined",
-    "updateTime": 1546528285639,
-    "updateTrainer": null
-}*/

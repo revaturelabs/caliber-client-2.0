@@ -12,8 +12,4 @@ export class Note {
     traineeId: number;
     trainee: Trainee;
     noteFlagInputActive: boolean;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> overall

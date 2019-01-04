@@ -56,35 +56,4 @@ this.overallqc= this._auditService.getCurrentNotes(this.overallqc.week,this.over
   
   }
 
-   /* checkForChanges(): boolean {
-    if (this.CurrentWeek !== this.auditService.selectedWeek) {
-      this.CurrentWeek = this.auditService.selectedWeek;
-      this.PopulateNotes();
-      if (this.auditService.selectedBatch.batchId !== this.CurrentBatch) {
-        this.CurrentBatch = this.auditService.selectedBatch.batchId;
-        this.PopulateNotes();
-      }
-      return true;
-    }
-    }
-    PopulateNotes() {
-      this.auditService.getCurrentNotes(this.auditService.selectedWeek,
-        this.auditService.selectedBatch.batchId).subscribe(note => {
-          console.log(this.CurrentBatch + ' ' + this.CurrentWeek);
-          console.log(note);
-          this.CurrentNotes = note;
-          console.log(this.CurrentNotes);
-         });
-    }
-    updateQCNote(note: Note) {
-      console.log(note);
-      this.auditService.updateNote(note).subscribe(n => {console.log(n); } );
-    }
-    noteOnBlur(selectedNoteId: number): void {
-      for (let i = 0; i < this.CurrentNotes.length; i++) {
-        if (this.CurrentNotes[i].noteId === selectedNoteId) {
-          this.updateQCNote(this.CurrentNotes[i]);
-        }
-      }
-    }
-*/
+

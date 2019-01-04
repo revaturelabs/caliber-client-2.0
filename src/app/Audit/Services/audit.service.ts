@@ -30,6 +30,8 @@ export class AuditService {
   selectedBatch: Batch;
   selectedWeek = 1;
 
+  ProcessingNote = false;
+
   constructor(private http: HttpClient) { }
 
   getBatchesByYear(year: number): Observable<Batch[]> {

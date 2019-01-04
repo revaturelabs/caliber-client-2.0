@@ -23,17 +23,7 @@
 }
 */
 
-.isHappy {
-	color: #19ad17 !important;
-}
 
-.isMeh {
-	color: #f9e903 !important;
-}
-
-.isSad {
-	color: #ea2724 !important;
-}
 
 body {
 	font-family: 'Futura-Std-Book';
@@ -668,3 +658,16 @@ INTENDED FOR CHART DOWNLOAD ICON IF HOVER OVER CHANGE CURSOR TO POINTING
 .hideDropdown input::-webkit-calendar-picker-indicator {
 	display: none;
 }
+
+.isHappy {
+	color: #19ad17;
+}
+
+.isMeh {
+	color: #f9e903;
+}
+
+.isSad {
+	color: #ea2724;
+}
+

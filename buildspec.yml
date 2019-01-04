@@ -30,9 +30,11 @@ phases:
     build:
         commands:
         # Builds Angular application. You can also build using custom environment here like mock or staging
+        - webdriver-manager start
+        - ng e2e
         - echo Build started on `date`
         - ng build --aot
-        - ng e2e
+        - 
 
     post_build:
         commands:

@@ -26,7 +26,7 @@ export class AssociateComponent implements OnInit {
   ];
 
   // Unimplemented functions
-  constructor(private auditService: AuditService) {}
+  constructor(public auditService: AuditService) {}
   ngOnInit() {
     this.CurrentWeek = 1;
   }

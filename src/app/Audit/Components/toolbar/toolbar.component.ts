@@ -83,7 +83,7 @@ export class ToolbarComponent implements OnInit {
     var last = this.weeks[this.weeks.length-1];
     this.weeks.push(last+1);
     this.selectedWeek=last+1;
-    this.selectedBatch.weeks++;
+    //this.selectedBatch.weeks++;
     console.log(this.selectedBatch.batchId);
     this.auditService.putBatch(this.selectedBatch).subscribe(result => {
       console.log('updated');
@@ -92,9 +92,9 @@ export class ToolbarComponent implements OnInit {
 
   getWeeks() {
     this.weeks = [];
-    for(var i = 0; i<this.selectedBatch.weeks; i++){
-      this.weeks.push(i+1);
+    //for(var i = 0; i<this.selectedBatch.weeks; i++){
+      //this.weeks.push(i+1);
     }
   }
 
-}
+

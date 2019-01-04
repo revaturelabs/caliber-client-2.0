@@ -20,7 +20,7 @@ export class OverallComponent implements OnInit {
 	sad: '#b9b9ba';
 
 	@ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
-
+	overallQc = new Overallqc();
 	showFloppy: boolean = true;
 	showSaving: boolean = false;
 	showCheck: boolean = false;
@@ -29,10 +29,12 @@ export class OverallComponent implements OnInit {
 
 	ngOnInit() {
 		this.overallqc = this._overallqcService.getter();
+		this.getCalculatedAverage();
 	}
 
 	getCalculatedAverage() {
-		
+		this._overallqcService.getOverallSmileyStatus().subscribe(overallQc => this.overallQc.qcStatus = overallQc.qcStatus);
+		console.log(this.overallQc);
 	}
 
 	changeFaceColor(num) {
@@ -42,12 +44,18 @@ export class OverallComponent implements OnInit {
 		switch (num) {
 			case 1:
 				this.happy = this.colors[0];
+				const i = this.overallqc.qcStatus = 'Good';
+				this._overallqcService.updateOverallStatus(i);
 				break;
 			case 2:
 				this.meh = this.colors[1];
+				const a = this.overallqc.qcStatus = 'Average';
+				this._overallqcService.updateOverallStatus(a);
 				break;
 			case 3:
 				this.sad = this.colors[2];
+				const b = this.overallqc.qcStatus = 'Poor';
+				this._overallqcService.updateOverallStatus(b);
 				break;
 			default:
 				break;

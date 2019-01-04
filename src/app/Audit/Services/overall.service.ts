@@ -10,9 +10,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class OverallService {
   private baseUrl:string= 'http://localhost:7861';
+  private baseUrl1: string = 'http://localhost:9075';
   private headers = new Headers({'Content-Type':'application/json'});
   private options = new RequestOptions({headers:this.headers});
-  constructor(private _http:Http) { }
+  constructor(private _http:Http, private http: HttpClient) { }
   private overallqc = new Overallqc(); 
   getOverallQC(id:Number){
 
@@ -24,6 +25,15 @@ export class OverallService {
     return this._http.put(this.baseUrl+'/note/update',JSON.stringify(overallqc),this.options).pipe(map((response:Response)=>response.json()));
       // .catch(this.errorHandler);
    }
+
+   updateOverallStatus(qcStatus: String) {
+     //return this.http.put<Overallqc>()
+   }
+
+
+   getOverallSmileyStatus(): Observable<Overallqc> {
+    return this.http.get<Overallqc>(this.baseUrl1 +'/audit/notes/overall/1/4');
+  }
 
    createOverallQC(overallqc:Overallqc){
 

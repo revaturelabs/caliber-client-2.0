@@ -22,6 +22,13 @@
 	src: url('fonts/Futura-Std-Bold.otf') format('opentype');
 }
 */
+
+hr {
+	border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: #474C55;
+}
+
 body {
 	font-family: 'Futura-Std-Book';
 }
@@ -655,3 +662,16 @@ INTENDED FOR CHART DOWNLOAD ICON IF HOVER OVER CHANGE CURSOR TO POINTING
 .hideDropdown input::-webkit-calendar-picker-indicator {
 	display: none;
 }
+
+.isHappy {
+	color: #19ad17;
+}
+
+.isMeh {
+	color: #f9e903;
+}
+
+.isSad {
+	color: #ea2724;
+}
+

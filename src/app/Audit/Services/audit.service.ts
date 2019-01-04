@@ -35,16 +35,24 @@ export class AuditService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+  * get all batches by specified year from batch microservice
+  * @param year year that all batches should be retrieved from
+  *
+  */
   getBatchesByYear(year: number): Observable<Batch[]> {
     return this.http.get<Batch[]>(this.url + this.batchesYearURL + year);
   }
 
+   /**
+  * get all starting years from batch microservice
+  */
   getAllYears(): Observable<number[]> {
     return this.http.get<number[]>(this.url + this.yearsURL);
   }
 
     /**
-   * updates specified batch in batch service
+   * updates specified batch in batch microservice
    * @param batch batch to be updated
    */
   putBatch(batch: Batch): Observable<Batch> {

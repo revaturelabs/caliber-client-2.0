@@ -47,7 +47,7 @@ export class BatchService {
   traineeCountURL = 'http://localhost:9095/all/trainee/count/';
   selectedYear: number;
   selectedBatch: Batch;
-  selectedWeek = 1;
+  selectedWeek: number;
 
   constructor(private http: HttpClient) { }
 

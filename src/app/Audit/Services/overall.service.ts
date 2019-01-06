@@ -5,6 +5,7 @@ import { map, filter, switchMap } from 'rxjs/operators';
 import { Overallqc } from '../../overallqc';
 import { HttpClient } from '@angular/common/http';
 import { Batch } from 'src/app/Batch/type/batch';
+import { Note } from '../types/Note';
 
 @Injectable({
   providedIn: 'root'

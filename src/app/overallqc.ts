@@ -8,7 +8,7 @@ export class Overallqc {
    week: Number=1;
    traineeid: Number = 0;
    type: string = "QC_BATCH";
-   qcstatus:string = "Undefined";
+   QCStatus: string;
    updateTime: 1546528285639;
    updateTrainer: null;
    

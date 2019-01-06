@@ -6,7 +6,7 @@
             <tr>
                 <!-- Top row will span over all columns -->
                 <td colspan="5"> 
-                    <strong>Categories covered this week: </strong>
+                    <strong id="categories-covered">Categories covered this week: </strong>
                     <!-- Tracked last item in list to prevent last comma from being printed -->
                     <span *ngFor="let cat of categories; let isLast=last">
                         {{cat.name}}{{isLast ? '' : ', '}}

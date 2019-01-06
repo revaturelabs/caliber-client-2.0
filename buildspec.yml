@@ -15,11 +15,6 @@ phases:
         # Install http drivers for node
         - sudo apt-get update -y
         - sudo apt-get install -y apt-transport-https
-        # Get Chrome Information
-        - curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-        - echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
-        - apt-get -y update
-        - apt-get -y install google-chrome-stable
         # Install Yarn Package Manager (Replace the commands below if you using NPM).
         - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
         - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
@@ -35,7 +30,7 @@ phases:
     build:
         commands:
         # Builds Angular application. You can also build using custom environment here like mock or staging
-        - ng e2e --protractor-config=./e2e/protractor-ci.conf.js
+        - 
         - echo Build started on `date`
         - ng build --aot
         - 

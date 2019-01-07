@@ -14,6 +14,7 @@ import { Note } from '../../types/Note';
 export class OverallComponent implements OnInit {
 	public overallqc: Overallqc;
 	note: Note;
+
 	qcStatusTypes = [];
 	batch: Batch;
 	qcBatchAssess: number;
@@ -44,8 +45,8 @@ export class OverallComponent implements OnInit {
 	}
 
 	getCalculatedAverage() {
+
 		this._overallqcService.getOverallSmileyStatus().subscribe( (n) => {
-		console.log(n);
 		this.note = n;
 		this.figure(n);
 	});

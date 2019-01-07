@@ -34,7 +34,7 @@ export class OverallService {
 
 
    getOverallSmileyStatus(): Observable<Overallqc> {
-    return this.http.get<Overallqc>(this.baseUrl +'/audit/notes/overall/1/4');
+    return this.http.get<Overallqc>(this.baseUrl +'notes/1/4');
   }
 
    createOverallQC(overallqc:Overallqc){

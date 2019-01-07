@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Note } from '../types/Note';
 import { Trainee } from '../types/Trainee';
+import { Overallqc } from '../../overallqc';
 
 /**
  * sets headers for recieving JSON objects
@@ -64,6 +65,10 @@ export class AuditService {
 
   updateNote(note: Note): Observable<Note> {
     return this.http.put<Note>(this.noteUrl + 'update', note);
+  }
+
+  updateOverallqc(overallqc: Overallqc): Observable<Overallqc> {
+    return this.http.put<Overallqc>(this.noteUrl + 'update', overallqc);
   }
 
   updateTrainee(trainee: Trainee): Observable<Trainee> {

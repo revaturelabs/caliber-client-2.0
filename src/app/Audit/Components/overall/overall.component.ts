@@ -18,7 +18,15 @@ export class OverallComponent implements OnInit {
   CurrentNotes;
   CurrentWeek;
   CurrentBatch;
-
+  selectedWeek;
+  qcStatus: string;
+  noteid: Number;
+  content:string;
+  batchid: Number;
+  week: Number;
+  traineeid: Number =0;
+  type: string = "QC_BATCH";
+  QCStatus: string="Undefined";
   note;
   qcStatusTypes = [];
 	batch: Batch;
@@ -35,11 +43,36 @@ constructor(public _overallqcService: OverallService ,
 	showFloppy: boolean = true;
 	showSaving: boolean = false;
 	showCheck: boolean = false;
-	qcStatus: string;
+ 
+ 
 
  ngOnInit() {
-   this.overallqc=this._overallqcService.getter();
-   this.getCalculatedAverage();
+  this.getCalculatedAverage();
+  this.overallqc=this._overallqcService.getter();
+  this.CurrentWeek = 1;
+  this.CurrentBatch = this.batchService.selectedBatch;
+ // this.overallqc.week = this.batchService.selectedWeek;
+ // this.overallqc.batchid = this.batchService.selectedBatch.batchId
+ 
+  this._overallqcService.getOverallQC(this.overallqc.week,this.overallqc.batchid).subscribe(overallqc => this.overallqc.content = overallqc.content);
+
+  if(this.batchService.selectedBatch.batchId != undefined ){
+  this.overallqc.batchid =this.batchService.selectedBatch.batchId;
+  }
+  else{
+  this.overallqc.batchid =0;
+  }
+  if(this.batchService.selectedWeek != undefined){
+    this.overallqc.week=this.batchService.selectedWeek;
+  }
+  else{
+  this.overallqc.week =1;
+}
+
+this._overallqcService.getOverallQC(this.overallqc.week,this.overallqc.batchid).subscribe(overallqc => this.overallqc.content = overallqc.content);
+
+ 
+  
  }
 
  faceColorOnInit(genF) {
@@ -149,21 +182,23 @@ saveQCandTrainee() {
   }, 4000);
 
 }
- saveQCNotes(){
-   this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
-  // this.overallqc.noteId = 0;
-   if(this.overallqc.content==undefined){
-    
+
+ saveQCNotes(overallqc:Overallqc){ 
+  this.overallqc=this._overallqcService.getter();                                          
+  this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
+  this._overallqcService.getOverallQC(this.batchService.selectedWeek,this.overallqc.batchid).subscribe(overallqc => this.overallqc.content = overallqc.content);
+
+   if(this.overallqc.content==undefined || this.overallqc.content==""){
+   
     this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
-   // this.overallqc.noteId = 0;
+
      this._overallqcService.createOverallQC(this.overallqc).subscribe((overallqc)=>{
        console.log(overallqc); 
      });
 
    }else{
-    // @ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
+    this._overallqcService.getOverallQC(this.batchService.selectedWeek,this.batchService.selectedBatch.batchId).subscribe(overallqc => this.overallqc.content = overallqc.content);
      this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
-    // this.overallqc.noteId = 0;
      this._overallqcService.updateOverallQC(this.overallqc).subscribe((overallqc)=>{
        console.log(overallqc); 
      });
@@ -191,52 +226,20 @@ PopulateNotes() {
       console.log(this.CurrentNotes);
      });
 }
+
+updateQCNote(overallqc: Overallqc) {
+  console.log(overallqc);
+  this.auditService.processingNote = true;
+  this.auditService.updateOverallqc(overallqc).subscribe(n => {
+    console.log('saving...');
+    console.log(n);
+    this.auditService.processingNote = false;
+    this.auditService.noteUpdate = true;
+    for (let i = 0; i < this.CurrentNotes.length; i++) {
+      if (this.CurrentNotes[i].noteId === n.noteid) {
+        this.CurrentNotes[i] = n;
+      }
+    }
+  });
 }
-/*export class OverallComponent implements OnInit {
-   public overallqc : Overallqc;
-   public note : Note;
-   CurrentNotes;
-   CurrentWeek = 1;
- @ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
-constructor(private _overallqcService: OverallService, public _auditService:AuditService, public _BatchService:BatchService) { }
-
-  ngOnInit() {
-   // this.CurrentNotes = this.note.getCurrentNotes();
-   // this.note=this._auditService.getBatchesByYear();
-    if(this.note.content != ""){
-      this.note.content = this.qcBatchNotes.nativeElement.innerHTML;
-      this.note.batchId = this._BatchService.selectedBatch.batchId;
-      this.note.week = this._BatchService.selectedWeek;
-this.note= this._auditService.getCurrentNotes(this.note.week,this.note.batchId);
-    }
-    if (this.note != null || this.note != undefined){
-      this.note.content = this.qcBatchNotes.nativeElement.innerHTML;
-    }
-
-  }
-
-  saveQCNotes(note){
-  //  this._overallqcService.setter(this.overallqc);
-  //console.log(this.overallqc);
- 
-    if(this.note.content==""){
-     this.note.content = this.qcBatchNotes.nativeElement.innerHTML;
-    // this._auditService.setter(this.overallqc);
-      this._auditService.updateNote(this.note).subscribe((note)=>{
-        console.log(note); 
-      });
-
-    }else if(this.note.content != "") {
-     // this._auditService.setter(this.overallqc);
-      this._auditService.updateNote(this.note).subscribe((note)=>{
-       
-        console.log(note); 
-
-      });
-    }
-   
-  }
-  
-  }
-
-*/
+}

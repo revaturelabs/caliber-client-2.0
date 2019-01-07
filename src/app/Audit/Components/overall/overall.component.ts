@@ -13,10 +13,7 @@ import { Note } from '../../types/Note';
 })
 export class OverallComponent implements OnInit {
 	public overallqc: Overallqc;
-<<<<<<< HEAD
-	note;
-=======
->>>>>>> overall
+	note: Note;
 	qcStatusTypes = [];
 	batch: Batch;
 	qcBatchAssess: number;
@@ -47,8 +44,8 @@ export class OverallComponent implements OnInit {
 	}
 
 	getCalculatedAverage() {
-<<<<<<< HEAD
 		this._overallqcService.getOverallSmileyStatus().subscribe( (n) => {
+		console.log(n);
 		this.note = n;
 		this.figure(n);
 	});
@@ -68,23 +65,31 @@ export class OverallComponent implements OnInit {
 		if(n.qcStatus == 'Undefined') {
 			this.faceColorOnInit(null);
 		}
-=======
-		this._overallqcService.getOverallSmileyStatus().subscribe(overallQc => this.overallQc.qcStatus = overallQc.qcStatus);
-		console.log(this.overallQc);
-		if (this.overallQc.qcStatus = 'Good') {
-			this.faceColorOnInit(1);
-		}
-		if (this.overallQc.qcStatus = 'Average') {
-			this.faceColorOnInit(2);
-		}
-		if (this.overallQc.qcStatus = 'Poor') {
-			this.faceColorOnInit(3);
-		}
-		if (this.overallQc.qcStatus = 'Undefined') {
-			this.faceColorOnInit(3);
-		}
+	}
 
->>>>>>> overall
+	updateGreen(note: Note) {
+		note.qcStatus = "Green";
+		console.log(note);
+		this.auditService.updateNote(note).subscribe ( (n) => {
+			this.note = n;
+			console.log(n);
+			
+		});
+	}
+
+	updateYellow(note: Note) {
+		note.qcStatus = "Yellow";
+		this._overallqcService.updateOverallStatus(note).subscribe( (n) => {
+			this.note = n;
+		});
+
+	}
+
+	updateRed(note: Note) {
+		note.qcStatus = "Red";
+		this._overallqcService.updateOverallStatus(note).subscribe( (n) => {
+			this.note = n;
+		})
 	}
 
 	changeFaceColor(num) {
@@ -94,18 +99,19 @@ export class OverallComponent implements OnInit {
 		switch (num) {
 			case 1:
 				this.happy = this.colors[0];
-				const i = this.overallqc.QCStatus = 'Good';
-				this._overallqcService.updateOverallStatus(i);
+				console.log(this.note);
+				this.updateGreen(this.note);
+				
+				console.log("logging");
 				break;
 			case 2:
 				this.meh = this.colors[1];
-				const a = this.overallqc.QCStatus = 'Average';
-				this._overallqcService.updateOverallStatus(a);
+				this.updateYellow(this.note);
 				break;
 			case 3:
 				this.sad = this.colors[2];
-				const b = this.overallqc.QCStatus = 'Poor';
-				this._overallqcService.updateOverallStatus(b);
+				this.updateRed(this.note);
+				//this._overallqcService.updateOverallStatus(b);
 				break;
 			default:
 				break;

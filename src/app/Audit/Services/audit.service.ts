@@ -67,6 +67,8 @@ export class AuditService {
   }
 
   updateNote(note: Note): Observable<Note> {
+    console.log(note);
+    console.log(this.noteUrl + '/update');
     return this.http.put<Note>(this.noteUrl + '/update', note);
   }
 

@@ -53,6 +53,7 @@ export class OverallComponent implements OnInit {
 	}
 
 	checkForChanges(): boolean {
+		console.log(this.CurrentWeek + " " + this.CurrentBatch);
 		if (this.CurrentWeek !== this.batchService.selectedWeek) {
 			this.CurrentWeek = this.batchService.selectedWeek;
 			this.getCalculatedAverage();
@@ -111,7 +112,7 @@ export class OverallComponent implements OnInit {
 	}
 
 	updateGreen(note: Note) {
-		note.qcStatus = "Green";
+		note.qcStatus = "Good";
 		console.log(note);
 		this.auditService.updateNote(note).subscribe((n) => {
 			this.note = n;
@@ -121,7 +122,7 @@ export class OverallComponent implements OnInit {
 	}
 
 	updateYellow(note: Note) {
-		note.qcStatus = "Yellow";
+		note.qcStatus = "Average";
 		this._overallqcService.updateOverallStatus(note).subscribe((n) => {
 			this.note = n;
 		});
@@ -129,7 +130,7 @@ export class OverallComponent implements OnInit {
 	}
 
 	updateRed(note: Note) {
-		note.qcStatus = "Red";
+		note.qcStatus = "Poor";
 		this._overallqcService.updateOverallStatus(note).subscribe((n) => {
 			this.note = n;
 		})
@@ -199,26 +200,13 @@ export class OverallComponent implements OnInit {
 		}, 4000);
 
 	}
-	/*
-	saveQCNotes() {
-		this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
-		this.overallqc.noteId = 0;
-		if (this.overallqc.content == undefined) {
-
-			this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
-			this.overallqc.noteId = 0;
-			this._overallqcService.createOverallQC(this.overallqc).subscribe((overallqc) => {
-				console.log(overallqc);
-			});
-
-		} else {
-			// @ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
-			this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
-			this.overallqc.noteId = 0;
-			this._overallqcService.updateOverallQC(this.overallqc).subscribe((overallqc) => {
-				console.log(overallqc);
-			});
-		}
+	noteOnBlur() {
+		console.log(this.note);
+		this.auditService.processingNote = true;
+		this.auditService.updateNote(this.note).subscribe((n) => {
+			this.auditService.processingNote = false;
+			this.note = n;
+			console.log(n);
+		});
 	}
-	*/
 }

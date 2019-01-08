@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { map, filter, switchMap } from 'rxjs/operators';
 import { Overallqc } from '../../overallqc';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -17,6 +17,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class OverallService {
+
   private awsUrl: string = 'http://caliber-v2-alb-1098400863.eu-west-2.elb.amazonaws.com/qa/';
   private baseUrl: string = 'http://localhost:9075';
   private headers = new Headers({'Content-Type':'application/json'});
@@ -30,12 +31,6 @@ export class OverallService {
   public note: Note;
 
   getOverallQC(id:Number){
-
-    return this._http.get(this.baseUrl+'/note/'+id,this.options).pipe(map((response:Response)=>response.json()));
-      // .catch(this.errorHandler);
-   }
-  updateOverallQC(overallqc:Overallqc){
-
     return this._http.put(this.awsUrl +'/note/update',JSON.stringify(overallqc),this.options).pipe(map((response:Response)=>response.json()));
       // .catch(this.errorHandler);
    }
@@ -51,22 +46,23 @@ export class OverallService {
     //return this.http.get<Note>(this.awsUrl +'audit/notes/overall/1/4');
   }
 
-   createOverallQC(overallqc:Overallqc){
+  createOverallQC(overallqc: Overallqc) {
 
-    return this._http.post(this.baseUrl+'/note/create',JSON.stringify(overallqc),this.options).pipe(map((response:Response)=>response.json()));
-     //  .catch(this.errorHandler);
-   }
+    return this._http.post(this.aws_url + 'create/', JSON.stringify(overallqc),
+     this.options).pipe(map((response: Response) => response.json()));
+    //  .catch(this.errorHandler);
+  }
 
 
-  setter(overallqc:Overallqc){
-    this.overallqc =overallqc;
- }
- 
- getter(){
+  setter(overallqc: Overallqc) {
+    this.overallqc = overallqc;
+  }
+
+  getter() {
     return this.overallqc;
- }
+  }
 
- errorHandler(error:Response){
-  return Observable.throw(error || "SERVER ERROR");
-}
+  errorHandler(error: Response) {
+    return Observable.throw(error || "SERVER ERROR");
+  }
 }

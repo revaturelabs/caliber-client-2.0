@@ -3,40 +3,47 @@ import { Observable } from 'rxjs';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { map, filter, switchMap } from 'rxjs/operators';
 import { Overallqc } from '../../overallqc';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Note } from '../types/Note';
+import { BatchService } from 'src/app/Batch/batch.service';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class OverallService {
-  private baseUrl: string = 'http://localhost:7861';
-  private baseUrl1: string = 'http://localhost:9075';
-  private aws_url: string = 'http://calber-v2-alb-1098400863.eu-west-2.elb.amazonaws.com/qa/audit/';
-  private headers = new Headers({ 'Content-Type': 'application/json' });
-  private options = new RequestOptions({ headers: this.headers });
 
+  private awsUrl: string = 'http://caliber-v2-alb-1098400863.eu-west-2.elb.amazonaws.com/qa/';
+  private baseUrl: string = 'http://localhost:9075';
+  private headers = new Headers({'Content-Type':'application/json'});
+  private options = new RequestOptions({headers:this.headers});
 
-  constructor(private _http: Http, private http: HttpClient) { }
+  constructor(private _http:Http, private http: HttpClient, public serviceBatch: BatchService) { }
+
   private overallqc = new Overallqc();
-  getOverallQC(id: Number) {
+  batchId = this.serviceBatch.selectedBatch; 
+  weekId = this.serviceBatch.selectedWeek;
+  public note: Note;
 
-    return this._http.get(this.aws_url + 'notes/' + id, this.options).pipe(map((response: Response) => response.json()));
-    // .catch(this.errorHandler);
-  }
-  updateOverallQC(overallqc: Overallqc) {
+  getOverallQC(id:Number){
+    return this._http.put(this.awsUrl +'/note/update',JSON.stringify(overallqc),this.options).pipe(map((response:Response)=>response.json()));
+      // .catch(this.errorHandler);
+   }
 
-    return this._http.put(this.aws_url + 'update/', JSON.stringify(overallqc),
-     this.options).pipe(map((response: Response) => response.json()));
-    // .catch(this.errorHandler);
-  }
-
-  updateOverallStatus(qcStatus: String) {
-    //return this.http.put<Overallqc>()
-  }
+   updateOverallStatus(note: Note): Observable<Note> { 
+     console.log(note);
+     return this.http.put<Note>(this.baseUrl + 'audit/update/overall', note);
+   }
 
 
-  getOverallSmileyStatus(): Observable<Overallqc> {
-    return this.http.get<Overallqc>(this.aws_url + 'notes/1/4/');
+   getOverallSmileyStatus(): Observable<Note> {
+    return this.http.get<Note>(this.baseUrl +'/audit/notes/overall/' + this.weekId +  '/' + this.batchId);
+    //return this.http.get<Note>(this.awsUrl +'audit/notes/overall/1/4');
   }
 
   createOverallQC(overallqc: Overallqc) {

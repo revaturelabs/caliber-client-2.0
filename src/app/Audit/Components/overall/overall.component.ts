@@ -3,6 +3,8 @@ import { Overallqc } from '../../../overallqc';
 import { AuditService } from '../../Services/audit.service';
 import { OverallService } from '../../Services/overall.service';
 import { Batch } from 'src/app/Batch/type/batch';
+import { Note } from '../../types/Note';
+
 
 @Component({
 	selector: 'app-overall',
@@ -11,6 +13,8 @@ import { Batch } from 'src/app/Batch/type/batch';
 })
 export class OverallComponent implements OnInit {
 	public overallqc: Overallqc;
+	note: Note;
+
 	qcStatusTypes = [];
 	batch: Batch;
 	qcBatchAssess: number;
@@ -25,6 +29,7 @@ export class OverallComponent implements OnInit {
 	showFloppy: boolean = true;
 	showSaving: boolean = false;
 	showCheck: boolean = false;
+	qcStatus: string;
 
 	constructor(public _overallqcService: OverallService,
 		public auditService: AuditService) { }
@@ -40,21 +45,52 @@ export class OverallComponent implements OnInit {
 	}
 
 	getCalculatedAverage() {
-		this._overallqcService.getOverallSmileyStatus().subscribe(overallQc => this.overallQc.qcStatus = overallQc.qcStatus);
-		console.log(this.overallQc);
-		if (this.overallQc.qcStatus = 'Good') {
+
+		this._overallqcService.getOverallSmileyStatus().subscribe( (n) => {
+		this.note = n;
+		this.figure(n);
+	});
+	}
+
+	figure(n) {
+		console.log(n);
+		if(n.qcStatus == 'Good') {
 			this.faceColorOnInit(1);
 		}
-		if (this.overallQc.qcStatus = 'Average') {
+		if(n.qcStatus == 'Average') {
 			this.faceColorOnInit(2);
 		}
-		if (this.overallQc.qcStatus = 'Poor') {
+		if(n.qcStatus == 'Poor') {
 			this.faceColorOnInit(3);
 		}
-		if (this.overallQc.qcStatus = 'Undefined') {
-			this.faceColorOnInit(3);
+		if(n.qcStatus == 'Undefined') {
+			this.faceColorOnInit(null);
 		}
+	}
 
+	updateGreen(note: Note) {
+		note.qcStatus = "Green";
+		console.log(note);
+		this.auditService.updateNote(note).subscribe ( (n) => {
+			this.note = n;
+			console.log(n);
+			
+		});
+	}
+
+	updateYellow(note: Note) {
+		note.qcStatus = "Yellow";
+		this._overallqcService.updateOverallStatus(note).subscribe( (n) => {
+			this.note = n;
+		});
+
+	}
+
+	updateRed(note: Note) {
+		note.qcStatus = "Red";
+		this._overallqcService.updateOverallStatus(note).subscribe( (n) => {
+			this.note = n;
+		})
 	}
 
 	changeFaceColor(num) {
@@ -64,18 +100,19 @@ export class OverallComponent implements OnInit {
 		switch (num) {
 			case 1:
 				this.happy = this.colors[0];
-				const i = this.overallqc.qcStatus = 'Good';
-				this._overallqcService.updateOverallStatus(i);
+				console.log(this.note);
+				this.updateGreen(this.note);
+				
+				console.log("logging");
 				break;
 			case 2:
 				this.meh = this.colors[1];
-				const a = this.overallqc.qcStatus = 'Average';
-				this._overallqcService.updateOverallStatus(a);
+				this.updateYellow(this.note);
 				break;
 			case 3:
 				this.sad = this.colors[2];
-				const b = this.overallqc.qcStatus = 'Poor';
-				this._overallqcService.updateOverallStatus(b);
+				this.updateRed(this.note);
+				//this._overallqcService.updateOverallStatus(b);
 				break;
 			default:
 				break;

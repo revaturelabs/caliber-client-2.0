@@ -1,7 +1,6 @@
 import { browser, by, element } from 'protractor';
 
-const viewABatchUrl = '';
-const buttonToOpenViewTraineesModal = '';
+const viewABatchUrl = 'caliber/#/vp/manage';
 
 export class AppPage {
   navigateTo() {
@@ -52,7 +51,7 @@ export class AppPage {
 
 export class ViewTraineesInBatchPage {
   navigateTo() {
-    return browser.get('/' + viewABatchUrl);
+    return browser.get(viewABatchUrl);
   }
 
   getPopupTraineesinBatchModalH4() {

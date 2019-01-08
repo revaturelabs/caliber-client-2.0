@@ -18,9 +18,12 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuditService {
+  //local
+  //url = 'http://localhost:9095';
+  url = 'http://caliber-v2-alb-1098400863.eu-west-2.elb.amazonaws.com/user';
 
-  url = 'http://localhost:9095';
-  noteUrl = 'http://localhost:9075/audit/';
+  noteUrl = 'http://caliber-v2-alb-1098400863.eu-west-2.elb.amazonaws.com/zuul/audit/audit/';
+  //noteUrl = 'http://caliber-v2-alb-1098400863.eu-west-2.elb.amazonaws.com/qa';
   traineeUrl = 'http://localhost:9075/trainee/update/';
   batchAllURL = '/vp/batch/all';
   batchesYearURL = '/vp/batch/';
@@ -60,11 +63,11 @@ export class AuditService {
   }
 
   getCurrentNotes(week: Number, batchid: Number): Observable<Note> {
-    return this.http.get<Note>(this.noteUrl + 'notes/' + batchid + '/' + week);
+    return this.http.get<Note>(this.noteUrl + '/notes/' + batchid + '/' + week);
   }
 
   updateNote(note: Note): Observable<Note> {
-    return this.http.put<Note>(this.noteUrl + 'update', note);
+    return this.http.put<Note>(this.noteUrl + '/update', note);
   }
 
   updateTrainee(trainee: Trainee): Observable<Trainee> {

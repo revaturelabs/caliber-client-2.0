@@ -1,5 +1,6 @@
 import { AppPage } from './app.po';
 import { ViewTraineesInBatchPage } from './app.po';
+import { QualityAuditPage } from './quality-audit.po';
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -24,10 +25,10 @@ describe('workspace-project App', () => {
     expect(page.getNavHomeLink()).toEqual('home works!');
   });
 
-  it('should click the manage link and navigate to the manage page', () => {
-    page.navigateTo();
-    expect(page.getNavManageLink()).toEqual('manage works!');
-  });
+  // it('should click the manage link and navigate to the manage page', () => {
+  //   page.navigateTo();
+  //   expect(page.getNavManageLink()).toEqual('manage works!');
+  // });
 
   it('should click the logo and navigate to the home page', () => {
     page.navigateTo();
@@ -54,28 +55,45 @@ describe('tests for view trainees in a batch modal', () => {
     expect(page.getPopupTraineesinBatchModalH4()).toEqual('View/Add Trainees');
   }); */
 
-  /* Add trainee window pops up */
-  it('should click on add trainee button and pop up modal', () => {
-    page.navigateTo();
-    expect(page.getAnAddTraineeModal()).toEqual('Add Trainee');
+  // /* Add trainee window pops up */
+  // it('should click on add trainee button and pop up modal', () => {
+  //   page.navigateTo();
+  //   expect(page.getAnAddTraineeModal()).toEqual('Add Trainee');
+  // });
+
+  // /* Add Comment Form pops up after clicking on a name */
+  // it('should click on a trainee and pop up comment form', () => {
+  //   page.navigateTo();
+  //   expect(page.getATraineeCommentForm()).toEqual('comment');
+  // });
+
+  // /* Edit Trainee Form pops up after clicking on button */
+  // it('should click on a trainee update and pop up update form', () => {
+  //   page.navigateTo();
+  //   expect(page.getATraineeUpdateForm()).toEqual('Update Trainee');
+  // });
+
+  // /* Edit Trainee Form pops up after clicking on button */
+  // it('should click on a trainee delete and pop up delete form', () => {
+  //   page.navigateTo();
+  //   expect(page.getATraineeDeleteForm()).toEqual('Delete Trainee');
+  // });
+
+});
+
+/* QUALITY AUDIT TESTS */
+describe('tests for Quality Audit access', () => {
+  let qualityPage: QualityAuditPage;
+
+  beforeEach(() => {
+    qualityPage = new QualityAuditPage();
   });
 
-  /* Add Comment Form pops up after clicking on a name */
-  it('should click on a trainee and pop up comment form', () => {
-    page.navigateTo();
-    expect(page.getATraineeCommentForm()).toEqual('comment');
+  /* verify the toolbar is displayed */
+  it('should display all Quality Audit components', () => {
+    qualityPage.navigateTo();
+    // expect(qualityPage.getToolbarComponent()).toBeTruthy();
+    expect(qualityPage.getAssociateComponent()).toBeTruthy();
+    expect(qualityPage.getOverallComponent()).toBeTruthy();
   });
-
-  /* Edit Trainee Form pops up after clicking on button */
-  it('should click on a trainee update and pop up update form', () => {
-    page.navigateTo();
-    expect(page.getATraineeUpdateForm()).toEqual('Update Trainee');
-  });
-
-  /* Edit Trainee Form pops up after clicking on button */
-  it('should click on a trainee delete and pop up delete form', () => {
-    page.navigateTo();
-    expect(page.getATraineeDeleteForm()).toEqual('Delete Trainee');
-  });
-
 });

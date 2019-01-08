@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { map, filter, switchMap } from 'rxjs/operators';
 import { Overallqc } from '../../overallqc';
 import { HttpClient } from '@angular/common/http';
@@ -9,48 +9,53 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class OverallService {
-  private baseUrl:string= 'http://localhost:7861';
+  private baseUrl: string = 'http://localhost:7861';
   private baseUrl1: string = 'http://localhost:9075';
-  private headers = new Headers({'Content-Type':'application/json'});
-  private options = new RequestOptions({headers:this.headers});
-  constructor(private _http:Http, private http: HttpClient) { }
-  private overallqc = new Overallqc(); 
-  getOverallQC(id:Number){
-
-    return this._http.get(this.baseUrl+'/note/'+id,this.options).pipe(map((response:Response)=>response.json()));
-      // .catch(this.errorHandler);
-   }
-  updateOverallQC(overallqc:Overallqc){
-
-    return this._http.put(this.baseUrl+'/note/update',JSON.stringify(overallqc),this.options).pipe(map((response:Response)=>response.json()));
-      // .catch(this.errorHandler);
-   }
-
-   updateOverallStatus(qcStatus: String) {
-     //return this.http.put<Overallqc>()
-   }
+  private aws_url: string = 'http://calber-v2-alb-1098400863.eu-west-2.elb.amazonaws.com/qa/audit/';
+  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private options = new RequestOptions({ headers: this.headers });
 
 
-   getOverallSmileyStatus(): Observable<Overallqc> {
-    return this.http.get<Overallqc>(this.baseUrl1 +'/audit/notes/overall/1/4');
+  constructor(private _http: Http, private http: HttpClient) { }
+  private overallqc = new Overallqc();
+  getOverallQC(id: Number) {
+
+    return this._http.get(this.aws_url + 'notes/' + id, this.options).pipe(map((response: Response) => response.json()));
+    // .catch(this.errorHandler);
+  }
+  updateOverallQC(overallqc: Overallqc) {
+
+    return this._http.put(this.aws_url + 'update/', JSON.stringify(overallqc),
+     this.options).pipe(map((response: Response) => response.json()));
+    // .catch(this.errorHandler);
   }
 
-   createOverallQC(overallqc:Overallqc){
-
-    return this._http.post(this.baseUrl+'/note/create',JSON.stringify(overallqc),this.options).pipe(map((response:Response)=>response.json()));
-     //  .catch(this.errorHandler);
-   }
+  updateOverallStatus(qcStatus: String) {
+    //return this.http.put<Overallqc>()
+  }
 
 
-  setter(overallqc:Overallqc){
-    this.overallqc =overallqc;
- }
- 
- getter(){
+  getOverallSmileyStatus(): Observable<Overallqc> {
+    return this.http.get<Overallqc>(this.aws_url + 'notes/1/4/');
+  }
+
+  createOverallQC(overallqc: Overallqc) {
+
+    return this._http.post(this.aws_url + 'create/', JSON.stringify(overallqc),
+     this.options).pipe(map((response: Response) => response.json()));
+    //  .catch(this.errorHandler);
+  }
+
+
+  setter(overallqc: Overallqc) {
+    this.overallqc = overallqc;
+  }
+
+  getter() {
     return this.overallqc;
- }
+  }
 
- errorHandler(error:Response){
-  return Observable.throw(error || "SERVER ERROR");
-}
+  errorHandler(error: Response) {
+    return Observable.throw(error || "SERVER ERROR");
+  }
 }

@@ -4,6 +4,8 @@ import { AuditService } from '../../Services/audit.service';
 import { OverallService } from '../../Services/overall.service';
 import { Batch } from 'src/app/Batch/type/batch';
 import { Note } from '../../types/Note';
+import { interval, Subscription} from 'rxjs';
+
 
 
 @Component({
@@ -23,6 +25,7 @@ export class OverallComponent implements OnInit {
 	meh: '#b9b9ba';
 	sad: '#b9b9ba';
 	generatedFace: number;
+	subscription: Subscription;
 
 	@ViewChild('qcBatchNotes') qcBatchNotes: ElementRef;
 	overallQc = new Overallqc();
@@ -30,6 +33,7 @@ export class OverallComponent implements OnInit {
 	showSaving: boolean = false;
 	showCheck: boolean = false;
 	qcStatus: string;
+	updateValue: boolean = false;
 
 	constructor(public _overallqcService: OverallService,
 		public auditService: AuditService) { }
@@ -37,18 +41,33 @@ export class OverallComponent implements OnInit {
 	ngOnInit() {
 		this.overallqc = this._overallqcService.getter();
 		this.getCalculatedAverage();
+
 		//this.faceColorOnInit();
 	}
+
+	
 
 	faceColorOnInit(genF) {
 		this.generatedFace = genF;
 	}
+
+	checkForChanges(): boolean {
+		if(this.updateValue !== this.auditService.noteUpdate) {
+			this.updateValue = this.auditService.noteUpdate;
+			this.getCalculatedAverage();
+			this.auditService.noteUpdate = false;
+		}
+		return true;
+	}
+
+	
 
 	getCalculatedAverage() {
 
 		this._overallqcService.getOverallSmileyStatus().subscribe( (n) => {
 		this.note = n;
 		this.figure(n);
+		console.log(n);
 	});
 	}
 

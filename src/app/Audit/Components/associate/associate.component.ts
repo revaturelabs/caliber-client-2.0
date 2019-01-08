@@ -12,9 +12,11 @@ import { BatchService } from 'src/app/Batch/batch.service';
 })
 export class AssociateComponent implements OnInit {
 
-  CurrentNotes;
+  CurrentNotes: Note[];
   CurrentWeek;
   CurrentBatch;
+
+
 
   // List of test categories
   categories = [
@@ -45,12 +47,15 @@ export class AssociateComponent implements OnInit {
 
   PopulateNotes() {
     this.auditService.getCurrentNotes(this.batchService.selectedWeek,
-      this.batchService.selectedBatch.batchId).subscribe(note => {
+      this.batchService.selectedBatch.batchId).subscribe(notes => {
         console.log(this.CurrentBatch + ' ' + this.CurrentWeek);
-        console.log(note);
-        this.CurrentNotes = note;
-        console.log(this.CurrentNotes);
-       });
+
+        this.CurrentNotes = notes;
+
+        this.CurrentNotes.forEach(note => {
+          note.updating = false;
+        });
+    });
   }
 
   cycleFlag(selectedNoteId: number): void {
@@ -139,27 +144,44 @@ export class AssociateComponent implements OnInit {
     for (let i = 0; i < this.CurrentNotes.length; i++) {
       if (this.CurrentNotes[i].noteId === selectedNoteId) {
         console.log(this.CurrentNotes[i].trainee);
+
+        this.CurrentNotes[i].updating = true;
         this.updateTrainee(this.CurrentNotes[i].trainee);
       }
     }
   }
 
   updateTrainee(trainee: Trainee) {
-    this.auditService.processingNote = true;
-    this.auditService.updateTrainee(trainee).subscribe(t => {this.auditService.processingNote = false; } );
+    this.auditService.updateTrainee(trainee).subscribe(_trainee => {
+
+
+      this.CurrentNotes.forEach(note => {
+
+        if (note.traineeId === _trainee.traineeId){
+
+          note.updating = false;
+
+        }
+
+      });
+
+     });
   }
 
   updateQCNote(note: Note) {
     console.log(note);
-    this.auditService.processingNote = true;
+    this.auditService.noteUpdate = true;
+
+    note.updating = true;
+
     this.auditService.updateNote(note).subscribe(n => {
       console.log('saving...');
       console.log(n);
-      this.auditService.processingNote = false;
-      this.auditService.noteUpdate = true;
+
       for (let i = 0; i < this.CurrentNotes.length; i++) {
         if (this.CurrentNotes[i].noteId === n.noteId) {
           this.CurrentNotes[i] = n;
+          this.CurrentNotes[i].updating = false;
         }
       }
     });

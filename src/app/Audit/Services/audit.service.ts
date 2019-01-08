@@ -59,8 +59,8 @@ export class AuditService {
     return this.http.put<Batch>(this.url + this.batchUpdateURL, batch, httpOptions);
   }
 
-  getCurrentNotes(week: Number, batchid: Number): Observable<Note> {
-    return this.http.get<Note>(this.noteUrl + 'notes/' + batchid + '/' + week);
+  getCurrentNotes(week: Number, batchid: Number): Observable<Note[]> {
+    return this.http.get<Note[]>(this.noteUrl + 'notes/' + batchid + '/' + week);
   }
 
   updateNote(note: Note): Observable<Note> {

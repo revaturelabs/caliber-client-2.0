@@ -12,4 +12,5 @@ export class Note {
     traineeId: number;
     trainee: Trainee;
     noteFlagInputActive: boolean;
+    updating?: boolean;
 }

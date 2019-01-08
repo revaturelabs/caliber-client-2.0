@@ -7,6 +7,7 @@ import { Note } from '../../types/Note';
 import { interval, Subscription} from 'rxjs';
 
 
+
 @Component({
 	selector: 'app-overall',
 	templateUrl: './overall.component.html',

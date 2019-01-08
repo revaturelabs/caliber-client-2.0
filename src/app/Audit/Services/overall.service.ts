@@ -37,7 +37,7 @@ export class OverallService {
 
    updateOverallStatus(note: Note): Observable<Note> { 
      console.log(note);
-     return this.http.put<Note>(this.baseUrl + 'audit/update/overall', note);
+     return this.http.put<Note>(this.baseUrl + 'audit/update', note);
    }
 
 

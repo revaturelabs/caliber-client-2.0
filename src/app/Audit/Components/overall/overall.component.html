@@ -3,7 +3,7 @@
     <hr>
     <h4 class="text-center">Overall Feedback</h4>
     <!-- Shows the status type (icons) -->
-    <div *ngIf = "true && checkForChanges()">
+    <div *ngIf = "this.batchService.selectedBatch && this.batchService.selectedWeek && checkForChanges()">
     <button class=" hiddenButton col-lg-4 col-md-4 col-sm-4"
       ng-disabled="processingNote">
       

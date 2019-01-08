@@ -17,6 +17,8 @@ import { BatchService } from 'src/app/Batch/batch.service';
 export class OverallComponent implements OnInit {
 	public overallqc: Overallqc;
 	note: Note;
+	CurrentWeek;
+	CurrentBatch;
 
 	qcStatusTypes = [];
 	batch: Batch;
@@ -51,11 +53,22 @@ export class OverallComponent implements OnInit {
 	}
 
 	checkForChanges(): boolean {
+		if (this.CurrentWeek !== this.batchService.selectedWeek) {
+			this.CurrentWeek = this.batchService.selectedWeek;
+			this.getCalculatedAverage();
+			this.auditService.noteUpdate = false;
+		  }
+		  if (this.batchService.selectedBatch.batchId !== this.CurrentBatch) {
+			this.CurrentBatch = this.batchService.selectedBatch.batchId;
+			this.getCalculatedAverage();
+			this.auditService.noteUpdate = false;
+		  }
 		if (this.updateValue !== this.auditService.noteUpdate) {
 			this.updateValue = this.auditService.noteUpdate;
 			this.getCalculatedAverage();
 			this.auditService.noteUpdate = false;
 		}
+
 		return true;
 	}
 
@@ -73,17 +86,27 @@ export class OverallComponent implements OnInit {
 
 	figure(n) {
 		console.log(n);
+		// this.happy = '#b9b9ba';
+		// this.meh = '#b9b9ba';
+		// this.sad = '#b9b9ba';
 		if (n.qcStatus == 'Good') {
-			this.faceColorOnInit(1);
+			// this.meh = '#b9b9ba';
+			// this.sad = '#b9b9ba';
+			this.changeFaceColor(1);
+			console.log(n);
 		}
 		if (n.qcStatus == 'Average') {
-			this.faceColorOnInit(2);
+			// this.happy = '#b9b9ba';
+			// this.sad = '#b9b9ba';
+			this.changeFaceColor(2);
 		}
 		if (n.qcStatus == 'Poor') {
-			this.faceColorOnInit(3);
+			// this.happy = '#b9b9ba';
+			// this.meh = '#b9b9ba';
+			this.changeFaceColor(3);
 		}
 		if (n.qcStatus == 'Undefined') {
-			this.faceColorOnInit(null);
+			this.changeFaceColor(null);
 		}
 	}
 

@@ -31,19 +31,20 @@ export class OverallService {
   public note: Note;
 
   getOverallQC(id: Number) {
-    return this._http.put(this.awsUrl + '/note/update', JSON.stringify(this.overallqc), this.options).pipe(map((response: Response) => response.json()));
+    return this._http.put(this.awsUrl + 'note/update',
+    JSON.stringify(this.overallqc), this.options).pipe(map((response: Response) => response.json()));
     // .catch(this.errorHandler);
   }
 
   updateOverallStatus(note: Note): Observable<Note> {
     console.log(note);
-    return this.http.put<Note>(this.baseUrl + 'audit/update', note);
+    return this.http.put<Note>(this.awsUrl + 'audit/update', note);
   }
 
 
-  getOverallSmileyStatus(): Observable<Note> {
-    //return this.http.get<Note>(this.baseUrl +'/audit/notes/overall/' + this.weekId +  '/' + this.batchId);
-    return this.http.get<Note>(this.baseUrl + 'audit/notes/overall/1/4');
+  getOverallSmileyStatus(weekId: Number, batchId: Number): Observable<Note> {
+    return this.http.get<Note>(this.awsUrl + 'audit/notes/overall/' + weekId +  '/' + batchId);
+    //return this.http.get<Note>(this.baseUrl + 'audit/notes/overall/1/4');
   }
 
   createOverallQC(overallqc: Overallqc) {

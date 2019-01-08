@@ -3,8 +3,8 @@
     <hr>
     <h4 class="text-center">Overall Feedback</h4>
     <!-- Shows the status type (icons) -->
-    <div *ngIf = "this.auditService.selectedBatch && checkForChanges()">
-    <button class="hiddenButton col-lg-4 col-md-4 col-sm-4"
+    <div *ngIf = "true && checkForChanges()">
+    <button class=" hiddenButton col-lg-4 col-md-4 col-sm-4"
       ng-disabled="processingNote">
       
       <i class="fa fa-smile-o fa-2x"  [style.color]="happy" [ngClass]="{'isHappy': generatedFace === 1 }" (click)="changeFaceColor(1)" style=""></i>

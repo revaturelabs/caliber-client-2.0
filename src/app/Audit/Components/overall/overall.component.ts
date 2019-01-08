@@ -4,7 +4,8 @@ import { AuditService } from '../../Services/audit.service';
 import { OverallService } from '../../Services/overall.service';
 import { Batch } from 'src/app/Batch/type/batch';
 import { Note } from '../../types/Note';
-import { interval, Subscription} from 'rxjs';
+import { interval, Subscription } from 'rxjs';
+import { BatchService } from 'src/app/Batch/batch.service';
 
 
 
@@ -36,23 +37,21 @@ export class OverallComponent implements OnInit {
 	updateValue: boolean = false;
 
 	constructor(public _overallqcService: OverallService,
-		public auditService: AuditService) { }
+		public auditService: AuditService, public batchService: BatchService) { }
 
 	ngOnInit() {
 		this.overallqc = this._overallqcService.getter();
 		this.getCalculatedAverage();
-
-		//this.faceColorOnInit();
 	}
 
-	
+
 
 	faceColorOnInit(genF) {
 		this.generatedFace = genF;
 	}
 
 	checkForChanges(): boolean {
-		if(this.updateValue !== this.auditService.noteUpdate) {
+		if (this.updateValue !== this.auditService.noteUpdate) {
 			this.updateValue = this.auditService.noteUpdate;
 			this.getCalculatedAverage();
 			this.auditService.noteUpdate = false;
@@ -60,29 +59,30 @@ export class OverallComponent implements OnInit {
 		return true;
 	}
 
-	
+
 
 	getCalculatedAverage() {
 
-		this._overallqcService.getOverallSmileyStatus().subscribe( (n) => {
-		this.note = n;
-		this.figure(n);
-		console.log(n);
-	});
+		this._overallqcService.getOverallSmileyStatus(this.batchService.selectedBatch.batchId, this.batchService.selectedWeek).subscribe((n) => {
+			console.log(this.note);
+			this.note = n;
+			this.figure(n);
+			console.log(n);
+		});
 	}
 
 	figure(n) {
 		console.log(n);
-		if(n.qcStatus == 'Good') {
+		if (n.qcStatus == 'Good') {
 			this.faceColorOnInit(1);
 		}
-		if(n.qcStatus == 'Average') {
+		if (n.qcStatus == 'Average') {
 			this.faceColorOnInit(2);
 		}
-		if(n.qcStatus == 'Poor') {
+		if (n.qcStatus == 'Poor') {
 			this.faceColorOnInit(3);
 		}
-		if(n.qcStatus == 'Undefined') {
+		if (n.qcStatus == 'Undefined') {
 			this.faceColorOnInit(null);
 		}
 	}
@@ -90,16 +90,16 @@ export class OverallComponent implements OnInit {
 	updateGreen(note: Note) {
 		note.qcStatus = "Green";
 		console.log(note);
-		this.auditService.updateNote(note).subscribe ( (n) => {
+		this.auditService.updateNote(note).subscribe((n) => {
 			this.note = n;
 			console.log(n);
-			
+
 		});
 	}
 
 	updateYellow(note: Note) {
 		note.qcStatus = "Yellow";
-		this._overallqcService.updateOverallStatus(note).subscribe( (n) => {
+		this._overallqcService.updateOverallStatus(note).subscribe((n) => {
 			this.note = n;
 		});
 
@@ -107,7 +107,7 @@ export class OverallComponent implements OnInit {
 
 	updateRed(note: Note) {
 		note.qcStatus = "Red";
-		this._overallqcService.updateOverallStatus(note).subscribe( (n) => {
+		this._overallqcService.updateOverallStatus(note).subscribe((n) => {
 			this.note = n;
 		})
 	}
@@ -121,7 +121,7 @@ export class OverallComponent implements OnInit {
 				this.happy = this.colors[0];
 				console.log(this.note);
 				this.updateGreen(this.note);
-				
+
 				console.log("logging");
 				break;
 			case 2:
@@ -176,6 +176,7 @@ export class OverallComponent implements OnInit {
 		}, 4000);
 
 	}
+	/*
 	saveQCNotes() {
 		this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
 		this.overallqc.noteId = 0;
@@ -196,4 +197,5 @@ export class OverallComponent implements OnInit {
 			});
 		}
 	}
+	*/
 }

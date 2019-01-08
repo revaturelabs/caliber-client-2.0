@@ -20,36 +20,36 @@ export class OverallService {
 
   private awsUrl: string = 'http://caliber-v2-alb-1098400863.eu-west-2.elb.amazonaws.com/qa/';
   private baseUrl: string = 'http://localhost:9075/';
-  private headers = new Headers({'Content-Type':'application/json'});
-  private options = new RequestOptions({headers:this.headers});
+  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private options = new RequestOptions({ headers: this.headers });
 
-  constructor(private _http:Http, private http: HttpClient, public serviceBatch: BatchService) { }
+  constructor(private _http: Http, private http: HttpClient, public serviceBatch: BatchService) { }
 
   private overallqc = new Overallqc();
-  batchId = this.serviceBatch.selectedBatch; 
+  batchId = this.serviceBatch.selectedBatch;
   weekId = this.serviceBatch.selectedWeek;
   public note: Note;
 
-  getOverallQC(id:Number){
-    return this._http.put(this.awsUrl +'/note/update',JSON.stringify(overallqc),this.options).pipe(map((response:Response)=>response.json()));
-      // .catch(this.errorHandler);
-   }
+  getOverallQC(id: Number) {
+    return this._http.put(this.awsUrl + '/note/update', JSON.stringify(this.overallqc), this.options).pipe(map((response: Response) => response.json()));
+    // .catch(this.errorHandler);
+  }
 
-   updateOverallStatus(note: Note): Observable<Note> { 
-     console.log(note);
-     return this.http.put<Note>(this.baseUrl + 'audit/update', note);
-   }
+  updateOverallStatus(note: Note): Observable<Note> {
+    console.log(note);
+    return this.http.put<Note>(this.baseUrl + 'audit/update', note);
+  }
 
 
-   getOverallSmileyStatus(): Observable<Note> {
+  getOverallSmileyStatus(): Observable<Note> {
     //return this.http.get<Note>(this.baseUrl +'/audit/notes/overall/' + this.weekId +  '/' + this.batchId);
-    return this.http.get<Note>(this.baseUrl +'audit/notes/overall/1/4');
+    return this.http.get<Note>(this.baseUrl + 'audit/notes/overall/1/4');
   }
 
   createOverallQC(overallqc: Overallqc) {
 
-    return this._http.post(this.aws_url + 'create/', JSON.stringify(overallqc),
-     this.options).pipe(map((response: Response) => response.json()));
+    return this._http.post(this.awsUrl + 'create/', JSON.stringify(overallqc),
+      this.options).pipe(map((response: Response) => response.json()));
     //  .catch(this.errorHandler);
   }
 

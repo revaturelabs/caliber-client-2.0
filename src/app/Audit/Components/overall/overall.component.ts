@@ -176,7 +176,6 @@ export class OverallComponent implements OnInit {
 		}, 4000);
 
 	}
-
 	saveQCNotes() {
 		this.overallqc.content = this.qcBatchNotes.nativeElement.innerHTML;
 		this.overallqc.noteId = 0;

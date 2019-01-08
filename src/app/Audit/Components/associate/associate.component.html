@@ -56,7 +56,7 @@
                 <td style="width: 3%;"></td>
                 <td style="width: 76%;">
                     <textarea
-                            [disabled]="this.auditService.ProcessingNote"
+                            [disabled]="this.auditService.processingNote"
                             (blur)="noteOnBlur(note.noteId, false)" 
                             id="note-textarea-{{note.noteId}}" class="form-control"
                             placeholder="Note on {{ note.trainee.name }}" 

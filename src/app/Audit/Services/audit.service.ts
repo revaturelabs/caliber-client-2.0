@@ -22,8 +22,8 @@ export class AuditService {
   //url = 'http://localhost:9095';
   url = 'http://caliber-v2-alb-1098400863.eu-west-2.elb.amazonaws.com/user';
 
-  noteUrl = 'http://caliber-v2-alb-1098400863.eu-west-2.elb.amazonaws.com/zuul/audit/audit/';
-  //noteUrl = 'http://caliber-v2-alb-1098400863.eu-west-2.elb.amazonaws.com/qa';
+  //noteUrl = 'http://caliber-v2-alb-1098400863.eu-west-2.elb.amazonaws.com/zuul/audit/audit/';
+  noteUrl = 'http://caliber-v2-alb-1098400863.eu-west-2.elb.amazonaws.com/qa/audit';
   traineeUrl = 'http://localhost:9075/trainee/update/';
   batchAllURL = '/vp/batch/all';
   batchesYearURL = '/vp/batch/';

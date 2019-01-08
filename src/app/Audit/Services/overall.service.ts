@@ -18,7 +18,7 @@ const httpOptions = {
 })
 export class OverallService {
   private awsUrl: string = 'http://caliber-v2-alb-1098400863.eu-west-2.elb.amazonaws.com/qa/';
-  private baseUrl: string = 'http://localhost:9075';
+  private baseUrl: string = 'http://localhost:9075/';
   private headers = new Headers({'Content-Type':'application/json'});
   private options = new RequestOptions({headers:this.headers});
 
@@ -47,8 +47,8 @@ export class OverallService {
 
 
    getOverallSmileyStatus(): Observable<Note> {
-    return this.http.get<Note>(this.baseUrl +'/audit/notes/overall/' + this.weekId +  '/' + this.batchId);
-    //return this.http.get<Note>(this.awsUrl +'audit/notes/overall/1/4');
+    //return this.http.get<Note>(this.baseUrl +'/audit/notes/overall/' + this.weekId +  '/' + this.batchId);
+    return this.http.get<Note>(this.baseUrl +'audit/notes/overall/1/4');
   }
 
    createOverallQC(overallqc:Overallqc){

@@ -1,14 +1,15 @@
 <div class="container">
-  <div class="row centered">
+  <div class="row centered" >
     <hr>
     <h4 class="text-center">Overall Feedback</h4>
     <!-- Shows the status type (icons) -->
+    <div *ngIf = "true && checkForChanges()">
     <button class="hiddenButton col-lg-4 col-md-4 col-sm-4"
       ng-disabled="processingNote">
-      <div>
+      
       <i class="fa fa-smile-o fa-2x"  [style.color]="happy" [ngClass]="{'isHappy': generatedFace === 1 }" (click)="changeFaceColor(1)" style=""></i>
       <i *ngIf="overallqc.qcStatus == 'Undefined'" ></i>
-      </div>
+      
     </button>
     <button class="hiddenButton col-lg-4 col-md-4 col-sm-4"
       ng-disabled="processingNote">
@@ -20,6 +21,8 @@
       <i class="fa fa-frown-o fa-2x" [style.color]="sad" [ngClass]="{'isSad': generatedFace === 3 }" (click)="changeFaceColor(3)" style=""></i>
       <i *ngIf="overallqc.qcStatus == 'Poor'"></i>
     </button>
+    </div>
+  
     <!-- Show the QC feedback notes. Clicking textfield, editing and overwriting it will 
       trigger the ng-blur to save the data  -->
     <div class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">

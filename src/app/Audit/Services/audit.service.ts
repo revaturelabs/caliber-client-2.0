@@ -24,7 +24,8 @@ export class AuditService {
 
   //noteUrl = 'http://caliber-v2-alb-1098400863.eu-west-2.elb.amazonaws.com/zuul/audit/audit/';
   noteUrl = 'http://caliber-v2-alb-1098400863.eu-west-2.elb.amazonaws.com/qa/audit';
-  traineeUrl = 'http://localhost:9075/trainee/update/';
+  //traineeUrl = 'http://localhost:9075/trainee/update/';
+  traineeUrl = 'http://caliber-v2-alb-1098400863.eu-west-2.elb.amazonaws.com/qa/trainee/update/';
   batchAllURL = '/vp/batch/all';
   batchesYearURL = '/vp/batch/';
   batchUpdateURL = '/all/batch/update';
@@ -47,17 +48,17 @@ export class AuditService {
     return this.http.get<Batch[]>(this.url + this.batchesYearURL + year);
   }
 
-   /**
-  * get all starting years from batch microservice
-  */
+  /**
+ * get all starting years from batch microservice
+ */
   getAllYears(): Observable<number[]> {
     return this.http.get<number[]>(this.url + this.yearsURL);
   }
 
-    /**
-   * updates specified batch in batch microservice
-   * @param batch batch to be updated
-   */
+  /**
+ * updates specified batch in batch microservice
+ * @param batch batch to be updated
+ */
   putBatch(batch: Batch): Observable<Batch> {
     return this.http.put<Batch>(this.url + this.batchUpdateURL, batch, httpOptions);
   }

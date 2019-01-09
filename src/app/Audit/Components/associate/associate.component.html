@@ -16,6 +16,7 @@
                 <!-- Spans over flag column --->
                 <th>Trainee</th>
                 <!-- Spans over extra space column --->
+                <th></th>
                 <th>Individual Feedback</th>
                 <th></th>
                 <th>Notes</th>
@@ -39,7 +40,7 @@
                     <div *ngIf="note.noteFlagInputActive===true" class="flag-notes-popup">
                         <input class="form-control" type="text" [(ngModel)]="note.trainee.flagNotes"/>
                         <!-- <button (click)="updateFlagComment(note.noteId)" type="submit">Save</button> -->
-                        <input (click)="updateFlagComment(note.noteId)" type="submit" value="Save"> 
+                        <button (click)="updateFlagComment(note.noteId, false)" type="submit">Save</button>
                         <!-- <button  -->
                         <span (click)="cycleFlagNotesInput(note.noteId, false)"
                              class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
